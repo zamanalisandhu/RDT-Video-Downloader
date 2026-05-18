@@ -1,0 +1,21 @@
+{
+  "name": "RDT Video Downloader",
+  "short_name": "RDT Downloader",
+  "description": "Free Reddit video, audio, GIF, and image downloader",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff4500",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/og-image.jpg",
+      "type": "image/jpeg",
+      "sizes": "1200x630"
+    }
+  ]
+}
