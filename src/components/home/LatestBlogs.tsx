@@ -5,7 +5,7 @@ interface Post {
   slug: string;
   title: string;
   date: string;
-  excerpt: string;
+  excerpt?: string;
 }
 
 interface LatestBlogsProps {
@@ -65,7 +65,7 @@ export default function LatestBlogs({ posts }: LatestBlogsProps) {
 
               {/* Excerpt */}
               <p className="text-slate-500 line-clamp-3 leading-relaxed text-sm mb-6 flex-grow">
-                {post.excerpt}
+                {post.excerpt || ''}
               </p>
 
               {/* Link */}
