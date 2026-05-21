@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { Calendar, User, Clock, ArrowLeft, Tag } from 'lucide-react';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import Breadcrumbs, { BreadcrumbItem } from '@/components/Breadcrumbs';
 import { Metadata } from 'next';
 
 interface BlogPostParams {
@@ -14,12 +15,18 @@ interface BlogPostParams {
 export async function generateMetadata({ params }: BlogPostParams): Promise<Metadata> {
   try {
     const post = await getPostData(params.slug, 'blog');
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rdtvideodownloader.com';
+    
+    // Prioritize front-matter metaTitle and metaDescription
+    const title = post.metaTitle || post.title;
+    const description = post.metaDescription || post.excerpt || `Read our guide about ${post.title} on RDT Video Downloader.`;
+    
     return {
-      title: post.title,
-      description: post.excerpt || `Read our guide about ${post.title} on RDT Video Downloader.`,
+      title,
+      description,
       openGraph: {
-        title: post.title,
-        description: post.excerpt || `Read our guide about ${post.title} on RDT Video Downloader.`,
+        title,
+        description,
         type: 'article',
         publishedTime: post.date,
         authors: [post.author || 'RDT Admin'],
@@ -33,7 +40,7 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
         ],
       },
       alternates: {
-        canonical: `/${params.slug}`,
+        canonical: `${siteUrl}/blog/${params.slug}`,
       },
     };
   } catch {
@@ -54,12 +61,19 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
   try {
     const post = await getPostData(params.slug, 'blog');
     const allPosts = getSortedPostsData('blog');
-    const relatedPosts = allPosts
-      .filter((p) => p.slug !== params.slug)
-      .slice(0, 3);
+    
+    // Filter out the current post
+    const otherPosts = allPosts.filter((p) => p.slug !== params.slug);
+    
+    // Prioritize related articles belonging to the same category
+    const relatedPosts = [
+      ...otherPosts.filter((p) => p.categoryName && post.categoryName && p.categoryName === post.categoryName),
+      ...otherPosts.filter((p) => !p.categoryName || !post.categoryName || p.categoryName !== post.categoryName),
+    ].slice(0, 3);
 
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rdtvideodownloader.com';
 
+    // 1. Article Schema
     const articleSchema = {
       '@context': 'https://schema.org',
       '@type': 'Article',
@@ -81,21 +95,53 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
       },
       mainEntityOfPage: {
         '@type': 'WebPage',
-        '@id': `${siteUrl}/${params.slug}`,
+        '@id': `${siteUrl}/blog/${params.slug}`,
       },
     };
+
+    // 2. FAQ Page Schema
+    const hasFaqs = post.faqs && post.faqs.length > 0;
+    const faqSchema = hasFaqs ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: post.faqs?.map(faq => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        }
+      }))
+    } : null;
+
+    // Visual Breadcrumb Trail: Home > Blog > [Category if exists] > Title
+    const breadcrumbItems: BreadcrumbItem[] = [
+      { label: 'Blog', url: '/blog' },
+    ];
+    
+    if (post.categoryName) {
+      // Sluggify the categoryName: Tutorials -> tutorials, Troubleshooting -> troubleshooting, etc.
+      const categorySlug = post.categoryName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      breadcrumbItems.push({ label: post.categoryName, url: `/blog/category/${categorySlug}` });
+    }
+    
+    breadcrumbItems.push({ label: post.title });
 
     return (
       <main className="min-h-screen flex flex-col bg-white">
         <JsonLd data={articleSchema} />
+        {faqSchema && <JsonLd data={faqSchema} />}
         <Header />
         
         {/* Post Header */}
-        <header className="pt-16 pb-12 bg-slate-50 border-b border-slate-100">
+        <header className="pt-20 pb-12 bg-slate-50 border-b border-slate-100">
           <div className="container mx-auto px-4 max-w-4xl">
+            {/* Visual Breadcrumbs */}
+            <Breadcrumbs items={breadcrumbItems} />
+            
             <Link 
               href="/blog" 
-              className="inline-flex items-center gap-2 text-slate-500 hover:text-brand-orange font-bold text-sm mb-10 transition-colors group"
+              className="inline-flex items-center gap-2 text-slate-500 hover:text-brand-orange font-bold text-sm mb-6 transition-colors group"
             >
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
               Back to Blog
@@ -104,7 +150,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
             <div className="flex flex-wrap items-center gap-6 text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">
               <span className="flex items-center gap-2">
                 <Calendar size={16} className="text-brand-orange" />
-                {post.date}
+                <time dateTime={post.date}>{post.date}</time>
               </span>
               <span className="flex items-center gap-2">
                 <User size={16} className="text-brand-orange" />
@@ -133,6 +179,21 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
                 prose-blockquote:py-2 prose-blockquote:rounded-r-2xl"
               dangerouslySetInnerHTML={{ __html: post.contentHtml || '' }}
             />
+
+            {/* Injected FAQ Section visually at the end of content if present */}
+            {hasFaqs && post.faqs && (
+              <div className="mt-16 pt-12 border-t border-slate-100">
+                <h2 className="text-3xl font-black text-slate-900 mb-8">Frequently Asked Questions</h2>
+                <div className="space-y-6">
+                  {post.faqs.map((faq, index) => (
+                    <div key={index} className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
+                      <h3 className="text-lg font-black text-slate-900 mb-2">{faq.question}</h3>
+                      <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             
             {/* CTA Section */}
             <div className="mt-20 p-10 bg-slate-900 rounded-[40px] text-white text-center relative overflow-hidden group">
@@ -172,7 +233,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
                   {relatedPosts.map((relatedPost) => (
                     <Link 
                       key={relatedPost.slug} 
-                      href={`/${relatedPost.slug}`}
+                      href={`/blog/${relatedPost.slug}`}
                       className="group block bg-slate-50 border border-slate-100 rounded-3xl p-6 hover:bg-white hover:shadow-xl transition-all"
                     >
                       <div className="text-sm font-bold text-brand-orange mb-3">{relatedPost.date}</div>

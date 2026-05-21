@@ -58,7 +58,7 @@ export default function LatestBlogs({ posts }: LatestBlogsProps) {
 
               {/* Title */}
               <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-brand-orange transition-colors line-clamp-2 leading-snug">
-                <Link href={`/${post.slug}`} className="hover:underline">
+                <Link href={`/blog/${post.slug}`} className="hover:underline">
                   {post.title}
                 </Link>
               </h3>
@@ -71,7 +71,7 @@ export default function LatestBlogs({ posts }: LatestBlogsProps) {
               {/* Link */}
               <div className="pt-4 border-t border-slate-50">
                 <Link 
-                  href={`/${post.slug}`}
+                  href={`/blog/${post.slug}`}
                   className="inline-flex items-center gap-2 text-slate-900 group-hover:text-brand-orange font-bold text-sm transition-colors"
                 >
                   Read Guide

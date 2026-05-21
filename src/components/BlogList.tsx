@@ -47,7 +47,7 @@ export default function BlogList({ posts }: BlogListProps) {
       {posts.map((post) => (
         <motion.div key={post.slug} variants={itemVariants}>
           <Link 
-            href={`/${post.slug}`}
+            href={`/blog/${post.slug}`}
             className="group flex flex-col bg-white border border-slate-200 rounded-[32px] overflow-hidden hover:shadow-2xl hover:shadow-slate-200/60 hover:-translate-y-2 transition-all duration-500 h-full"
           >
             <div className="p-8 flex flex-col flex-grow">

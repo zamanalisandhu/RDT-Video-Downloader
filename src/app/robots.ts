@@ -7,7 +7,12 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/', '/_next/'],
+      disallow: [
+        '/api/', 
+        '/_next/', 
+        '/*?*',        // Protect crawl budget by disallowing any URL with query parameters
+        '/*?url=',     // Explicit protection for downloader queries
+      ],
     },
     sitemap: `${baseUrl}/sitemap.xml`,
   };

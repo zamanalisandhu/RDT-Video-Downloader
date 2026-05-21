@@ -6,15 +6,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   
   // Base pages
   const routes = [
-    '',
-    '/contact',
-    '/about',
-    '/blog',
+    { path: '', priority: 1.0, changeFrequency: 'daily' as const },
+    { path: '/contact', priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: '/about', priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: '/blog', priority: 0.8, changeFrequency: 'daily' as const },
   ].map((route) => ({
-    url: `${baseUrl}${route}`,
+    url: `${baseUrl}${route.path}`,
     lastModified: new Date(),
-    changeFrequency: 'daily' as const,
-    priority: route === '' ? 1 : 0.8,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
   }));
 
   // Helper to ensure valid date
@@ -29,17 +29,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/legal/${post.slug}`,
     lastModified: getValidDate(post.date),
     changeFrequency: 'monthly' as const,
-    priority: 0.5,
+    priority: 0.3,
   }));
 
-  // Blog pages
+  // Category pages
+  const categories = ['tutorials', 'tools', 'guides', 'troubleshooting'];
+  const categoryRoutes = categories.map((cat) => ({
+    url: `${baseUrl}/blog/category/${cat}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily' as const,
+    priority: 0.8,
+  }));
+
+  // Blog pages (relocated to /blog/[slug])
   const blogPosts = getSortedPostsData('blog');
   const blogRoutes = blogPosts.map((post) => ({
-    url: `${baseUrl}/${post.slug}`,
+    url: `${baseUrl}/blog/${post.slug}`,
     lastModified: getValidDate(post.date),
     changeFrequency: 'weekly' as const,
-    priority: 0.7,
+    priority: 0.8,
   }));
 
-  return [...routes, ...legalRoutes, ...blogRoutes];
+  return [...routes, ...categoryRoutes, ...legalRoutes, ...blogRoutes];
 }

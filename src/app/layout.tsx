@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://rdtvideodownloader.com'),
   title: {
-    default: "Reddit Video Downloader with Sound - Free HD MP4 | RDT",
+    default: "Reddit Video Downloader - Download Reddit Video with Sound - Free HD MP4 | RDT",
     template: "%s | RDT Video Downloader"
   },
   description: "Download Reddit videos with audio in 1080p HD. Free MP4 downloader for videos, GIFs & galleries. No watermark, no signup. Works on iPhone, Android, PC.",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: "Reddit Video Downloader with Sound - Free HD MP4 | RDT",
+    title: "Reddit Video Downloader - Download Reddit Video with Sound - Free HD MP4 | RDT",
     description: "Download Reddit videos with audio in 1080p HD. Free MP4 downloader for videos, GIFs & galleries. No watermark, no signup. Works on iPhone, Android, PC.",
     type: "website",
     url: "https://rdtvideodownloader.com/",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Reddit Video Downloader with Sound - Free HD MP4 | RDT",
+    title: "Reddit Video Downloader - Download Reddit Video with Sound - Free HD MP4 | RDT",
     description: "Download Reddit videos with audio in 1080p HD. Free MP4 downloader for videos, GIFs & galleries. No watermark, no signup. Works on iPhone, Android, PC.",
     images: ["/twitter-card.jpg"],
   },
