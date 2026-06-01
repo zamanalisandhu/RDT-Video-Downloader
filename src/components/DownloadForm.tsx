@@ -139,17 +139,13 @@ export default function DownloadForm() {
           </div>
         `;
 
-        const apiBaseUrl = (process.env.NEXT_PUBLIC_API_URL || 'https://rdtapidownload.techiesline.workers.dev').replace(/\/+$/, '');
-
         const script = downloadWin.document.createElement('script');
         script.textContent = `
           (function() {
-            const proxyUrl = "${apiBaseUrl}/api/proxy?url=" + encodeURIComponent("${data.downloadUrl}") + "&filename=" + encodeURIComponent("${fileName}");
-            
-            // Create a hidden iframe inside the child tab to trigger the download natively
+            // data.downloadUrl is already the Worker's proxy URL
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
-            iframe.src = proxyUrl;
+            iframe.src = "${data.downloadUrl}" + "&filename=" + encodeURIComponent("${fileName}");
             document.body.appendChild(iframe);
             
             // Wait 10 seconds for the browser to register the download stream, then close the tab

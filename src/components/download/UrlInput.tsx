@@ -37,6 +37,7 @@ export default function UrlInput({
             
             <input
               ref={inputRef}
+              id="url"
               type="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}

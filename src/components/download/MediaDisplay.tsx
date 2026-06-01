@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { VideoInfo } from '@/lib/api-client';
 
 interface MediaDisplayProps {
@@ -13,12 +12,11 @@ export default function MediaDisplay({ info }: MediaDisplayProps) {
       {/* Thumbnail */}
       {info.thumbnail && (
         <div className="shrink-0 w-20 h-14 sm:w-28 sm:h-[4.5rem] relative rounded-lg overflow-hidden bg-slate-100 border border-slate-200">
-          <Image
+          <img
             src={info.thumbnail}
             alt={info.title || 'Video thumbnail'}
-            fill
-            className="object-cover"
-            unoptimized
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
           />
         </div>
       )}
