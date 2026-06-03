@@ -24,6 +24,15 @@ export default function Footer() {
               The fastest way to download videos, images, and GIFs from Reddit. 
               No watermarks, no limits.
             </p>
+            <div className="mt-4">
+              <a href="https://fazier.com/launches/rdtvideodownloader.com" target="_blank" rel="noopener noreferrer">
+                <img 
+                  src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=neutral" 
+                  width={120} 
+                  alt="Fazier badge" 
+                />
+              </a>
+            </div>
           </div>
           
           <div>

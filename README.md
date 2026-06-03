@@ -1,5 +1,7 @@
 # RDTVideoDownloader - Reddit Video Downloader
 
+<a href="https://fazier.com/launches/rdtvideodownloader.com" target="_blank"><img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=neutral" width=120 alt="Fazier badge" /></a>
+
 RDTVideoDownloader is a high-performance, single-page Reddit Video Downloader that replicates the clean, professional design of RedVid.io. Built with Next.js 14, TypeScript, and Tailwind CSS.
 
 ## Features
