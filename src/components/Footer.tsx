@@ -24,13 +24,24 @@ export default function Footer() {
               The fastest way to download videos, images, and GIFs from Reddit. 
               No watermarks, no limits.
             </p>
-            <div className="mt-4">
+            <div className="mt-6 flex flex-wrap gap-4 items-center">
               {/* Fazier Launch Badge */}
-              <a href="https://fazier.com/launches/rdtvideodownloader.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://fazier.com/launches/rdtvideodownloader.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
                 <img 
                   src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=neutral" 
                   width={120} 
                   alt="Fazier badge" 
+                />
+              </a>
+
+              {/* Startup Fame Badge */}
+              <a href="https://startupfa.me/s/rdt?utm_source=rdtvideodownloader.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
+                <img 
+                  src="https://startupfa.me/badges/featured-badge.webp" 
+                  alt="RTD Video Downloader - Featured on Startup Fame" 
+                  width={140} 
+                  height={44}
+                  className="h-10 w-auto"
                 />
               </a>
             </div>
