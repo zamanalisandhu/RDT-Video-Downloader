@@ -46,7 +46,7 @@ export default function Footer() {
               </a>
 
               {/* Plug Your Build Badge */}
-              <a href="https://plugyourbuild.com/listing/rdt-video-downloader-24b2e0" target="_blank" rel="noopener noreferrer dofollow" className="hover:opacity-90 transition-opacity">
+              <a href="https://plugyourbuild.com/listing/rdt-video-downloader-24b2e0" target="_blank" rel="noopener noreferrer dofollow" className="sr-only">
                 <img 
                   src="https://plugyourbuild.com/api/badge/rdt-video-downloader-24b2e0?style=dark"
                   alt="Listed on Plug Your Build" 
