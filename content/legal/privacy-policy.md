@@ -22,6 +22,18 @@ RDT Video Downloader is designed to be a utility tool that respects user privacy
 
 ---
 
+## RDT Video Downloader Chrome Extension
+
+If you install the **RDT Video Downloader Chrome Extension** from the Chrome Web Store, the following privacy rules apply:
+
+* **Zero Personal Information Collection**: The extension runs completely client-side. It does not monitor your browsing behavior, log your visited pages, or collect any personal information, credentials, or telemetry.
+* **Permission Usage**:
+  * **`activeTab` / Host Permissions (`https://*.reddit.com/*`)**: Used solely to detect Reddit video, GIF, or image elements and inject the styled "Download" button below them on the Reddit site.
+  * **`downloads` Permission**: Used to invoke Google Chrome's native download API to trigger the saving of processed media files directly to your local device.
+* **No Third-Party Sharing**: The extension does not communicate with external advertising networks, analytics providers, trackers, or databases. Your usage and download history stay entirely private on your local machine.
+
+---
+
 ## Information We Collect & Log Files
 
 RDT Video Downloader follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics. The information collected by log files includes:

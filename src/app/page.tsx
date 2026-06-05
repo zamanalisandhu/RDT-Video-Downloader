@@ -46,11 +46,11 @@ export default function Home() {
       <LatestBlogs posts={latestPosts} />
 
       {/* FAQ Section */}
-      <section id="faq" className="py-10 bg-white scroll-mt-20">
+      <section id="faq" className="py-6 bg-white scroll-mt-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2.5">Frequently Asked Questions</h2>
+            <p className="text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
               Everything you need to know about downloading high-quality Reddit media.
             </p>
           </div>

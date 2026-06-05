@@ -16,8 +16,8 @@ export default function Contact() {
     <main className="min-h-screen flex flex-col bg-white">
       <Header />
       <div className="flex-grow">
-        <div className="container mx-auto px-4 py-16 max-w-4xl">
-          <div className="text-center mb-16">
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
+          <div className="text-center mb-8">
             <h1 className="mb-4">Contact Us</h1>
             <p className="text-xl text-slate-500">
               Have a question or feedback? We&apos;d love to hear from you.

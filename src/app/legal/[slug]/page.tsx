@@ -41,11 +41,11 @@ export default async function LegalPage({ params }: { params: { slug: string } }
         <Header />
         
         {/* Legal Header */}
-        <header className="pt-20 pb-12 bg-white border-b border-slate-100">
+        <header className="pt-10 pb-6 bg-white border-b border-slate-100">
           <div className="container mx-auto px-4 max-w-6xl">
             <Link 
               href="/" 
-              className="inline-flex items-center gap-2 text-slate-500 hover:text-brand-orange font-bold text-sm mb-10 transition-colors group"
+              className="inline-flex items-center gap-2 text-slate-500 hover:text-brand-orange font-bold text-sm mb-5 transition-colors group"
             >
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
               Back to Home
@@ -74,7 +74,7 @@ export default async function LegalPage({ params }: { params: { slug: string } }
           </div>
         </header>
 
-        <article className="flex-grow py-16">
+        <article className="flex-grow py-8">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
               {/* Sidebar Navigation */}

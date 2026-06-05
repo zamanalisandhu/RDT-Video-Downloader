@@ -34,13 +34,13 @@ export default function BlogPage() {
       <Header />
       <BlogHero />
       
-      <div className="flex-grow py-12">
+      <div className="flex-grow py-6">
         <div className="container mx-auto px-4 max-w-6xl">
           {/* Breadcrumbs trail */}
           <Breadcrumbs items={[{ label: 'Blog' }]} />
 
           {/* Category Filter Bar */}
-          <div className="mb-12">
+          <div className="mb-6">
             <div className="flex items-center gap-2 mb-4 text-slate-500 text-sm font-bold uppercase tracking-wider">
               <Tag size={16} className="text-brand-orange" />
               <span>Filter by Category</span>

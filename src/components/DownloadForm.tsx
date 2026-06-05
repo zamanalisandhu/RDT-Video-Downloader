@@ -21,22 +21,9 @@ export default function DownloadForm() {
   const [loading, setLoading] = useState(false);
   const [downloadingQuality, setDownloadingQuality] = useState<string | null>(null);
   const [info, setInfo] = useState<VideoInfo | null>(null);
-  const [progress, setProgress] = useState(0);
+  const [currentStep, setCurrentStep] = useState<'idle' | 'analyzing' | 'downloading' | 'muxing' | 'done'>('idle');
+  const [downloadProgress, setDownloadProgress] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const animateProgress = () => {
-    let p = 0;
-    const interval = setInterval(() => {
-      p += Math.random() * 15;
-      if (p >= 90) { p = 90; clearInterval(interval); }
-      setProgress(Math.floor(p));
-    }, 200);
-    return () => {
-      clearInterval(interval);
-      setProgress(100);
-      setTimeout(() => setProgress(0), 500);
-    };
-  };
 
   const handlePaste = async () => {
     try {
@@ -52,7 +39,6 @@ export default function DownloadForm() {
   const handleClear = () => {
     setUrl('');
     setInfo(null);
-    setProgress(0);
     setTimeout(() => inputRef.current?.focus(), 10);
   };
 
@@ -63,17 +49,19 @@ export default function DownloadForm() {
 
     setLoading(true);
     setInfo(null);
-    const stopProgress = animateProgress();
+    setCurrentStep('analyzing');
 
     try {
       const data = await fetchVideoInfo(trimmedUrl);
       if (!data.success) {
         toast.error(formatErrorMessage(data.error || 'Failed to fetch video'));
         setInfo(data);
+        setCurrentStep('idle');
         return;
       }
       setInfo(data);
       toast.success('Video found! Choose your quality below.');
+      setCurrentStep('idle');
     } catch (err: unknown) {
       toast.error('Network error. Please try again.');
       setInfo({
@@ -81,8 +69,8 @@ export default function DownloadForm() {
         error: err instanceof Error ? err.message : 'Network error',
       });
       console.error(err);
+      setCurrentStep('idle');
     } finally {
-      stopProgress();
       setLoading(false);
     }
   };
@@ -120,12 +108,30 @@ export default function DownloadForm() {
     `);
 
     setDownloadingQuality(label);
+    setCurrentStep('downloading');
+    setDownloadProgress(0);
+
+    // Animate progress smoothly
+    let p = 0;
+    const progressInterval = setInterval(() => {
+      p += Math.floor(Math.random() * 8) + 4; // increment 4 to 12%
+      if (p >= 100) {
+        p = 100;
+        clearInterval(progressInterval);
+        setCurrentStep('muxing');
+      }
+      setDownloadProgress(p);
+    }, 150);
+
     const toastId = toast.loading('Processing download...');
 
     try {
       const data = await getDownloadUrl(url.trim(), quality);
 
       if (data.success && data.downloadUrl) {
+        clearInterval(progressInterval);
+        setDownloadProgress(100);
+
         const fileName = info?.title 
           ? `rdtvideodownloader.com_${info.title.slice(0, 50).replace(/[^a-z0-9]/gi, '_')}.mp4` 
           : `rdtvideodownloader.com_video_${Date.now()}.mp4`;
@@ -156,14 +162,20 @@ export default function DownloadForm() {
         `;
         downloadWin.document.body.appendChild(script);
         toast.success('Download started!', { id: toastId });
+        setCurrentStep('done');
+        setTimeout(() => setCurrentStep('idle'), 3000);
       } else {
+        clearInterval(progressInterval);
         downloadWin.close();
         toast.error(formatErrorMessage(data.error || 'Download failed'), { id: toastId });
+        setCurrentStep('idle');
       }
     } catch (err: unknown) {
+      clearInterval(progressInterval);
       downloadWin.close();
       toast.error('Download failed. Please try again.', { id: toastId });
       console.error(err);
+      setCurrentStep('idle');
     } finally {
       setDownloadingQuality(null);
     }
@@ -181,14 +193,86 @@ export default function DownloadForm() {
         inputRef={inputRef}
       />
 
-      {progress > 0 && (
-        <div className="bg-slate-100 rounded-full h-1.5 overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${progress}%` }}
-            className="h-full bg-brand-orange"
-          />
-        </div>
+      {currentStep !== 'idle' && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-[0_4px_16px_rgb(0,0,0,0.01)] space-y-4 max-w-2xl mx-auto"
+        >
+          <div className="flex items-center gap-2 text-sm font-extrabold text-slate-900 border-b border-slate-50 pb-2.5">
+            <Loader2 className="animate-spin text-brand-orange shrink-0" size={16} />
+            <span>Download Progress</span>
+          </div>
+          <div className="space-y-4">
+            {/* Step 1 */}
+            <div className="flex items-center justify-between text-xs sm:text-sm font-semibold">
+              <span className={`${currentStep === 'analyzing' ? 'text-slate-900 font-bold' : 'text-slate-500'}`}>
+                1. Fetching Reddit Metadata
+              </span>
+              <span>
+                {currentStep === 'analyzing' ? (
+                  <span className="text-brand-orange animate-pulse flex items-center gap-1"><Loader2 size={12} className="animate-spin" /> In Progress...</span>
+                ) : (
+                  <span className="text-emerald-500 flex items-center gap-1 font-bold"><CheckCircle2 size={14} className="fill-emerald-50" /> Done</span>
+                )}
+              </span>
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between text-xs sm:text-sm font-semibold">
+                <span className={`${
+                  currentStep === 'downloading' 
+                    ? 'text-slate-900 font-bold' 
+                    : currentStep === 'analyzing' 
+                      ? 'text-slate-400 font-medium' 
+                      : 'text-slate-500'
+                }`}>
+                  2. Extracting Video & Audio Streams
+                </span>
+                <span>
+                  {currentStep === 'analyzing' ? (
+                    <span className="text-slate-400 font-medium">Waiting...</span>
+                  ) : currentStep === 'downloading' ? (
+                    <span className="text-brand-orange font-bold">{downloadProgress}%</span>
+                  ) : (
+                    <span className="text-emerald-500 flex items-center gap-1 font-bold"><CheckCircle2 size={14} className="fill-emerald-50" /> Done</span>
+                  )}
+                </span>
+              </div>
+              {currentStep === 'downloading' && (
+                <div className="bg-slate-100 rounded-full h-1.5 overflow-hidden w-full">
+                  <div 
+                    className="h-full bg-brand-orange transition-all duration-100 rounded-full" 
+                    style={{ width: `${downloadProgress}%` }}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex items-center justify-between text-xs sm:text-sm font-semibold">
+              <span className={`${
+                currentStep === 'muxing' 
+                  ? 'text-slate-900 font-bold' 
+                  : currentStep === 'done'
+                    ? 'text-slate-500'
+                    : 'text-slate-400 font-medium'
+              }`}>
+                3. Muxing streams into HD MP4
+              </span>
+              <span>
+                {currentStep === 'done' ? (
+                  <span className="text-emerald-500 flex items-center gap-1 font-bold"><CheckCircle2 size={14} className="fill-emerald-50" /> Done</span>
+                ) : currentStep === 'muxing' ? (
+                  <span className="text-brand-orange flex items-center gap-1.5 font-bold"><Loader2 size={14} className="animate-spin" /> Processing...</span>
+                ) : (
+                  <span className="text-slate-400 font-medium">Waiting...</span>
+                )}
+              </span>
+            </div>
+          </div>
+        </motion.div>
       )}
 
       {info && info.success && (

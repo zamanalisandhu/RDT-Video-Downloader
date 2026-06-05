@@ -10,14 +10,14 @@ interface FAQItemProps {
 function FAQItem({ question, answer }: FAQItemProps) {
   return (
     <details className="group border-b border-[#E2E8F0]">
-      <summary className="flex items-center justify-between py-8 cursor-pointer list-none">
-        <h3 className="text-xl md:text-2xl font-bold text-[#0F172A] group-hover:text-brand-orange transition-colors pr-8">
+      <summary className="flex items-center justify-between py-6 cursor-pointer list-none">
+        <h3 className="text-lg md:text-[21px] font-bold text-[#0F172A] group-hover:text-brand-orange transition-colors pr-8">
           {question}
         </h3>
-        <ChevronDown size={28} className="text-slate-400 group-open:rotate-180 transition-transform duration-300 shrink-0" />
+        <ChevronDown size={24} className="text-slate-400 group-open:rotate-180 transition-transform duration-300 shrink-0" />
       </summary>
-      <div className="pb-8 px-1">
-        <p className="text-[#64748B] leading-relaxed text-lg md:text-xl">
+      <div className="pb-6 px-1">
+        <p className="text-[#64748B] leading-relaxed text-base md:text-[17px]">
           {answer}
         </p>
       </div>

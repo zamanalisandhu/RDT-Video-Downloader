@@ -134,20 +134,20 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
         <Header />
         
         {/* Post Header */}
-        <header className="pt-20 pb-12 bg-slate-50 border-b border-slate-100">
+        <header className="pt-10 pb-6 bg-slate-50 border-b border-slate-100">
           <div className="container mx-auto px-4 max-w-4xl">
             {/* Visual Breadcrumbs */}
             <Breadcrumbs items={breadcrumbItems} />
             
             <Link 
               href="/blog" 
-              className="inline-flex items-center gap-2 text-slate-500 hover:text-brand-orange font-bold text-sm mb-6 transition-colors group"
+              className="inline-flex items-center gap-2 text-slate-500 hover:text-brand-orange font-bold text-sm mb-4 transition-colors group"
             >
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
               Back to Blog
             </Link>
             
-            <div className="flex flex-wrap items-center gap-6 text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">
+            <div className="flex flex-wrap items-center gap-6 text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">
               <span className="flex items-center gap-2">
                 <Calendar size={16} className="text-brand-orange" />
                 <time dateTime={post.date}>{post.date}</time>
@@ -168,7 +168,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
           </div>
         </header>
 
-        <article className="flex-grow py-16">
+        <article className="flex-grow py-8">
           <div className="container mx-auto px-4 max-w-3xl">
             <div 
               className="prose prose-slate lg:prose-xl max-w-none 
@@ -182,7 +182,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
 
             {/* Injected FAQ Section visually at the end of content if present */}
             {hasFaqs && post.faqs && (
-              <div className="mt-16 pt-12 border-t border-slate-100">
+              <div className="mt-10 pt-8 border-t border-slate-100">
                 <h2 className="text-3xl font-black text-slate-900 mb-8">Frequently Asked Questions</h2>
                 <div className="space-y-6">
                   {post.faqs.map((faq, index) => (
@@ -196,7 +196,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
             )}
             
             {/* CTA Section */}
-            <div className="mt-20 p-10 bg-slate-900 rounded-[40px] text-white text-center relative overflow-hidden group">
+            <div className="mt-10 p-8 bg-slate-900 rounded-[40px] text-white text-center relative overflow-hidden group">
               <div className="relative z-10">
                 <h3 className="text-3xl font-black mb-4">Try Our Reddit Downloader</h3>
                 <p className="text-slate-400 mb-8 text-lg max-w-xl mx-auto">
@@ -215,7 +215,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
             </div>
 
             {/* Author Section */}
-            <div className="mt-20 pt-10 border-t border-slate-100 flex items-center gap-6">
+            <div className="mt-10 pt-6 border-t border-slate-100 flex items-center gap-6">
               <div className="w-16 h-16 rounded-full bg-brand-orange flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-brand-orange/20">
                 {(post.author || 'RDT')[0]}
               </div>
@@ -227,8 +227,8 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
 
             {/* Related Posts */}
             {relatedPosts.length > 0 && (
-              <div className="mt-32">
-                <h3 className="text-3xl font-black text-slate-900 mb-10">Related Articles</h3>
+              <div className="mt-14">
+                <h3 className="text-3xl font-black text-slate-900 mb-8">Related Articles</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {relatedPosts.map((relatedPost) => (
                     <Link 

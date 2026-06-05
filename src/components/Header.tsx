@@ -3,12 +3,34 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { toast } from 'sonner';
 import { 
   Menu, 
   X, 
   ChevronRight
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const ChromeIcon = ({ className, size = 14, style }: { className?: string; size?: number; style?: React.CSSProperties }) => (
+  <svg 
+    className={className} 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+    style={style}
+  >
+    <circle cx="12" cy="12" r="10" />
+    <circle cx="12" cy="12" r="4" />
+    <line x1="21.17" y1="8" x2="12" y2="8" />
+    <line x1="3.95" y1="6.06" x2="8.54" y2="14" />
+    <line x1="10.88" y1="21.94" x2="15.46" y2="14" />
+  </svg>
+);
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,6 +63,7 @@ export default function Header() {
 
   const navLinks = [
     { name: 'Home', href: '/' },
+    { name: 'Chrome Extension', href: '#' },
     { name: 'How it works', href: '/#how-it-works' },
     { name: 'FAQ', href: '/#faq' },
     { name: 'Blog', href: '/blog' },
@@ -80,7 +103,7 @@ export default function Header() {
         className={`sticky top-0 z-[100] w-full transition-all duration-300 ${
           scrolled 
             ? 'bg-white/95 backdrop-blur-md py-1.5 shadow-lg shadow-slate-200/40' 
-            : 'bg-white/80 backdrop-blur-md py-2.5'
+            : 'bg-white/80 backdrop-blur-md py-2'
         }`}
       >
         <div className="container mx-auto px-4 flex items-center">
@@ -88,10 +111,10 @@ export default function Header() {
           <div className="flex-1 flex justify-start">
             <Link 
               href="/" 
-              className="flex items-center gap-2 md:gap-3 z-[110] group" 
+              className="flex items-center gap-2 md:gap-2.5 z-[110] group" 
               onClick={closeMenu}
             >
-              <div className="relative w-8 h-8 md:w-10 md:h-10 rounded-xl overflow-hidden shadow-lg shadow-brand-orange/25 group-hover:scale-105 transition-transform duration-200">
+              <div className="relative w-8 h-8 md:w-9 md:h-9 rounded-lg overflow-hidden shadow-md shadow-brand-orange/25 group-hover:scale-105 transition-transform duration-200">
                 <Image
                   src="/logo.png"
                   alt="RDT Video Downloader Logo"
@@ -100,19 +123,28 @@ export default function Header() {
                   className="object-cover"
                 />
               </div>
-              <span className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 tracking-tighter sm:tracking-tight">
+              <span className="text-base sm:text-xl md:text-[22px] font-black text-slate-900 tracking-tighter sm:tracking-tight">
                 RDT<span className="text-brand-orange">Video</span>Downloader
               </span>
             </Link>
           </div>
           
           {/* Desktop Navigation - Centered */}
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden md:flex items-center gap-9">
             {navLinks.map((link) => (
               <Link 
                 key={link.name}
                 href={link.href} 
                 className="text-[15px] text-slate-600 hover:text-brand-orange font-bold transition-colors"
+                onClick={(e) => {
+                  if (link.href === '#') {
+                    e.preventDefault();
+                    toast.warning("Extension Under Review", {
+                      description: "The RDT Chrome Extension is currently undergoing the Google Web Store review process. It will be live soon!",
+                      duration: 4000,
+                    });
+                  }
+                }}
               >
                 {link.name}
               </Link>
@@ -120,7 +152,21 @@ export default function Header() {
           </nav>
 
           {/* Mobile Menu Button / Placeholder Container */}
-          <div className="flex-1 flex justify-end">
+          <div className="flex-1 flex justify-end gap-3 items-center">
+            {/* Chrome Extension button - Desktop only */}
+            <button 
+              onClick={() => {
+                toast.warning("Extension Under Review", {
+                  description: "The RDT Chrome Extension is currently undergoing the Google Web Store review process. It will be live soon!",
+                  duration: 4000,
+                });
+              }}
+              className="hidden md:flex items-center gap-2 px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold transition-all shadow-md shadow-slate-950/10 hover:shadow-slate-950/20 active:scale-[0.98] border border-slate-800"
+            >
+              <ChromeIcon size={13} className="text-brand-orange animate-spin" style={{ animationDuration: '4s' }} />
+              <span>Install Extension</span>
+            </button>
+
             <button 
               className="md:hidden z-[140] p-2 text-slate-900 focus:outline-none bg-slate-50 rounded-xl border border-slate-100 shadow-sm"
               onClick={toggleMenu}
@@ -196,7 +242,16 @@ export default function Header() {
                       <Link 
                         href={link.href} 
                         className="flex items-center justify-between p-4 rounded-2xl text-xl font-extrabold text-slate-900 hover:bg-brand-orange/5 hover:text-brand-orange transition-all group"
-                        onClick={closeMenu}
+                        onClick={(e) => {
+                          closeMenu();
+                          if (link.href === '#') {
+                            e.preventDefault();
+                            toast.warning("Extension Under Review", {
+                              description: "The RDT Chrome Extension is currently undergoing the Google Web Store review process. It will be live soon!",
+                              duration: 4000,
+                            });
+                          }
+                        }}
                       >
                         {link.name}
                         <ChevronRight className="text-slate-300 group-hover:text-brand-orange transition-all" size={24} />

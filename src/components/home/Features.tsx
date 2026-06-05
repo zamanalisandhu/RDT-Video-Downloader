@@ -5,10 +5,10 @@ import { Zap, Award, Layers, EyeOff, Lock, Smartphone } from 'lucide-react';
 
 export default function Features() {
   return (
-    <section className="py-10 bg-slate-50/50">
+    <section className="py-6 bg-slate-50/50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Why Choose RDT Video Downloader?</h2>
+        <div className="text-center mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2.5">Why Choose RDT Video Downloader?</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
