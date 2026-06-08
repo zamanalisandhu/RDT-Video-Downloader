@@ -14,7 +14,11 @@
     "downloads"
   ],
   "host_permissions": [
-    "https://rdtapidownload.techiesline.workers.dev/*"
+    "https://rdtapidownload.techiesline.workers.dev/*",
+    "https://*.reddit.com/*",
+    "https://*.redd.it/*",
+    "https://*.redditmedia.com/*",
+    "https://reddit-uploaded-video.s3-accelerate.amazonaws.com/*"
   ],
   "action": {
     "default_popup": "popup.html",

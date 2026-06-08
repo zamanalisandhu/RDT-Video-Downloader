@@ -114,10 +114,28 @@
       const fileName = `rdtvideodownloader.com_${safeTitle}.mp4`;
       const downloadUrl = `${dlData.downloadUrl}&filename=${encodeURIComponent(fileName)}`;
 
+      const triggerDownload = (url) => {
+        const link = document.createElement('a');
+        link.href = url;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+
       if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
-        chrome.runtime.sendMessage({ action: 'download', url: downloadUrl, filename: fileName });
+        chrome.runtime.sendMessage(
+          { action: 'download', url: downloadUrl, filename: fileName },
+          (response) => {
+            const err = chrome.runtime.lastError;
+            if (err || (response && !response.success)) {
+              console.warn('[RDT Downloader] Background download failed, trying fallback:', err?.message || response?.error);
+              triggerDownload(downloadUrl);
+            }
+          }
+        );
       } else {
-        window.open(downloadUrl, '_blank');
+        triggerDownload(downloadUrl);
       }
 
       showSuccess(btn);
