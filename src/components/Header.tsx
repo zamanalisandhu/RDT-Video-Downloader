@@ -63,7 +63,12 @@ export default function Header() {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'Chrome Extension', href: '#' },
+    { 
+      name: 'Chrome Extension', 
+      href: 'https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej',
+      target: '_blank',
+      rel: 'noopener noreferrer'
+    },
     { name: 'How it works', href: '/#how-it-works' },
     { name: 'FAQ', href: '/#faq' },
     { name: 'Blog', href: '/blog' },
@@ -135,6 +140,8 @@ export default function Header() {
               <Link 
                 key={link.name}
                 href={link.href} 
+                target={'target' in link ? link.target : undefined}
+                rel={'rel' in link ? link.rel : undefined}
                 className="text-[15px] text-slate-600 hover:text-brand-orange font-bold transition-colors"
                 onClick={(e) => {
                   if (link.href === '#') {
@@ -154,18 +161,15 @@ export default function Header() {
           {/* Mobile Menu Button / Placeholder Container */}
           <div className="flex-1 flex justify-end gap-3 items-center">
             {/* Chrome Extension button - Desktop only */}
-            <button 
-              onClick={() => {
-                toast.warning("Extension Under Review", {
-                  description: "The RDT Chrome Extension is currently undergoing the Google Web Store review process. It will be live soon!",
-                  duration: 4000,
-                });
-              }}
+            <Link 
+              href="https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden md:flex items-center gap-2 px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold transition-all shadow-md shadow-slate-950/10 hover:shadow-slate-950/20 active:scale-[0.98] border border-slate-800"
             >
-              <ChromeIcon size={13} className="text-brand-orange animate-spin" style={{ animationDuration: '4s' }} />
+              <ChromeIcon size={13} className="text-brand-orange" />
               <span>Install Extension</span>
-            </button>
+            </Link>
 
             <button 
               className="md:hidden z-[140] p-2 text-slate-900 focus:outline-none bg-slate-50 rounded-xl border border-slate-100 shadow-sm"
@@ -241,6 +245,8 @@ export default function Header() {
                     <motion.div key={link.name} variants={itemVariants}>
                       <Link 
                         href={link.href} 
+                        target={'target' in link ? link.target : undefined}
+                        rel={'rel' in link ? link.rel : undefined}
                         className="flex items-center justify-between p-4 rounded-2xl text-xl font-extrabold text-slate-900 hover:bg-brand-orange/5 hover:text-brand-orange transition-all group"
                         onClick={(e) => {
                           closeMenu();

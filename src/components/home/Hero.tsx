@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowRightLeft, ShieldCheck, Zap } from 'lucide-react';
-import { toast } from 'sonner';
 import LiveCounter from '@/components/LiveCounter';
 import HeroBadge from '@/components/HeroBadge';
 import DownloadForm from '@/components/DownloadForm';
@@ -61,19 +60,16 @@ export default function Hero() {
           transition={{ delay: 0.1 }}
           className="mb-6 max-w-lg mx-auto"
         >
-          <button 
-            onClick={() => {
-              toast.warning("Extension Under Review", {
-                description: "The RDT Chrome Extension is currently undergoing the Google Web Store review process. It will be live soon!",
-                duration: 4000,
-              });
-            }}
+          <a 
+            href="https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/90 hover:bg-slate-950 text-white rounded-xl text-[12px] font-extrabold shadow-md shadow-slate-950/10 hover:shadow-slate-950/25 hover:scale-[1.01] transition-all border border-slate-800 group"
           >
-            <ChromeIcon size={13} className="text-brand-orange animate-spin" style={{ animationDuration: '4s' }} />
+            <ChromeIcon size={13} className="text-brand-orange" />
             <span>NEW: Install Chrome Extension for 1-Click Downloads</span>
             <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
-          </button>
+          </a>
         </motion.div>
 
         {/* Main Hero Header */}
@@ -170,18 +166,15 @@ export default function Hero() {
             </div>
           </div>
           
-          <button 
-            onClick={() => {
-              toast.warning("Extension Under Review", {
-                description: "The RDT Chrome Extension is currently undergoing the Google Web Store review process. It will be live soon!",
-                duration: 4000,
-              });
-            }}
+          <a 
+            href="https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej"
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-full md:w-auto px-5 py-2.5 bg-[#0b0f19] hover:bg-[#151c2d] text-white rounded-xl font-bold text-xs tracking-wide transition-all active:scale-[0.98] shadow-md shadow-slate-900/10 flex items-center justify-center gap-1.5 shrink-0 group"
           >
             <span>Add to Chrome (Free)</span>
             <ArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
-          </button>
+          </a>
         </motion.div>
       </div>
     </section>
