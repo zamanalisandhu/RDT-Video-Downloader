@@ -16,6 +16,7 @@ import PowerUsers from '@/components/home/PowerUsers';
 import Comparison from '@/components/home/Comparison';
 import RelatedTools from '@/components/home/RelatedTools';
 import LatestBlogs from '@/components/home/LatestBlogs';
+import DetailedGuide from '@/components/home/DetailedGuide';
 
 export const metadata = {
   alternates: {
@@ -41,6 +42,9 @@ export default function Home() {
       <PowerUsers />
       <Comparison />
       <RelatedTools />
+
+      {/* Detailed Guide for SEO content expansion */}
+      <DetailedGuide />
 
       {/* Latest Blog Guides */}
       <LatestBlogs posts={latestPosts} />

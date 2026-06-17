@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
         ],
       },
       alternates: {
-        canonical: `${siteUrl}/blog/${params.slug}`,
+        canonical: `${siteUrl}/${params.slug}`,
       },
     };
   } catch {
@@ -95,7 +95,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
       },
       mainEntityOfPage: {
         '@type': 'WebPage',
-        '@id': `${siteUrl}/blog/${params.slug}`,
+        '@id': `${siteUrl}/${params.slug}`,
       },
     };
 
@@ -233,7 +233,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
                   {relatedPosts.map((relatedPost) => (
                     <Link 
                       key={relatedPost.slug} 
-                      href={`/blog/${relatedPost.slug}`}
+                      href={`/${relatedPost.slug}`}
                       className="group block bg-slate-50 border border-slate-100 rounded-3xl p-6 hover:bg-white hover:shadow-xl transition-all"
                     >
                       <div className="text-sm font-bold text-brand-orange mb-3">{relatedPost.date}</div>

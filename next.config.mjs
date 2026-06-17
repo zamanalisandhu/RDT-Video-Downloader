@@ -14,8 +14,8 @@ const getBlogRedirects = () => {
       .map((file) => {
         const slug = file.replace(/\.md$/, '');
         return {
-          source: `/${slug}`,
-          destination: `/blog/${slug}`,
+          source: `/blog/${slug}`,
+          destination: `/${slug}`,
           permanent: true, // 301 Permanent Redirect
         };
       });

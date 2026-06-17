@@ -36,14 +36,14 @@ The most efficient way to download on a PC is using a web-based tool. This is th
 
 ---
 
-## Method 2: Browser Extensions
+## Method 2: The RDT Chrome Extension (1-Click Download)
 
-If you download dozens of videos every day, a browser extension can save you a few seconds per download.
+If you download videos frequently on your computer, the most convenient method is installing our official **RDT Chrome Extension**. 
 
-*   **Chrome/Edge**: Search the Web Store for "Video Downloader Plus."
-*   **Firefox**: Search for "Video DownloadHelper."
-
-**Warning**: Extensions often have access to your browsing history. Only install highly-rated extensions from trusted developers.
+Unlike web downloaders where you have to manually copy and paste links, the extension places a direct "Download" button directly underneath every Reddit post in your feed. 
+*   **Install Link**: Get it from the [Chrome Web Store](https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej).
+*   **Pros**: 1-click downloads, integrates directly into Reddit's desktop interface, completely free, lightweight, and ad-free.
+*   **Cons**: Requires a Chromium-based browser (Chrome, Edge, Brave, Opera).
 
 ---
 
@@ -78,6 +78,8 @@ If you are a tech-savvy user or a developer, you can use **yt-dlp**. This is a p
 ---
 
 **Explore more guides:**
-*   [How to Download Reddit Videos on Android](https://rdtvideodownloader.com/how-to-download-reddit-videos-on-android)
-*   [How to Download Reddit Videos on iPhone](https://rdtvideodownloader.com/how-to-download-reddit-videos-with-sound-on-iphone)
-*   [Best Reddit Video Downloader Apps for iPhone](https://rdtvideodownloader.com/best-reddit-video-downloader-apps-for-iphone)
+*   [How to Download Reddit Videos on Android](/how-to-download-reddit-videos-on-android)
+*   [How to Download Reddit Videos with Sound on iPhone](/how-to-download-reddit-videos-with-sound-on-iphone)
+*   [Best Reddit Video Downloader Apps for iPhone](/best-reddit-video-downloader-apps-for-iphone)
+*   [Why Reddit Videos Have No Sound](/why-reddit-videos-have-no-sound)
+

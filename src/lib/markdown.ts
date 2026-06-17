@@ -61,13 +61,13 @@ function rewriteInternalLinks(htmlContent: string): string {
 
   let rewritten = htmlContent;
   for (const slug of slugs) {
-    // Replace href="/slug" with href="/blog/slug"
-    const rootRelativeRegex = new RegExp(`href=["']\\/${slug}(["'\\/])`, 'g');
-    rewritten = rewritten.replace(rootRelativeRegex, `href="/blog/${slug}$1`);
+    // Replace href="/blog/slug" with href="/slug"
+    const blogRelativeRegex = new RegExp(`href=["']\\/blog\\/${slug}(["'\\/])`, 'g');
+    rewritten = rewritten.replace(blogRelativeRegex, `href="/${slug}$1`);
 
-    // Replace href="https://rdtvideodownloader.com/slug" with href="https://rdtvideodownloader.com/blog/slug"
-    const absoluteRegex = new RegExp(`href=["']https?:\\/\\/(?:www\\.)?rdtvideodownloader\\.com\\/${slug}(["'\\/])`, 'g');
-    rewritten = rewritten.replace(absoluteRegex, `href="https://rdtvideodownloader.com/blog/${slug}$1`);
+    // Replace href="https://rdtvideodownloader.com/blog/slug" with href="https://rdtvideodownloader.com/slug"
+    const blogAbsoluteRegex = new RegExp(`href=["']https?:\\/\\/(?:www\\.)?rdtvideodownloader\\.com\\/blog\\/${slug}(["'\\/])`, 'g');
+    rewritten = rewritten.replace(blogAbsoluteRegex, `href="https://rdtvideodownloader.com/${slug}$1`);
   }
   return rewritten;
 }

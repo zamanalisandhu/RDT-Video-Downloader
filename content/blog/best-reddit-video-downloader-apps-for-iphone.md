@@ -63,12 +63,17 @@ Once you download a video using any of these methods, it will usually go to your
 3.  Tap on your Reddit video.
 4.  Tap the **Share** button (bottom left) and select **"Save Video."**
 
+> [!TIP]
+> **iOS 18 & 19 Compatibility Note**: In newer iOS versions, if Safari downloads seem stuck or don't trigger the "Save Video" options, ensure Safari has write permissions to your Downloads folder in *Settings > Safari > Downloads*. If you prefer a 1-tap method, setting up a customized [iOS Shortcut for Reddit Downloads](/ios-shortcut-for-reddit-video-download) is highly recommended.
+
 ### Summary
-For the vast majority of iPhone users, **RDT Video Downloader** (added to your Home Screen) is the most reliable and highest-quality solution in 2026. It handles the difficult "Audio Merging" problem that most other apps fail to solve.
+For the vast majority of iPhone users, **RDT Video Downloader** (added to your Home Screen) is the most reliable and highest-quality solution in 2026. It handles the difficult "Audio Merging" problem that most other apps fail to solve. For step-by-step instructions on saving files with audio, read our guide on [How to Download Reddit Videos with Sound on iPhone](/how-to-download-reddit-videos-with-sound-on-iphone).
 
 ---
 
 **Related Tutorials:**
-*   [How to Download Reddit Videos with Sound on iPhone](https://rdtvideodownloader.com/how-to-download-reddit-videos-with-sound-on-iphone)
-*   [How to Create an iOS Shortcut for Reddit Downloads](https://rdtvideodownloader.com/ios-shortcut-for-reddit-video-download)
-*   [How to Download Reddit Videos on Android](https://rdtvideodownloader.com/how-to-download-reddit-videos-on-android)
+*   [How to Download Reddit Videos with Sound on iPhone](/how-to-download-reddit-videos-with-sound-on-iphone)
+*   [How to Create an iOS Shortcut for Reddit Downloads](/ios-shortcut-for-reddit-video-download)
+*   [How to Download Reddit Videos on Android](/how-to-download-reddit-videos-on-android)
+*   [Why Reddit Videos Have No Sound](/why-reddit-videos-have-no-sound)
+

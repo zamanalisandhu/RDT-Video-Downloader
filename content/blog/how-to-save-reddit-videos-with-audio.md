@@ -58,21 +58,14 @@ This tool is optimized for all browsers and devices. If you are using a mobile d
 
 ---
 
-## 3. Method 2: Desktop Browser Extensions (Chrome & Firefox)
+## 3. Method 2: The RDT Chrome Extension (1-Click Desktop Downloader)
 
-For desktop users who frequently download Reddit media, installing a web browser extension can save time. These extensions inject a "Download" button directly under Reddit posts.
+For desktop users who frequently download Reddit media on PC or Mac, the most convenient method is installing the official **[RDT Chrome Extension](https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej)**. 
 
-### Popular Extensions:
-*   **RedditSave Extension**: Adds a simple button next to the standard Reddit share options.
-*   **Video Downloader Professional**: A general media downloader that detects DASH streams on the active tab.
-
-### How to Use:
-1.  Search for a reputable downloader extension in the **Chrome Web Store** or **Firefox Add-ons Manager**.
-2.  Click **Add to Browser** and accept permissions.
-3.  Open Reddit. You will see a new "Download" button on video posts. Click it to save the video with sound.
-
-> [!WARNING]
-> Be cautious with third-party extensions. Some extensions may track your browsing behavior, inject affiliate ads, or consume excess memory. Always check reviews and user feedback before installation.
+Unlike generic web extensions that can track your browsing history or inject unwanted ads:
+*   RDT is a lightweight, ad-free tool built specifically for Reddit.
+*   It places a secure "Download" button directly underneath every Reddit post in your feed.
+*   Clicking the button processes and saves the 1080p MP4 file with audio merged automatically.
 
 ---
 
@@ -129,3 +122,4 @@ To ensure your downloaded Reddit videos play properly with full audio, use this 
 *   **Clear player cache**: If videos buffer, check our troubleshooting guide on [Reddit Video Player Fixes](/reddit-video-wont-play-quick-fixes).
 
 For the fastest, zero-setup experience, [use RDT Video Downloader](https://rdtvideodownloader.com) to save your favorite Reddit clips with audio merged automatically in under 5 seconds!
+

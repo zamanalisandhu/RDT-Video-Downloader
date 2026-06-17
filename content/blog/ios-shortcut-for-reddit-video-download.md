@@ -74,6 +74,15 @@ Yes, as long as you know where the shortcut is sending your data. A safe shortcu
 
 ---
 
+## Troubleshooting Shortcuts on iOS 18 & 19
+
+With the release of iOS 18 and iOS 19, Apple has implemented stricter privacy boundaries for third-party Shortcuts. If your Reddit downloader shortcut stops running or shows a permission alert:
+1.  **Grant Safari Access**: Ensure you tap "Always Allow" when the shortcut asks for permission to connect to external sites like `rdtvideodownloader.com`.
+2.  **Enable Advanced Scripts**: Go to *Settings > Shortcuts > Advanced* and ensure **"Allow Running Scripts"** is toggled ON.
+3.  **Reset Cache**: If a shortcut fails, deleting and reinstalling the shortcut from RoutineHub often resolves connection errors caused by Reddit's API updates.
+
+---
+
 ### Conclusion
 
 Whether you build your own or install one from the community, an iOS Shortcut is the ultimate "pro" way to handle Reddit media in 2026. 
@@ -81,8 +90,9 @@ Whether you build your own or install one from the community, an iOS Shortcut is
 ---
 
 **See also:**
-*   [How to Download Reddit Videos with Sound on iPhone](https://rdtvideodownloader.com/how-to-download-reddit-videos-with-sound-on-iphone)
-*   [Best Reddit Video Downloader Apps for iPhone](https://rdtvideodownloader.com/best-reddit-video-downloader-apps-for-iphone)
-*   [How to Download Reddit Videos on Android](https://rdtvideodownloader.com/how-to-download-reddit-videos-on-android)
+*   [How to Download Reddit Videos with Sound on iPhone](/how-to-download-reddit-videos-with-sound-on-iphone)
+*   [Best Reddit Video Downloader Apps for iPhone](/best-reddit-video-downloader-apps-for-iphone)
+*   [How to Download Reddit Videos on Android](/how-to-download-reddit-videos-on-android)
 
 **Pro Tip**: If your shortcut ever breaks (which happens when Reddit changes their code), you can always fall back to the [RDT Video Downloader website](https://rdtvideodownloader.com) for a guaranteed fix.
+

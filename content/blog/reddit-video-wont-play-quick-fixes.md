@@ -54,19 +54,29 @@ If you see a black screen on your PC, try disabling "Hardware Acceleration" in y
 For desktop users, the "New" Reddit UI can be heavy. Try replacing `www.reddit.com` with `old.reddit.com` in the URL. The old player is often much more stable.
 
 ## 10. The Ultimate Fix: Download it!
-If a video simply won't play no matter what you do, the best solution is to **download it** and watch it in your phone's native gallery.
+
+If a video simply won't play no matter what you do, the best solution is to **download it** and watch it in your phone's native gallery or desktop media player.
 1.  Copy the link.
 2.  Paste it into [RDT Video Downloader](https://rdtvideodownloader.com).
 3.  The tool will fetch the raw file from Reddit's servers, bypassing the buggy player entirely.
 
 ---
 
+## 11. Disable Aggressive Ad Blockers / Brave Shields
+
+Sometimes, aggressive tracking blockers or ad blockers (like uBlock Origin, AdBlock Plus, or Brave Shields) mistakenly block the script files that the Reddit video player uses to stream content. If you see a loading wheel or a blank screen on Reddit video pages:
+*   Try temporarily pausing your ad blocker for Reddit.com.
+*   In Brave browser, toggle the "Shields" switch OFF for Reddit.com to see if playback resumes.
+
+---
+
 ### Conclusion
-Don't let a buggy player ruin your Reddit experience. Usually, a quick cache clear or a VPN toggle will fix the issue. And if all else fails, **downloading the video** is the most reliable way to watch it in high definition without buffering.
+
+Don't let a buggy player ruin your Reddit experience. Usually, a quick cache clear or a VPN toggle will fix the issue. And if all else fails, **downloading the video** (either via our web tool or our official [RDT Chrome Extension](https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej)) is the most reliable way to watch it in high definition without buffering.
 
 ---
 
 **Troubleshooting Related Articles:**
-*   [Why Reddit Videos Have No Sound](https://rdtvideodownloader.com/why-reddit-videos-have-no-sound)
-*   [How to Save Reddit Videos with Audio](https://rdtvideodownloader.com/how-to-save-reddit-videos-with-audio)
-*   [10 Best Free Reddit Video Downloaders 2026](https://rdtvideodownloader.com/10-best-free-reddit-video-downloaders-2026)
+*   [Why Reddit Videos Have No Sound](/why-reddit-videos-have-no-sound)
+*   [How to Save Reddit Videos with Audio](/how-to-save-reddit-videos-with-audio)
+*   [10 Best Free Reddit Video Downloaders 2026](/10-best-free-reddit-video-downloaders-2026)

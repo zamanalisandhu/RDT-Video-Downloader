@@ -266,6 +266,14 @@ You can convert MP4 back to GIF using free apps like **GIF Maker** if needed.
 - Try a different Reddit URL to test
 - Use [RDT Video Downloader](https://rdtvideodownloader.com) which auto-detects audio availability
 
+### Problem: No Sound When Played in the Photos App (iPhone Mute Switch)
+
+**Cause:** This is an extremely common iOS issue. If you download a video with audio, save it to your camera roll, and play it in the iOS **Photos App**, the audio may be silent even if your screen volume slider is up. 
+
+**Fix:**
+*   **Check Mute Switch**: Ensure the physical **ring/silent switch** on the side of your iPhone is NOT showing orange (silent mode). The default Photos app player honors the hardware silent switch, so it mutes video audio when the phone is on silent!
+*   **Photos App Speaker Icon**: Ensure you tap the small speaker icon in the bottom-right corner of the video player inside the Photos app to unmute the video.
+
 ### Problem: Download Saves to Files but Not Photos
 
 **Cause:** iOS saves web downloads to Files app by default, not Photos.
@@ -317,7 +325,7 @@ Requires **written licensing** from the creator. Never use Reddit-sourced conten
 - Subscription services
 - Sponsored social media posts
 
-For complete legal information, review our [Terms of Service](https://rdtvideodownloader.com/legal/terms-of-service) before downloading.
+For complete legal information, review our [Terms of Service](/legal/terms-of-service) before downloading.
 
 ---
 
@@ -341,7 +349,7 @@ When using third-party Reddit downloaders, consider these privacy factors:
 - ✅ Offer GDPR/CCPA compliance
 - ✅ Allow downloads without registration
 
-For details on how RDT Video Downloader handles your data, read our [Privacy Policy](https://rdtvideodownloader.com/legal/privacy-policy). We don't log URLs, store downloads, or track users.
+For details on how RDT Video Downloader handles your data, read our [Privacy Policy](/legal/privacy-policy). We don't log URLs, store downloads, or track users.
 
 ---
 
@@ -463,14 +471,12 @@ Yes, with the right tool. [RDT Video Downloader](https://rdtvideodownloader.com)
 
 ## Comparison: Best iPhone Methods
 
-Here's how the methods stack up:
-
 | Method | Setup Time | Audio Support | Quality | Ease |
 |--------|-----------|---------------|---------|------|
 | RDT Video Downloader | 0 min | ✅ Auto | 1080p | ⭐⭐⭐⭐⭐ |
 | iOS Shortcuts | 5 min | ⚠️ Sometimes | 1080p | ⭐⭐⭐ |
 | Documents by Readdle | 2 min | ✅ Yes | 1080p | ⭐⭐⭐⭐ |
-| Screen Recording | 0 min | ✅ Yes | Reduced | ⭐⭐ |
+| Screen Recording | 0 min | ✅ Yes | Reduced | ⭐ |
 | Reddit Pro | N/A | ❌ No download | N/A | ⭐ |
 
 For most users, **RDT Video Downloader** is the clear winner — fastest setup, best quality, most reliable.
@@ -491,7 +497,7 @@ Many tools fail in Safari due to iOS download restrictions. We use direct CDN de
 
 ### Privacy-First Architecture
 
-We don't store your URLs, log downloads, or require accounts. Your activity is anonymous. Read our complete [Privacy Policy](https://rdtvideodownloader.com/legal/privacy-policy) for details.
+We don't store your URLs, log downloads, or require accounts. Your activity is anonymous. Read our complete [Privacy Policy](/legal/privacy-policy) for details.
 
 ### Free Forever, No Limits
 
@@ -525,10 +531,10 @@ Method 1 (online downloader) takes under 30 seconds, requires no setup, and work
 ---
 
 **Explore more guides:**
-*   [How to Download Reddit Videos on Android](https://rdtvideodownloader.com/how-to-download-reddit-videos-on-android)
-*   [Best Reddit Video Downloader Apps for iPhone](https://rdtvideodownloader.com/best-reddit-video-downloader-apps-for-iphone)
-*   [How to Create an iOS Shortcut for Reddit Downloads](https://rdtvideodownloader.com/ios-shortcut-for-reddit-video-download)
-*   [Legal Guide: Can You Download Reddit Videos?](https://rdtvideodownloader.com/can-you-download-reddit-videos-legal-guide)
+*   [How to Download Reddit Videos on Android](/how-to-download-reddit-videos-on-android)
+*   [Best Reddit Video Downloader Apps for iPhone](/best-reddit-video-downloader-apps-for-iphone)
+*   [How to Create an iOS Shortcut for Reddit Downloads](/ios-shortcut-for-reddit-video-download)
+*   [Legal Guide: Can You Download Reddit Videos?](/can-you-download-reddit-videos-legal-guide)
 
 ---
 

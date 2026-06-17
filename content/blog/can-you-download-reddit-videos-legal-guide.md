@@ -66,6 +66,12 @@ When you use a third-party tool like RDT Video Downloader, you are interacting w
 
 ---
 
+## 5. What is Reddit's DMCA Policy?
+
+Reddit complies with the Digital Millennium Copyright Act (DMCA). If a copyright owner finds their content hosted on Reddit without permission, they can file an official DMCA takedown notice with Reddit to have the content removed. If you have downloaded a video that was subsequently deleted from Reddit due to a DMCA claim, you should delete your local copy as well to respect the creator's rights.
+
+---
+
 ## Best Practices for Staying Legal
 
 If you want to be a responsible Redditor, follow these three rules:
@@ -84,8 +90,9 @@ Downloading Reddit videos for your own enjoyment is a common and generally safe 
 ---
 
 **Learn more:**
-*   [How to Save Reddit Videos with Audio](https://rdtvideodownloader.com/how-to-save-reddit-videos-with-audio)
-*   [Why Reddit Videos Have No Sound](https://rdtvideodownloader.com/why-reddit-videos-have-no-sound)
-*   [10 Best Free Reddit Video Downloaders 2026](https://rdtvideodownloader.com/10-best-free-reddit-video-downloaders-2026)
+*   [How to Save Reddit Videos with Audio](/how-to-save-reddit-videos-with-audio)
+*   [Why Reddit Videos Have No Sound](/why-reddit-videos-have-no-sound)
+*   [10 Best Free Reddit Video Downloaders 2026](/10-best-free-reddit-video-downloaders-2026)
 
 *Disclaimer: This article is for informational purposes only and does not constitute legal advice. Laws regarding digital media vary by country.*
+

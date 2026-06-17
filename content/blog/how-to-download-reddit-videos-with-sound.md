@@ -29,12 +29,13 @@ This comprehensive guide will explain the technical reasons behind the missing a
 ## Table of Contents
 1. [Why Are Reddit Videos Downloaded Without Sound?](#1-why-are-reddit-videos-downloaded-without-sound)
 2. [Method 1: RDT Video Downloader (Easiest Web Tool)](#2-method-1-rdt-video-downloader-easiest-web-tool)
-3. [Method 2: Downloader Bots within the Reddit App](#3-method-2-downloader-bots-within-the-reddit-app)
-4. [Method 3: iOS Shortcuts App (For iPhone & iPad Power Users)](#4-method-3-ios-shortcuts-app-for-iphone--ipad-power-users)
-5. [Method 4: Command-Line Downloader (yt-dlp & FFmpeg for Developers)](#5-method-4-command-line-downloader-yt-dlp--ffmpeg-for-developers)
-6. [Comparison of Reddit Downloading Methods](#6-comparison-of-reddit-downloading-methods)
-7. [Troubleshooting Common Download Issues](#7-troubleshooting-common-download-issues)
-8. [Respecting Copyright and Fair Use Rules](#8-respecting-copyright-and-fair-use-rules)
+3. [Method 2: The RDT Chrome Extension (1-Click Desktop Download)](#3-method-2-the-rdt-chrome-extension-1-click-desktop-download)
+4. [Method 3: Downloader Bots within the Reddit App](#4-method-3-downloader-bots-within-the-reddit-app)
+5. [Method 4: iOS Shortcuts App (For iPhone & iPad Power Users)](#5-method-4-ios-shortcuts-app-for-iphone--ipad-power-users)
+6. [Method 5: Command-Line Downloader (yt-dlp & FFmpeg for Developers)](#6-method-5-command-line-downloader-yt-dlp--ffmpeg-for-developers)
+7. [Comparison of Reddit Downloading Methods](#7-comparison-of-reddit-downloading-methods)
+8. [Troubleshooting Common Download Issues](#8-troubleshooting-common-download-issues)
+9. [Respecting Copyright and Fair Use Rules](#9-respecting-copyright-and-fair-use-rules)
 
 ---
 
@@ -71,7 +72,19 @@ This web method is universal:
 
 ---
 
-## 3. Method 2: Downloader Bots within the Reddit App
+## 3. Method 2: The RDT Chrome Extension (1-Click Desktop Download)
+
+If you are a desktop user, you can bypass copying and pasting URLs entirely by installing the official **[RDT Chrome Extension](https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej)**. 
+
+### Step-by-Step Instructions:
+1.  Add the extension to your browser from the Chrome Web Store.
+2.  Browse Reddit normally on your PC or Mac.
+3.  A dedicated "Download" button will automatically appear underneath every Reddit video in your feed.
+4.  Click the button to download the video with sound merged in 1080p automatically.
+
+---
+
+## 4. Method 3: Downloader Bots within the Reddit App
 
 If you prefer to stay entirely within the Reddit application, you can summon automated downloader bots. These bots crawl the post, extract the media, and reply with a temporary download link.
 
@@ -89,7 +102,7 @@ If you prefer to stay entirely within the Reddit application, you can summon aut
 
 ---
 
-## 4. Method 3: iOS Shortcuts App (For iPhone & iPad Power Users)
+## 5. Method 4: iOS Shortcuts App (For iPhone & iPad Power Users)
 
 For iOS users who want a native, one-tap downloading solution without visiting a website every time, Apple's built-in **Shortcuts** app is an excellent alternative. By installing a community-made shortcut, you can download Reddit videos directly from the iOS share sheet.
 
@@ -105,7 +118,7 @@ For a detailed walkthrough on setting this up, consult our [iOS Shortcut for Red
 
 ---
 
-## 5. Method 4: Command-Line Downloader (yt-dlp & FFmpeg for Developers)
+## 6. Method 5: Command-Line Downloader (yt-dlp & FFmpeg for Developers)
 
 For software developers, system administrators, or users who want to bulk-download media directly from their terminal, the command-line utility `yt-dlp` combined with `FFmpeg` is the industry standard.
 
@@ -132,13 +145,14 @@ yt-dlp -f "bestvideo+bestaudio/best" --merge-output-format mp4 "https://www.redd
 
 ---
 
-## 6. Comparison of Reddit Downloading Methods
+## 7. Comparison of Reddit Downloading Methods
 
 To help you decide which method best suits your workflow, here is a detailed breakdown of the pros and cons of each approach:
 
 | Method | Setup Time | Quality Support | Audio Support | Device Compatibility | Ideal For |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **RDT Downloader** | 0 minutes | Up to 1080p HD | ✅ Automatic Muxing | Windows, macOS, Android, iOS | Quick, ad-free downloads on any device |
+| **RDT Extension** | 1 minute | Up to 1080p HD | ✅ Automatic Muxing | Windows, macOS, Linux (Desktop) | 1-click desktop downloads from feed |
 | **Reddit Bots** | 0 minutes | Varies | ⚠️ Variable | Web-accessible (App) | Users who prefer staying inside the app |
 | **iOS Shortcuts** | 5 minutes | Up to 1080p | ⚠️ Subject to API breaks | iOS only | iPhone users who want a share-sheet shortcut |
 | **yt-dlp & FFmpeg**| 10 minutes | Up to 1080p / 4K | ✅ Local Muxing | Windows, macOS, Linux | Developers, power users, and batch processing |
@@ -147,7 +161,7 @@ To review more options and comparative test scores, read our list of the [10 Bes
 
 ---
 
-## 7. Troubleshooting Common Download Issues
+## 8. Troubleshooting Common Download Issues
 
 ### No Audio in Downloaded Video
 If the downloaded video remains silent even after using a merging tool, check the following:
@@ -160,7 +174,7 @@ If your downloaded file fails to play, or if the Reddit video player on the offi
 
 ---
 
-## 8. Respecting Copyright and Fair Use Rules
+## 9. Respecting Copyright and Fair Use Rules
 
 While saving Reddit media for personal archiving or offline viewing is generally protected under the **Fair Use** doctrine in many jurisdictions, redistributing downloaded content is a different matter. 
 

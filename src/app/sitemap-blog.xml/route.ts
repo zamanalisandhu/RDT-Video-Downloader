@@ -20,7 +20,7 @@ export async function GET() {
     .map(
       (post) => `
   <url>
-    <loc>${baseUrl}/blog/${post.slug}</loc>
+    <loc>${baseUrl}/${post.slug}</loc>
     <lastmod>${getValidDateStr(post.date)}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
