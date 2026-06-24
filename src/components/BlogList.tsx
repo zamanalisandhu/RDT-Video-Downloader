@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, ArrowRight, BookOpen } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import { PostData } from '@/types';
 
 interface BlogListProps {
@@ -27,8 +27,8 @@ export default function BlogList({ posts }: BlogListProps) {
 
   if (posts.length === 0) {
     return (
-      <div className="text-center py-32">
-        <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-300">
+      <div className="text-center py-32 bg-white">
+        <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-300">
           <BookOpen size={40} />
         </div>
         <h3 className="text-2xl font-bold text-slate-900 mb-2">No articles found</h3>
@@ -38,54 +38,51 @@ export default function BlogList({ posts }: BlogListProps) {
   }
 
   return (
-    <motion.div 
+    <motion.ul 
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 list-none"
     >
       {posts.map((post) => (
-        <motion.div key={post.slug} variants={itemVariants}>
+        <motion.li key={post.slug} variants={itemVariants} className="list-none">
           <Link 
             href={`/${post.slug}`}
-            className="group flex flex-col bg-white border border-slate-200 rounded-[32px] overflow-hidden hover:shadow-2xl hover:shadow-slate-200/60 hover:-translate-y-2 transition-all duration-500 h-full"
+            className="group flex flex-col bg-white border border-[#FFE8DF] hover:border-brand-orange/30 rounded-[32px] hover:shadow-2xl hover:shadow-slate-200/60 hover:-translate-y-2 transition-all duration-500 h-full p-6"
           >
-            <div className="p-8 flex flex-col flex-grow">
-              <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-slate-400 mb-6">
-                <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1 rounded-full">
-                  <Calendar size={12} />
-                  {post.date}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Clock size={12} />
-                  5 min read
-                </span>
-              </div>
-              
-              <h2 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-brand-orange transition-colors leading-snug">
-                {post.title}
-              </h2>
-              
-              <p className="text-slate-600 line-clamp-3 mb-8 leading-relaxed">
-                {post.excerpt}
-              </p>
-              
-              <div className="mt-auto flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 font-bold text-xs border border-slate-200">
-                    {post.author?.[0] || 'R'}
-                  </div>
-                  <span className="text-sm font-bold text-slate-900">{post.author || 'RDT Admin'}</span>
+            <article className="flex flex-col h-full flex-grow">
+              {post.image && (
+                <div className="aspect-[1200/628] w-full overflow-hidden bg-slate-50 rounded-[20px] mb-6">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img 
+                    src={post.image} 
+                    alt={post.title} 
+                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" 
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div className="flex flex-col items-center text-center flex-grow">
+                <div className="text-[12px] font-bold text-slate-400 mb-3 uppercase tracking-wider">
+                  {post.date} &nbsp;•&nbsp; {post.readingTime || 5} min read
                 </div>
                 
-                <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-all duration-300">
-                  <ArrowRight size={20} />
+                <h2 className="text-[20px] md:text-[22px] font-black text-slate-900 mb-3 group-hover:text-brand-orange transition-colors leading-snug">
+                  {post.title}
+                </h2>
+                
+                <p className="text-slate-500 text-[14px] md:text-[15px] line-clamp-3 mb-6 leading-relaxed max-w-sm">
+                  {post.excerpt}
+                </p>
+                
+                <div className="mt-auto text-brand-orange font-bold text-[14px] md:text-[15px] inline-flex items-center gap-1 hover:text-brand-orange-light transition-colors">
+                  Read Full Article &rarr;
                 </div>
               </div>
-            </div>
+            </article>
           </Link>
-        </motion.div>
+        </motion.li>
       ))}
-    </motion.div>
+    </motion.ul>
   );
 }

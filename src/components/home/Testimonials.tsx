@@ -11,61 +11,67 @@ export default function Testimonials() {
           Don&apos;t just take our word for it. Here&apos;s what the community thinks.
         </p>
         
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-11 h-11 bg-brand-orange rounded-full flex items-center justify-center text-white font-bold text-base">
-                JD
-              </div>
-              <div>
-                <p className="font-bold text-slate-900 text-[15px]">John D.</p>
-                <div className="flex text-sm text-brand-orange">
-                  {'★★★★★'}
+        <ul className="grid md:grid-cols-3 gap-8 list-none">
+          <li className="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+            <figure className="h-full flex flex-col justify-between">
+              <blockquote className="text-slate-600 text-sm italic leading-relaxed mb-4">
+                &quot;The only downloader that actually merges audio on the first try. 
+                Super fast and clean UI. Highly recommended!&quot;
+              </blockquote>
+              <figcaption className="flex items-center gap-4">
+                <div className="w-11 h-11 bg-brand-orange rounded-full flex items-center justify-center text-white font-bold text-base" aria-hidden="true">
+                  JD
                 </div>
-              </div>
-            </div>
-            <p className="text-slate-600 text-sm italic leading-relaxed">
-              &quot;The only downloader that actually merges audio on the first try. 
-              Super fast and clean UI. Highly recommended!&quot;
-            </p>
-          </div>
+                <div>
+                  <cite className="font-bold text-slate-900 text-[15px] not-italic">John D.</cite>
+                  <div className="flex text-sm text-brand-orange" aria-hidden="true">
+                    {'★★★★★'}
+                  </div>
+                </div>
+              </figcaption>
+            </figure>
+          </li>
           
-          <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-11 h-11 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-base">
-                SM
-              </div>
-              <div>
-                <p className="font-bold text-slate-900 text-[15px]">Sarah M.</p>
-                <div className="flex text-sm text-brand-orange">
-                  {'★★★★★'}
+          <li className="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+            <figure className="h-full flex flex-col justify-between">
+              <blockquote className="text-slate-600 text-sm italic leading-relaxed mb-4">
+                &quot;I use this for saving educational clips from Reddit. The gallery 
+                downloader is a lifesaver for infographics!&quot;
+              </blockquote>
+              <figcaption className="flex items-center gap-4">
+                <div className="w-11 h-11 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-base" aria-hidden="true">
+                  SM
                 </div>
-              </div>
-            </div>
-            <p className="text-slate-600 text-sm italic leading-relaxed">
-              &quot;I use this for saving educational clips from Reddit. The gallery 
-              downloader is a lifesaver for infographics!&quot;
-            </p>
-          </div>
+                <div>
+                  <cite className="font-bold text-slate-900 text-[15px] not-italic">Sarah M.</cite>
+                  <div className="flex text-sm text-brand-orange" aria-hidden="true">
+                    {'★★★★★'}
+                  </div>
+                </div>
+              </figcaption>
+            </figure>
+          </li>
           
-          <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-11 h-11 bg-teal-500 rounded-full flex items-center justify-center text-white font-bold text-base">
-                MK
-              </div>
-              <div>
-                <p className="font-bold text-slate-900 text-[15px]">Mike K.</p>
-                <div className="flex text-sm text-brand-orange">
-                  {'★★★★★'}
+          <li className="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+            <figure className="h-full flex flex-col justify-between">
+              <blockquote className="text-slate-600 text-sm italic leading-relaxed mb-4">
+                &quot;Best tool for Reddit videos. No annoying popups or redirects. 
+                It just works exactly how you expect it to.&quot;
+              </blockquote>
+              <figcaption className="flex items-center gap-4">
+                <div className="w-11 h-11 bg-teal-500 rounded-full flex items-center justify-center text-white font-bold text-base" aria-hidden="true">
+                  MK
                 </div>
-              </div>
-            </div>
-            <p className="text-slate-600 text-sm italic leading-relaxed">
-              &quot;Best tool for Reddit videos. No annoying popups or redirects. 
-              It just works exactly how you expect it to.&quot;
-            </p>
-          </div>
-        </div>
+                <div>
+                  <cite className="font-bold text-slate-900 text-[15px] not-italic">Mike K.</cite>
+                  <div className="flex text-sm text-brand-orange" aria-hidden="true">
+                    {'★★★★★'}
+                  </div>
+                </div>
+              </figcaption>
+            </figure>
+          </li>
+        </ul>
       </div>
     </section>
   );

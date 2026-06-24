@@ -1,28 +1,56 @@
 'use client';
 
-import { ChevronDown } from 'lucide-react';
+import { useState } from 'react';
+import { ChevronRight } from 'lucide-react';
 
 interface FAQItemProps {
   question: string;
   answer: string;
 }
 
-function FAQItem({ question, answer }: FAQItemProps) {
-  return (
-    <details className="group border-b border-[#E2E8F0]">
-      <summary className="flex items-center justify-between py-6 cursor-pointer list-none">
-        <h3 className="text-lg md:text-[21px] font-bold text-[#0F172A] group-hover:text-brand-orange transition-colors pr-8">
-          {question}
-        </h3>
-        <ChevronDown size={24} className="text-slate-400 group-open:rotate-180 transition-transform duration-300 shrink-0" />
-      </summary>
-      <div className="pb-6 px-1">
-        <p className="text-[#64748B] leading-relaxed text-base md:text-[17px]">
-          {answer}
-        </p>
-      </div>
-    </details>
+export function FAQItem({ question, answer }: FAQItemProps) {
+  const [isOpen, setIsOpen] = useState(false);
 
+  return (
+    <div 
+      className={`border rounded-2xl bg-white hover:border-slate-300 transition-all duration-300 overflow-hidden mb-3 ${
+        isOpen ? 'border-brand-orange shadow-sm shadow-brand-orange/5' : 'border-slate-200'
+      }`}
+    >
+      <dt>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
+          className="w-full flex items-center justify-between p-5 text-left cursor-pointer select-none focus:outline-none"
+        >
+          <span className={`text-[17px] font-bold transition-colors pr-6 ${
+            isOpen ? 'text-brand-orange' : 'text-slate-900'
+          }`}>
+            {question}
+          </span>
+          <ChevronRight 
+            size={18} 
+            className={`text-slate-400 transition-transform duration-300 shrink-0 ${
+              isOpen ? 'rotate-90 text-brand-orange' : ''
+            }`} 
+            aria-hidden="true"
+          />
+        </button>
+      </dt>
+      <dd 
+        className={`grid transition-all duration-300 ease-in-out ${
+          isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="px-5 pb-5 pt-0 border-t border-slate-100/50">
+            <p className="text-slate-600 leading-relaxed pt-4 text-base md:text-[17px]">
+              {answer}
+            </p>
+          </div>
+        </div>
+      </dd>
+    </div>
   );
 }
 
@@ -91,10 +119,10 @@ export default function FAQAccordion() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <dl className="max-w-3xl mx-auto">
       {faqs.map((faq, index) => (
         <FAQItem key={index} question={faq.question} answer={faq.answer} />
       ))}
-    </div>
+    </dl>
   );
 }

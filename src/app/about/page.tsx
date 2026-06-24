@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen flex flex-col">
+    <>
       <Header />
-      <div className="flex-grow bg-white py-8">
+      <main className="min-h-screen flex flex-col flex-grow bg-white py-8">
         <div className="container mx-auto px-4 max-w-4xl">
           <h1 className="text-4xl font-bold text-slate-900 mb-6">About RDT Video Downloader</h1>
           
@@ -51,8 +51,8 @@ export default function AboutPage() {
             </p>
           </div>
         </div>
-      </div>
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

@@ -13,12 +13,12 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <main className="min-h-screen flex flex-col bg-white">
+    <>
       <Header />
-      <div className="flex-grow">
+      <main className="min-h-screen flex flex-col flex-grow bg-white">
         <div className="container mx-auto px-4 py-8 max-w-4xl">
           <div className="text-center mb-8">
-            <h1 className="mb-4">Contact Us</h1>
+            <h1 className="text-4xl font-bold text-slate-900 mb-4">Contact Us</h1>
             <p className="text-xl text-slate-500">
               Have a question or feedback? We&apos;d love to hear from you.
             </p>
@@ -26,8 +26,8 @@ export default function Contact() {
 
           <ContactForm />
         </div>
-      </div>
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

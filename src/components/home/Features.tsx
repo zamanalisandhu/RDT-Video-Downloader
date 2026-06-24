@@ -11,7 +11,7 @@ export default function Features() {
           <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2.5">Why Choose RDT Video Downloader?</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 list-none">
           <FeatureCard 
             icon={<Zap className="text-brand-orange" />}
             title="Audio Merged Automatically"
@@ -42,7 +42,7 @@ export default function Features() {
             title="Universal Device Support"
             description="Works on Windows, macOS, Android, and iOS. No app installation required — just paste and download from any browser."
           />
-        </div>
+        </ul>
       </div>
     </section>
   );

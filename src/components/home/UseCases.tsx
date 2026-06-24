@@ -14,36 +14,36 @@ export default function UseCases() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm hover:shadow-md transition-all">
-            <div className="w-11 h-11 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-5">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 list-none">
+          <li className="bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm hover:shadow-md transition-all">
+            <div className="w-11 h-11 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-5" aria-hidden="true">
               <Globe className="text-brand-orange" size={22} />
             </div>
             <h3 className="text-lg font-bold text-slate-900 mb-3">Offline Viewing</h3>
             <p className="text-slate-600 text-sm">Save tutorials, documentaries, and long-form clips to watch later without an internet connection.</p>
-          </div>
-          <div className="bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm hover:shadow-md transition-all">
-            <div className="w-11 h-11 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-5">
+          </li>
+          <li className="bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm hover:shadow-md transition-all">
+            <div className="w-11 h-11 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-5" aria-hidden="true">
               <Shield className="text-brand-orange" size={22} />
             </div>
             <h3 className="text-lg font-bold text-slate-900 mb-3">Content Archiving</h3>
             <p className="text-slate-600 text-sm">Archive viral moments and historic threads before they are deleted or the subreddit goes private.</p>
-          </div>
-          <div className="bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm hover:shadow-md transition-all">
-            <div className="w-11 h-11 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-5">
+          </li>
+          <li className="bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm hover:shadow-md transition-all">
+            <div className="w-11 h-11 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-5" aria-hidden="true">
               <Star className="text-brand-orange" size={22} />
             </div>
             <h3 className="text-lg font-bold text-slate-900 mb-3">Education</h3>
             <p className="text-slate-600 text-sm">Collect educational infographics, science clips, and historical photos for classroom presentations.</p>
-          </div>
-          <div className="bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm hover:shadow-md transition-all">
-            <div className="w-11 h-11 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-5">
+          </li>
+          <li className="bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm hover:shadow-md transition-all">
+            <div className="w-11 h-11 bg-brand-orange/10 rounded-xl flex items-center justify-center mb-5" aria-hidden="true">
               <Share2 className="text-brand-orange" size={22} />
             </div>
             <h3 className="text-lg font-bold text-slate-900 mb-3">Content Creation</h3>
             <p className="text-slate-600 text-sm">Research viral trends and gather inspiration for your own social media content or video essays.</p>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </section>
   );

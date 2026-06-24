@@ -2,7 +2,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SchemaMarkup from '@/components/SchemaMarkup';
 import FAQAccordion from '@/components/FAQAccordion';
-import { getSortedPostsData } from '@/lib/markdown';
+import { getSortedPostsData } from '@/lib/blog';
 
 // Home Components
 import Hero from '@/components/home/Hero';
@@ -24,45 +24,45 @@ export const metadata = {
   },
 };
 
-export default function Home() {
-  const latestPosts = getSortedPostsData('blog').slice(0, 3);
+export default async function Home() {
+  const latestPosts = (await getSortedPostsData('blog')).slice(0, 3);
 
   return (
-    <main className="min-h-screen">
+    <>
       <SchemaMarkup />
       <Header />
-      
-      <Hero />
-      <HowItWorks />
-      <Features />
-      <UseCases />
-      <Testimonials />
-      <SubredditInfo />
-      <SupportedFormats />
-      <PowerUsers />
-      <Comparison />
-      <RelatedTools />
+      <main className="min-h-screen">
+        <Hero />
+        <HowItWorks />
+        <Features />
+        <UseCases />
+        <Testimonials />
+        <SubredditInfo />
+        <SupportedFormats />
+        <PowerUsers />
+        <Comparison />
+        <RelatedTools />
 
-      {/* Detailed Guide for SEO content expansion */}
-      <DetailedGuide />
+        {/* Detailed Guide for SEO content expansion */}
+        <DetailedGuide />
 
-      {/* Latest Blog Guides */}
-      <LatestBlogs posts={latestPosts} />
+        {/* Latest Blog Guides */}
+        <LatestBlogs posts={latestPosts} />
 
-      {/* FAQ Section */}
-      <section id="faq" className="py-6 bg-white scroll-mt-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2.5">Frequently Asked Questions</h2>
-            <p className="text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              Everything you need to know about downloading high-quality Reddit media.
-            </p>
+        {/* FAQ Section */}
+        <section id="faq" className="py-6 bg-white scroll-mt-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2.5">Frequently Asked Questions</h2>
+              <p className="text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Everything you need to know about downloading high-quality Reddit media.
+              </p>
+            </div>
+            <FAQAccordion />
           </div>
-          <FAQAccordion />
-        </div>
-      </section>
-
+        </section>
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

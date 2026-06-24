@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getSortedPostsData } from '@/lib/markdown';
+import { getSortedPostsData } from '@/lib/blog';
 
 export const dynamic = 'force-static';
 
@@ -12,7 +12,7 @@ export async function GET() {
     return validDate.toISOString().split('T')[0];
   };
 
-  const blogPosts = getSortedPostsData('blog');
+  const blogPosts = await getSortedPostsData('blog');
   
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

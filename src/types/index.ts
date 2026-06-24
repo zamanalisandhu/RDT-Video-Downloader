@@ -4,6 +4,7 @@ export interface FAQItem {
 }
 
 export interface PostData {
+  id?: number;
   slug: string;
   title: string;
   date: string;
@@ -12,6 +13,7 @@ export interface PostData {
   image?: string;
   contentHtml?: string;
   category?: 'blog' | 'legal';
+  readingTime?: number;
   // Advanced SEO fields
   metaTitle?: string;
   metaDescription?: string;
@@ -19,4 +21,5 @@ export interface PostData {
   tags?: string[];
   faqs?: FAQItem[];
 }
+
 

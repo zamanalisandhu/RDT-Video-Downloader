@@ -16,29 +16,31 @@ export default function GalleryDisplay({ info }: GalleryDisplayProps) {
       <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
         Gallery · {info.images.length} images
       </p>
-      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+      <ul className="grid grid-cols-3 sm:grid-cols-4 gap-2 list-none">
         {info.images.map((img, i) => (
-          <a
-            key={i}
-            href={img.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            download
-            className="block relative group aspect-square rounded-lg overflow-hidden border border-slate-200 hover:border-brand-orange transition-colors"
-          >
-            <Image
-              src={img.url}
-              alt={`Image ${i + 1}`}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-              unoptimized
-            />
-            <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-              <Download className="text-white" size={16} />
-            </div>
-          </a>
+          <li key={i}>
+            <a
+              href={img.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+              className="block relative group aspect-square rounded-lg overflow-hidden border border-slate-200 hover:border-brand-orange transition-colors"
+              aria-label={`Download image ${i + 1}`}
+            >
+              <Image
+                src={img.url}
+                alt={`Image ${i + 1}`}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                unoptimized
+              />
+              <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Download className="text-white" size={16} aria-hidden="true" />
+              </div>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

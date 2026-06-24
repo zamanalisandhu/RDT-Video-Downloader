@@ -55,37 +55,37 @@ export default function ContactForm() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <div className="space-y-8">
-        <div className="flex items-start gap-4">
-          <div className="w-12 h-12 bg-brand-orange/10 rounded-2xl flex items-center justify-center shrink-0">
+      <ul className="space-y-8 list-none">
+        <li className="flex items-start gap-4">
+          <div className="w-12 h-12 bg-brand-orange/10 rounded-2xl flex items-center justify-center shrink-0" aria-hidden="true">
             <Mail className="text-brand-orange" size={24} />
           </div>
           <div>
             <h3 className="text-xl font-bold text-slate-900 mb-1">Email Us</h3>
             <p className="text-slate-600">support@rdtvideodownloader.com</p>
           </div>
-        </div>
+        </li>
 
-        <div className="flex items-start gap-4">
-          <div className="w-12 h-12 bg-brand-orange/10 rounded-2xl flex items-center justify-center shrink-0">
+        <li className="flex items-start gap-4">
+          <div className="w-12 h-12 bg-brand-orange/10 rounded-2xl flex items-center justify-center shrink-0" aria-hidden="true">
             <Clock className="text-brand-orange" size={24} />
           </div>
           <div>
             <h3 className="text-xl font-bold text-slate-900 mb-1">Response Time</h3>
             <p className="text-slate-600">We typically respond within 24-48 hours.</p>
           </div>
-        </div>
+        </li>
 
-        <div className="flex items-start gap-4">
-          <div className="w-12 h-12 bg-brand-orange/10 rounded-2xl flex items-center justify-center shrink-0">
+        <li className="flex items-start gap-4">
+          <div className="w-12 h-12 bg-brand-orange/10 rounded-2xl flex items-center justify-center shrink-0" aria-hidden="true">
             <MessageSquare className="text-brand-orange" size={24} />
           </div>
           <div>
             <h3 className="text-xl font-bold text-slate-900 mb-1">Feedback</h3>
             <p className="text-slate-600">Your feedback helps us make RDT Video Downloader better for everyone.</p>
           </div>
-        </div>
-      </div>
+        </li>
+      </ul>
 
       <div className="bg-slate-50 border border-slate-200 rounded-3xl p-8">
         {state.succeeded ? (

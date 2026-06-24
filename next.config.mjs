@@ -37,6 +37,7 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 31536000,
+    domains: ['admin.rdtvideodownloader.com', 'images.unsplash.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -92,6 +93,23 @@ const nextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "connect-src 'self' https://admin.rdtvideodownloader.com https://rdtapidownload.techiesline.workers.dev https://www.google-analytics.com https://*.google-analytics.com https://*.clarity.ms https://*.google.com https://*.doubleclick.net;",
+          },
+        ],
+      },
+      {
+        source: '/',
+        headers: [
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
           },
         ],
       },

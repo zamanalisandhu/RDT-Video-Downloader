@@ -14,8 +14,8 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          <div className="hidden md:block absolute top-1/2 left-[20%] right-[20%] h-0.5 border-t-2 border-dashed border-slate-200 -translate-y-10" />
+        <ol className="grid grid-cols-1 md:grid-cols-3 gap-8 relative list-none">
+          <div className="hidden md:block absolute top-1/2 left-[20%] right-[20%] h-0.5 border-t-2 border-dashed border-slate-200 -translate-y-10" aria-hidden="true" />
           
           <HowItWorksStep 
             number={1}
@@ -32,7 +32,7 @@ export default function HowItWorks() {
             title="Step 3: Save to Your Device"
             description="Choose your preferred resolution (up to 1080p HD) and format. The file downloads directly to your device with no third-party redirects."
           />
-        </div>
+        </ol>
       </div>
     </section>
   );

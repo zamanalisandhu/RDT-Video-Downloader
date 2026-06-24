@@ -1,10 +1,8 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BlogList from '@/components/BlogList';
-import Breadcrumbs, { BreadcrumbItem } from '@/components/Breadcrumbs';
-import { getSortedPostsData } from '@/lib/markdown';
+import { getSortedPostsData } from '@/lib/blog';
 import { Metadata } from 'next';
-import { BookOpen } from 'lucide-react';
 
 interface CategoryPageParams {
   params: { slug: string };
@@ -43,7 +41,7 @@ export async function generateMetadata({ params }: CategoryPageParams): Promise<
 
 export default async function CategoryPage({ params }: CategoryPageParams) {
   const categoryName = getCategoryDisplayName(params.slug);
-  const allPosts = getSortedPostsData('blog');
+  const allPosts = await getSortedPostsData('blog');
   
   // Filter posts by category slug
   const filteredPosts = allPosts.filter((post) => {
@@ -52,46 +50,43 @@ export default async function CategoryPage({ params }: CategoryPageParams) {
     return postCategorySlug === params.slug;
   });
 
-  const breadcrumbItems: BreadcrumbItem[] = [
-    { label: 'Blog', url: '/blog' },
-    { label: categoryName }
-  ];
+  // Breadcrumbs removed for clean design
 
   return (
-    <main className="min-h-screen flex flex-col bg-slate-50">
+    <>
       <Header />
-      
-      {/* Category Hero */}
-      <section className="pt-24 pb-16 bg-white border-b border-slate-200/50">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <Breadcrumbs items={breadcrumbItems} />
-          
-          <div className="flex items-center gap-4 mb-4">
-            <span className="p-3 rounded-2xl bg-orange-50 text-brand-orange border border-orange-100 flex items-center justify-center">
-              <BookOpen className="w-6 h-6" />
-            </span>
-            <span className="text-sm font-bold text-brand-orange uppercase tracking-wider">
+      <main className="min-h-screen flex flex-col flex-grow bg-white">
+        
+        {/* Category Hero */}
+        <section className="relative pt-16 pb-8 bg-white text-center">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <span className="text-xs font-bold text-brand-orange uppercase tracking-widest block mb-3">
               Category Archive
             </span>
+            <h1 
+              className="text-[32px] md:text-[40px] font-black text-slate-900 mb-4 tracking-tight leading-tight"
+              style={{ fontFamily: 'var(--font-title)' }}
+            >
+              {categoryName}
+            </h1>
+            <p 
+              className="text-[15px] md:text-[16px] text-slate-500 max-w-2xl mx-auto leading-relaxed"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              Discover expert tutorials, tools, and troubleshooting guides focused on {categoryName.toLowerCase()} to help you download and manage Reddit media files effortlessly.
+            </p>
           </div>
+        </section>
 
-          <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-4 leading-tight">
-            {categoryName}
-          </h1>
-          <p className="text-lg text-slate-600 max-w-2xl leading-relaxed">
-            Discover expert tutorials, tools, and troubleshooting guides focused on {categoryName.toLowerCase()} to help you download and manage Reddit media files effortlessly.
-          </p>
-        </div>
-      </section>
-
-      {/* Category Articles Grid */}
-      <section className="flex-grow py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <BlogList posts={filteredPosts} />
-        </div>
-      </section>
-      
+        {/* Category Articles Grid */}
+        <section className="flex-grow pb-16 pt-4">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <BlogList posts={filteredPosts} />
+          </div>
+        </section>
+        
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

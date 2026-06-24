@@ -37,28 +37,28 @@ export default function DetailedGuide() {
             Our tool is designed to work seamlessly across all platforms. Here is a quick step-by-step guide:
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
-            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
+          <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4 list-none">
+            <li className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
               <h4 className="font-extrabold text-slate-800 text-lg mb-2">1. On iPhone / iPad</h4>
               <p className="text-sm text-slate-500 leading-relaxed">
                 Open the Reddit app, tap <strong>Share</strong>, and click <strong>Copy Link</strong>. Open Safari, navigate to <strong>rdtvideodownloader.com</strong>, paste the link, and click download. Save it from Safari&apos;s downloads directly to your camera roll.
               </p>
-            </div>
+            </li>
             
-            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
+            <li className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
               <h4 className="font-extrabold text-slate-800 text-lg mb-2">2. On Android Devices</h4>
               <p className="text-sm text-slate-500 leading-relaxed">
                 Tap <strong>Share</strong> on any Reddit post and select <strong>Copy Link</strong>. Paste the URL into our tool using Google Chrome. The merged video will save directly into your mobile gallery app instantly.
               </p>
-            </div>
+            </li>
 
-            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
+            <li className="bg-slate-50 p-5 rounded-2xl border border-slate-100">
               <h4 className="font-extrabold text-slate-800 text-lg mb-2">3. On PC / Mac</h4>
               <p className="text-sm text-slate-500 leading-relaxed">
                 Copy the URL from your browser&apos;s address bar and paste it onto our homepage, or install our official <strong>Chrome Extension</strong> for 1-click downloads directly from your feed.
               </p>
-            </div>
-          </div>
+            </li>
+          </ul>
 
           <h3 className="text-xl md:text-2xl font-bold text-slate-800 mt-8">
             Downloading NSFW and Restricted Subreddit Videos

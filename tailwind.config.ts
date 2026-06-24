@@ -25,6 +25,10 @@ const config: Config = {
       borderRadius: {
         '2xl': '12px',
         '3xl': '16px',
+      },
+      fontFamily: {
+        sans: ['var(--font-sans)', 'sans-serif'],
+        title: ['var(--font-title)', 'sans-serif'],
       }
     },
   },

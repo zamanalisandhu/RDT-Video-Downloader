@@ -81,7 +81,7 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="font-bold text-slate-900 mb-4 uppercase text-sm tracking-wider">Navigation</h4>
+            <p className="font-bold text-slate-900 mb-4 uppercase text-sm tracking-wider">Navigation</p>
             <ul className="space-y-2">
               <li>
                 <Link href="/about" className="text-slate-600 hover:text-brand-orange transition-colors">
@@ -102,7 +102,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-slate-900 mb-4 uppercase text-sm tracking-wider">Legal</h4>
+            <p className="font-bold text-slate-900 mb-4 uppercase text-sm tracking-wider">Legal</p>
             <ul className="space-y-2">
               <li>
                 <Link href="/legal/privacy-policy" className="text-slate-600 hover:text-brand-orange transition-colors">

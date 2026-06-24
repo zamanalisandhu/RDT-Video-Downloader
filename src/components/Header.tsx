@@ -2,52 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { toast } from 'sonner';
-import { 
-  Menu, 
-  X, 
-  ChevronRight
-} from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Menu, X, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const ChromeIcon = ({ className, size = 14, style }: { className?: string; size?: number; style?: React.CSSProperties }) => (
-  <svg 
-    className={className} 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round"
-    style={style}
-  >
-    <circle cx="12" cy="12" r="10" />
-    <circle cx="12" cy="12" r="4" />
-    <line x1="21.17" y1="8" x2="12" y2="8" />
-    <line x1="3.95" y1="6.06" x2="8.54" y2="14" />
-    <line x1="10.88" y1="21.94" x2="15.46" y2="14" />
-  </svg>
-);
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
+  const pathname = usePathname();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
-
-  // Handle scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Prevent scrolling when mobile menu is open
   useEffect(() => {
@@ -63,17 +27,18 @@ export default function Header() {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { 
-      name: 'Chrome Extension', 
-      href: 'https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej',
-      target: '_blank',
-      rel: 'noopener noreferrer'
-    },
     { name: 'How it works', href: '/#how-it-works' },
     { name: 'FAQ', href: '/#faq' },
     { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
   ];
+
+  const isActive = (href: string) => {
+    if (href === '/' && pathname === '/') return true;
+    if (href !== '/' && href.startsWith('/#') && pathname === '/') return false; // Anchor links on homepage
+    if (href !== '/' && pathname.startsWith(href)) return true;
+    return false;
+  };
 
   const menuVariants = {
     closed: {
@@ -101,78 +66,70 @@ export default function Header() {
     open: { opacity: 1, x: 0 }
   };
 
-
   return (
     <>
-      <header 
-        className={`sticky top-0 z-[100] w-full transition-all duration-300 ${
-          scrolled 
-            ? 'bg-white/95 backdrop-blur-md py-1.5 shadow-lg shadow-slate-200/40' 
-            : 'bg-white/80 backdrop-blur-md py-2'
-        }`}
-      >
-        <div className="container mx-auto px-4 flex items-center">
+      <div className="relative z-[100] w-full px-4 pt-4 pb-2">
+        <header 
+          className="max-w-6xl mx-auto w-full bg-white border border-[#FFE8DF] rounded-full shadow-lg shadow-slate-200/20 py-2.5 px-4 md:px-6 flex items-center justify-between"
+        >
           {/* Logo Container */}
-          <div className="flex-1 flex justify-start">
+          <div className="flex items-center gap-2">
             <Link 
               href="/" 
               className="flex items-center gap-2 md:gap-2.5 z-[110] group" 
               onClick={closeMenu}
             >
-              <div className="relative w-8 h-8 md:w-9 md:h-9 rounded-lg overflow-hidden shadow-md shadow-brand-orange/25 group-hover:scale-105 transition-transform duration-200">
-                <Image
+              <div className="relative w-8 h-8 md:w-9 md:h-9 rounded-lg overflow-hidden shadow-md shadow-brand-orange/25 transition-transform duration-200 group-hover:scale-105">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src="/logo.png"
                   alt="RDT Video Downloader Logo"
-                  fill
-                  priority
-                  className="object-cover"
+                  className="object-cover w-full h-full"
                 />
               </div>
-              <span className="text-base sm:text-xl md:text-[22px] font-black text-slate-900 tracking-tighter sm:tracking-tight">
+              <span className="text-base sm:text-xl md:text-[20px] font-black text-slate-900 tracking-tighter sm:tracking-tight transition-colors">
                 RDT<span className="text-brand-orange">Video</span>Downloader
               </span>
             </Link>
           </div>
           
           {/* Desktop Navigation - Centered */}
-          <nav className="hidden md:flex items-center gap-9">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.name}
-                href={link.href} 
-                target={'target' in link ? link.target : undefined}
-                rel={'rel' in link ? link.rel : undefined}
-                className="text-[15px] text-slate-600 hover:text-brand-orange font-bold transition-colors"
-                onClick={(e) => {
-                  if (link.href === '#') {
-                    e.preventDefault();
-                    toast.warning("Extension Under Review", {
-                      description: "The RDT Chrome Extension is currently undergoing the Google Web Store review process. It will be live soon!",
-                      duration: 4000,
-                    });
-                  }
-                }}
-              >
-                {link.name}
-              </Link>
-            ))}
+          <nav className="hidden md:flex items-center gap-1 md:gap-2">
+            <ul className="flex items-center gap-1 md:gap-2 list-none">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <Link 
+                    href={link.href} 
+                    className={`text-[14px] md:text-[15px] font-bold transition-all px-4 py-1.5 rounded-full block ${
+                      isActive(link.href)
+                        ? 'bg-brand-orange/10 text-brand-orange'
+                        : 'text-slate-600 hover:text-brand-orange'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </nav>
 
-          {/* Mobile Menu Button / Placeholder Container */}
-          <div className="flex-1 flex justify-end gap-3 items-center">
-            {/* Chrome Extension button - Desktop only */}
+          {/* Desktop Button - Right */}
+          <div className="hidden md:flex items-center">
             <Link 
               href="https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:flex items-center gap-2 px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold transition-all shadow-md shadow-slate-950/10 hover:shadow-slate-950/20 active:scale-[0.98] border border-slate-800"
+              className="px-6 py-2 bg-brand-orange hover:bg-brand-orange-light text-white font-bold rounded-full text-[14px] md:text-[15px] shadow-md shadow-brand-orange/20 transition-all active:scale-[0.98]"
+              aria-label="Install RDT Video Downloader Chrome Extension"
             >
-              <ChromeIcon size={13} className="text-brand-orange" />
-              <span>Install Extension</span>
+              Extension
             </Link>
+          </div>
 
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center">
             <button 
-              className="md:hidden z-[140] p-2 text-slate-900 focus:outline-none bg-slate-50 rounded-xl border border-slate-100 shadow-sm"
+              className="z-[140] p-2 text-slate-900 focus:outline-none rounded-full border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors"
               onClick={toggleMenu}
               aria-label="Toggle menu"
             >
@@ -185,7 +142,7 @@ export default function Header() {
                     exit={{ rotate: 90, opacity: 0 }}
                     transition={{ duration: 0.15 }}
                   >
-                    <X size={28} strokeWidth={3} />
+                    <X size={20} strokeWidth={2.5} />
                   </motion.div>
                 ) : (
                   <motion.div
@@ -195,14 +152,14 @@ export default function Header() {
                     exit={{ rotate: -90, opacity: 0 }}
                     transition={{ duration: 0.15 }}
                   >
-                    <Menu size={28} strokeWidth={3} />
+                    <Menu size={20} strokeWidth={2.5} />
                   </motion.div>
                 )}
               </AnimatePresence>
             </button>
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
 
       {/* Mobile Navigation Sidebar */}
       <AnimatePresence initial={false}>
@@ -225,64 +182,54 @@ export default function Header() {
               exit="closed"
               className="fixed top-0 right-0 bottom-0 w-[85%] max-w-[340px] bg-white z-[130] shadow-2xl md:hidden flex flex-col"
             >
-            <div className="p-6 flex items-center justify-between border-b border-slate-50">
-              <div className="flex items-center gap-2">
-                <div className="relative w-8 h-8 rounded-lg overflow-hidden">
-                  <Image
-                    src="/logo.png"
-                    alt="Logo"
-                    fill
-                    className="object-cover"
-                  />
+              <div className="p-6 flex items-center justify-between border-b border-slate-50">
+                <div className="flex items-center gap-2">
+                  <div className="relative w-8 h-8 rounded-lg overflow-hidden shadow-sm shadow-brand-orange/25">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/logo.png"
+                      alt="Logo"
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                  <span className="font-bold text-slate-900">
+                    RDT <span className="text-brand-orange">Video</span> Downloader
+                  </span>
                 </div>
-                <span className="font-bold text-slate-900">RDT Downloader</span>
               </div>
-            </div>
 
-            <div className="p-6 flex-grow overflow-y-auto">
-                <div className="flex flex-col gap-3">
+              <div className="p-6 flex-grow overflow-y-auto">
+                <ul className="flex flex-col gap-2 list-none">
                   {navLinks.map((link) => (
-                    <motion.div key={link.name} variants={itemVariants}>
+                    <motion.li key={link.name} variants={itemVariants}>
                       <Link 
                         href={link.href} 
-                        target={'target' in link ? link.target : undefined}
-                        rel={'rel' in link ? link.rel : undefined}
-                        className="flex items-center justify-between p-4 rounded-2xl text-xl font-extrabold text-slate-900 hover:bg-brand-orange/5 hover:text-brand-orange transition-all group"
-                        onClick={(e) => {
-                          closeMenu();
-                          if (link.href === '#') {
-                            e.preventDefault();
-                            toast.warning("Extension Under Review", {
-                              description: "The RDT Chrome Extension is currently undergoing the Google Web Store review process. It will be live soon!",
-                              duration: 4000,
-                            });
-                          }
-                        }}
+                        className={`flex items-center justify-between p-3.5 rounded-2xl text-lg font-bold transition-all ${
+                          isActive(link.href)
+                            ? 'bg-brand-orange/10 text-brand-orange'
+                            : 'text-slate-900 hover:bg-slate-50'
+                        }`}
+                        onClick={closeMenu}
                       >
                         {link.name}
-                        <ChevronRight className="text-slate-300 group-hover:text-brand-orange transition-all" size={24} />
+                        <ChevronRight className="text-slate-300" size={20} aria-hidden="true" />
                       </Link>
-                    </motion.div>
+                    </motion.li>
                   ))}
-                </div>
+                </ul>
               </div>
 
               <div className="p-6 border-t border-slate-100 bg-slate-50/50">
                 <motion.div variants={itemVariants}>
-                   <Link 
-                    href="/" 
-                    className="w-full py-4 bg-brand-orange text-white text-center font-bold rounded-2xl shadow-xl shadow-brand-orange/30 flex items-center justify-center gap-3 text-lg active:scale-[0.98] transition-transform"
+                  <Link 
+                    href="https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3.5 bg-brand-orange text-white text-center font-bold rounded-full shadow-lg shadow-brand-orange/25 flex items-center justify-center gap-2 text-base active:scale-[0.98] transition-transform"
                     onClick={closeMenu}
+                    aria-label="Install RDT Video Downloader Chrome Extension"
                   >
-                    <div className="relative w-6 h-6 rounded-lg overflow-hidden bg-white/20">
-                      <Image
-                        src="/logo.png"
-                        alt="Logo"
-                        fill
-                        className="object-cover brightness-0 invert"
-                      />
-                    </div>
-                    Download Now
+                    Install Extension
                   </Link>
                 </motion.div>
                 <div className="mt-8 flex justify-center gap-6">

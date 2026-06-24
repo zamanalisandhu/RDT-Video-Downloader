@@ -6,7 +6,7 @@ interface HowItWorksStepProps {
 
 export default function HowItWorksStep({ number, title, description }: HowItWorksStepProps) {
   return (
-    <div className="flex flex-col items-center text-center p-3">
+    <li className="flex flex-col items-center text-center p-3">
       <div className="w-11 h-11 bg-gradient-to-br from-brand-orange to-brand-orange-light text-white rounded-full flex items-center justify-center text-base font-black mb-3 shadow-lg shadow-brand-orange/20">
         {number}
       </div>
@@ -14,6 +14,6 @@ export default function HowItWorksStep({ number, title, description }: HowItWork
       <p className="text-slate-600 leading-relaxed text-[13px] max-w-[280px]">
         {description}
       </p>
-    </div>
+    </li>
   );
 }

@@ -1,11 +1,12 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { getPostData, getSortedPostsData } from '@/lib/markdown';
+import { getPostData, getSortedPostsData } from '@/lib/blog';
 import { notFound } from 'next/navigation';
-import { Calendar, User, Clock, ArrowLeft, Tag } from 'lucide-react';
+import { ArrowLeft, Tag } from 'lucide-react';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
-import Breadcrumbs, { BreadcrumbItem } from '@/components/Breadcrumbs';
+import { FAQItem } from '@/components/FAQAccordion';
+
 import { Metadata } from 'next';
 
 interface BlogPostParams {
@@ -51,7 +52,7 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
 }
 
 export async function generateStaticParams() {
-  const posts = getSortedPostsData('blog');
+  const posts = await getSortedPostsData('blog');
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -60,7 +61,7 @@ export async function generateStaticParams() {
 export default async function BlogPostPage({ params }: BlogPostParams) {
   try {
     const post = await getPostData(params.slug, 'blog');
-    const allPosts = getSortedPostsData('blog');
+    const allPosts = await getSortedPostsData('blog');
     
     // Filter out the current post
     const otherPosts = allPosts.filter((p) => p.slug !== params.slug);
@@ -114,145 +115,142 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
       }))
     } : null;
 
-    // Visual Breadcrumb Trail: Home > Blog > [Category if exists] > Title
-    const breadcrumbItems: BreadcrumbItem[] = [
-      { label: 'Blog', url: '/blog' },
-    ];
-    
-    if (post.categoryName) {
-      // Sluggify the categoryName: Tutorials -> tutorials, Troubleshooting -> troubleshooting, etc.
-      const categorySlug = post.categoryName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-      breadcrumbItems.push({ label: post.categoryName, url: `/blog/category/${categorySlug}` });
-    }
-    
-    breadcrumbItems.push({ label: post.title });
+
 
     return (
-      <main className="min-h-screen flex flex-col bg-white">
+      <>
         <JsonLd data={articleSchema} />
         {faqSchema && <JsonLd data={faqSchema} />}
         <Header />
-        
-        {/* Post Header */}
-        <header className="pt-10 pb-6 bg-slate-50 border-b border-slate-100">
-          <div className="container mx-auto px-4 max-w-4xl">
-            {/* Visual Breadcrumbs */}
-            <Breadcrumbs items={breadcrumbItems} />
-            
-            <Link 
-              href="/blog" 
-              className="inline-flex items-center gap-2 text-slate-500 hover:text-brand-orange font-bold text-sm mb-4 transition-colors group"
-            >
-              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-              Back to Blog
-            </Link>
-            
-            <div className="flex flex-wrap items-center gap-6 text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">
-              <span className="flex items-center gap-2">
-                <Calendar size={16} className="text-brand-orange" />
-                <time dateTime={post.date}>{post.date}</time>
-              </span>
-              <span className="flex items-center gap-2">
-                <User size={16} className="text-brand-orange" />
-                {post.author || 'RDT Admin'}
-              </span>
-              <span className="flex items-center gap-2">
-                <Clock size={16} className="text-brand-orange" />
-                5 min read
-              </span>
-            </div>
-
-            <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-[1.1]">
-              {post.title}
-            </h1>
-          </div>
-        </header>
-
-        <article className="flex-grow py-8">
-          <div className="container mx-auto px-4 max-w-3xl">
-            <div 
-              className="prose prose-slate lg:prose-xl max-w-none 
-                prose-headings:text-slate-900 prose-headings:font-black 
-                prose-a:text-brand-orange prose-a:underline hover:prose-a:text-brand-orange-light
-                prose-strong:text-slate-900 prose-img:rounded-3xl prose-img:shadow-2xl
-                prose-blockquote:border-brand-orange prose-blockquote:bg-slate-50 
-                prose-blockquote:py-2 prose-blockquote:rounded-r-2xl"
-              dangerouslySetInnerHTML={{ __html: post.contentHtml || '' }}
-            />
-
-            {/* Injected FAQ Section visually at the end of content if present */}
-            {hasFaqs && post.faqs && (
-              <div className="mt-10 pt-8 border-t border-slate-100">
-                <h2 className="text-3xl font-black text-slate-900 mb-8">Frequently Asked Questions</h2>
-                <div className="space-y-6">
-                  {post.faqs.map((faq, index) => (
-                    <div key={index} className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
-                      <h3 className="text-lg font-black text-slate-900 mb-2">{faq.question}</h3>
-                      <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {/* CTA Section */}
-            <div className="mt-10 p-8 bg-slate-900 rounded-[40px] text-white text-center relative overflow-hidden group">
-              <div className="relative z-10">
-                <h3 className="text-3xl font-black mb-4">Try Our Reddit Downloader</h3>
-                <p className="text-slate-400 mb-8 text-lg max-w-xl mx-auto">
-                  Download any Reddit video with sound in high definition. Fast, free, and no registration required.
-                </p>
+        <main className="min-h-screen flex flex-col flex-grow bg-white">
+          
+          <article className="flex-grow py-12 bg-white">
+            <div className="container mx-auto px-4 max-w-3xl">
+              
+              {/* Back to Guides */}
+              <div className="mb-4">
                 <Link 
-                  href="/" 
-                  className="inline-flex items-center gap-2 px-10 py-5 bg-brand-orange text-white font-black rounded-2xl shadow-xl shadow-brand-orange/20 hover:-translate-y-1 transition-all"
+                  href="/blog" 
+                  className="text-brand-orange hover:text-brand-orange-light font-bold text-sm inline-flex items-center gap-1.5 transition-colors group"
                 >
-                  Download Now
+                  &lt; Back to Guides
                 </Link>
               </div>
-              <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:scale-110 transition-transform">
-                <Tag size={120} />
-              </div>
-            </div>
 
-            {/* Author Section */}
-            <div className="mt-10 pt-6 border-t border-slate-100 flex items-center gap-6">
-              <div className="w-16 h-16 rounded-full bg-brand-orange flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-brand-orange/20">
-                {(post.author || 'RDT')[0]}
+              {/* Category Badge */}
+              <div className="text-[11px] font-black uppercase tracking-widest text-brand-orange mb-3">
+                Blog
               </div>
-              <div>
-                <div className="font-bold text-xl text-slate-900">{post.author || 'RDT Admin'}</div>
-                <div className="text-slate-500 max-w-md">Expert in Reddit media extraction and digital content preservation. Helping millions save their favorite Reddit moments since 2024.</div>
-              </div>
-            </div>
+              
+              {/* Title */}
+              <h1 className="text-3xl md:text-5xl font-black text-slate-900 leading-tight mb-4">
+                {post.title}
+              </h1>
 
-            {/* Related Posts */}
-            {relatedPosts.length > 0 && (
-              <div className="mt-14">
-                <h3 className="text-3xl font-black text-slate-900 mb-8">Related Articles</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {relatedPosts.map((relatedPost) => (
-                    <Link 
-                      key={relatedPost.slug} 
-                      href={`/${relatedPost.slug}`}
-                      className="group block bg-slate-50 border border-slate-100 rounded-3xl p-6 hover:bg-white hover:shadow-xl transition-all"
-                    >
-                      <div className="text-sm font-bold text-brand-orange mb-3">{relatedPost.date}</div>
-                      <h4 className="text-xl font-bold text-slate-900 group-hover:text-brand-orange transition-colors mb-4">
-                        {relatedPost.title}
-                      </h4>
-                      <div className="flex items-center gap-2 text-slate-500 font-bold text-sm">
-                        Read Article <ArrowLeft className="rotate-180" size={16} />
-                      </div>
-                    </Link>
-                  ))}
+              {/* Metadata */}
+              <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-slate-400 mb-6 uppercase tracking-wider">
+                <time dateTime={post.date}>{post.date}</time>
+                <span>·</span>
+                <span>By {post.author || 'RDT Admin'}</span>
+                <span>·</span>
+                <span>{post.readingTime || 5} min read</span>
+              </div>
+
+              {/* Featured Image */}
+              {post.image && (
+                <div className="aspect-[1200/628] w-full overflow-hidden rounded-[24px] border border-slate-100 bg-slate-50 mb-8">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img 
+                    src={post.image} 
+                    alt={post.title} 
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+              )}
+
+              {/* Article Content */}
+              <div 
+                className="prose prose-lg lg:prose-xl prose-slate max-w-none 
+                  prose-headings:text-slate-900 prose-headings:font-black 
+                  prose-a:text-brand-orange prose-a:underline hover:prose-a:text-brand-orange-light
+                  prose-strong:text-slate-900 prose-img:rounded-3xl prose-img:shadow-2xl
+                  prose-blockquote:border-brand-orange prose-blockquote:bg-slate-50 
+                  prose-blockquote:py-2 prose-blockquote:rounded-r-2xl"
+                dangerouslySetInnerHTML={{ __html: post.contentHtml || '' }}
+              />
+
+              {/* Injected FAQ Section visually at the end of content if present */}
+              {hasFaqs && post.faqs && (
+                <div className="faq-section mt-10 pt-8 border-t border-slate-100">
+                  <h2 className="text-3xl font-black text-slate-900 mb-8">Frequently Asked Questions</h2>
+                  <div className="space-y-1">
+                    {post.faqs.map((faq, index) => (
+                      <FAQItem key={index} question={faq.question} answer={faq.answer} />
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* CTA Section */}
+              <div className="mt-10 p-8 bg-slate-900 rounded-[40px] text-white text-center relative overflow-hidden group">
+                <div className="relative z-10">
+                  <h3 className="text-3xl font-black mb-4">Try Our Reddit Downloader</h3>
+                  <p className="text-slate-400 mb-8 text-lg max-w-xl mx-auto">
+                    Download any Reddit video with sound in high definition. Fast, free, and no registration required.
+                  </p>
+                  <Link 
+                    href="/" 
+                    className="inline-flex items-center gap-2 px-10 py-5 bg-brand-orange text-white font-black rounded-2xl shadow-xl shadow-brand-orange/20 hover:-translate-y-1 transition-all"
+                  >
+                    Download Now
+                  </Link>
+                </div>
+                <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:scale-110 transition-transform">
+                  <Tag size={120} />
                 </div>
               </div>
-            )}
-          </div>
-        </article>
-        
+
+              {/* Author Section */}
+              <div className="mt-10 pt-6 border-t border-slate-100 flex items-center gap-6">
+                <div className="w-16 h-16 rounded-full bg-brand-orange flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-brand-orange/20">
+                  {(post.author || 'RDT')[0]}
+                </div>
+                <div>
+                  <div className="font-bold text-xl text-slate-900">{post.author || 'RDT Admin'}</div>
+                  <div className="text-slate-500 max-w-md">Expert in Reddit media extraction and digital content preservation. Helping millions save their favorite Reddit moments since 2024.</div>
+                </div>
+              </div>
+
+              {/* Related Posts */}
+              {relatedPosts.length > 0 && (
+                <div className="mt-14">
+                  <h3 className="text-3xl font-black text-slate-900 mb-8">Related Articles</h3>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-8 list-none">
+                    {relatedPosts.map((relatedPost) => (
+                      <li key={relatedPost.slug}>
+                        <Link 
+                          href={`/${relatedPost.slug}`}
+                          className="group block bg-slate-50 border border-slate-100 rounded-3xl p-6 hover:bg-white hover:shadow-xl transition-all"
+                        >
+                          <div className="text-sm font-bold text-brand-orange mb-3">{relatedPost.date}</div>
+                          <h4 className="text-xl font-bold text-slate-900 group-hover:text-brand-orange transition-colors mb-4">
+                            {relatedPost.title}
+                          </h4>
+                          <div className="flex items-center gap-2 text-slate-500 font-bold text-sm">
+                            Read Article <ArrowLeft className="rotate-180" size={16} />
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </article>
+          
+        </main>
         <Footer />
-      </main>
+      </>
     );
   } catch {
     notFound();
