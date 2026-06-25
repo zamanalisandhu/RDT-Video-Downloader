@@ -20,7 +20,17 @@ function coercePostFields(slug: string, data: Record<string, unknown>): Partial<
   const fallbackDate = new Date().toISOString().split('T')[0];
   const date = pickOptionalString(data, ['date', 'publishDate', 'publish_date', 'publishdate', 'publish_date']) || fallbackDate;
   const excerpt = pickOptionalString(data, ['excerpt', 'metaDescription', 'description']);
-  const image = pickOptionalString(data, ['image', 'featuredImage', 'coverImage']);
+  let image = pickOptionalString(data, ['image', 'featuredImage', 'coverImage']);
+  if (image) {
+    if (image.startsWith('/')) {
+      const publicPath = path.join(process.cwd(), 'public', image);
+      if (!fs.existsSync(publicPath)) {
+        image = '/og-image.png';
+      }
+    }
+  } else {
+    image = '/og-image.png';
+  }
   const author = pickOptionalString(data, ['author']);
   
   const metaTitle = pickOptionalString(data, ['metaTitle', 'meta_title', 'seotitle', 'seo_title']);

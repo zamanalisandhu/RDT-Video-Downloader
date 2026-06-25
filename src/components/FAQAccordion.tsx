@@ -13,28 +13,35 @@ export function FAQItem({ question, answer }: FAQItemProps) {
 
   return (
     <div 
-      className={`border rounded-2xl bg-white hover:border-slate-300 transition-all duration-300 overflow-hidden mb-3 ${
-        isOpen ? 'border-brand-orange shadow-sm shadow-brand-orange/5' : 'border-slate-200'
+      className={`border rounded-2xl transition-all duration-300 overflow-hidden mb-3.5 ${
+        isOpen 
+          ? 'border-brand-orange bg-gradient-to-br from-white to-orange-50/15 shadow-md shadow-brand-orange/5' 
+          : 'border-slate-200 bg-white hover:border-brand-orange/30 hover:shadow-[0_6px_20px_rgba(255,69,0,0.02)]'
       }`}
     >
       <dt>
         <button
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
-          className="w-full flex items-center justify-between p-5 text-left cursor-pointer select-none focus:outline-none"
+          className="w-full flex items-center justify-between p-4 sm:p-5 text-left cursor-pointer select-none focus:outline-none"
         >
-          <span className={`text-[17px] font-bold transition-colors pr-6 ${
-            isOpen ? 'text-brand-orange' : 'text-slate-900'
-          }`}>
-            {question}
+          <span className="flex items-center gap-3">
+            <span className={`text-[10px] font-black tracking-wider uppercase px-2 py-0.5 rounded-md shrink-0 transition-colors duration-300 ${
+              isOpen ? 'bg-brand-orange text-white' : 'bg-slate-100 text-slate-500'
+            }`}>Q</span>
+            <span className={`text-[15px] sm:text-[17px] font-extrabold transition-colors duration-300 pr-4 ${
+              isOpen ? 'text-brand-orange' : 'text-slate-900'
+            }`}>
+              {question}
+            </span>
           </span>
-          <ChevronRight 
-            size={18} 
-            className={`text-slate-400 transition-transform duration-300 shrink-0 ${
-              isOpen ? 'rotate-90 text-brand-orange' : ''
-            }`} 
-            aria-hidden="true"
-          />
+          <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border flex items-center justify-center transition-all duration-300 shrink-0 ${
+            isOpen 
+              ? 'bg-brand-orange/10 border-brand-orange/20 text-brand-orange rotate-90' 
+              : 'bg-slate-50 border-slate-100 text-slate-400'
+          }`}>
+            <ChevronRight size={16} />
+          </div>
         </button>
       </dt>
       <dd 
@@ -44,9 +51,11 @@ export function FAQItem({ question, answer }: FAQItemProps) {
       >
         <div className="overflow-hidden">
           <div className="px-5 pb-5 pt-0 border-t border-slate-100/50">
-            <p className="text-slate-600 leading-relaxed pt-4 text-base md:text-[17px]">
-              {answer}
-            </p>
+            <div className="pl-4 border-l-2 border-brand-orange/50 mt-4 mb-1">
+              <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+                {answer}
+              </p>
+            </div>
           </div>
         </div>
       </dd>

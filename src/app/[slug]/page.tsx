@@ -6,6 +6,7 @@ import { ArrowLeft, Tag } from 'lucide-react';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { FAQItem } from '@/components/FAQAccordion';
+import GutenbergFaqHandler from '@/components/GutenbergFaqHandler';
 
 import { Metadata } from 'next';
 
@@ -100,12 +101,12 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
       },
     };
 
-    // 2. FAQ Page Schema
+    // 2. FAQ Page Schema (Only if custom FAQs are defined in WordPress)
     const hasFaqs = post.faqs && post.faqs.length > 0;
-    const faqSchema = hasFaqs ? {
+    const faqSchema = hasFaqs && post.faqs ? {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: post.faqs?.map(faq => ({
+      mainEntity: post.faqs.map(faq => ({
         '@type': 'Question',
         name: faq.question,
         acceptedAnswer: {
@@ -121,6 +122,7 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
       <>
         <JsonLd data={articleSchema} />
         {faqSchema && <JsonLd data={faqSchema} />}
+        <GutenbergFaqHandler slug={params.slug} />
         <Header />
         <main className="min-h-screen flex flex-col flex-grow bg-white">
           
@@ -159,7 +161,6 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
               {/* Featured Image */}
               {post.image && (
                 <div className="aspect-[1200/628] w-full overflow-hidden rounded-[24px] border border-slate-100 bg-slate-50 mb-8">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img 
                     src={post.image} 
                     alt={post.title} 
@@ -179,15 +180,15 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
                 dangerouslySetInnerHTML={{ __html: post.contentHtml || '' }}
               />
 
-              {/* Injected FAQ Section visually at the end of content if present */}
-              {hasFaqs && post.faqs && (
+              {/* Injected FAQ Section visually at the end of content if present in custom fields */}
+              {hasFaqs && post.faqs && post.faqs.length > 0 && (
                 <div className="faq-section mt-10 pt-8 border-t border-slate-100">
                   <h2 className="text-3xl font-black text-slate-900 mb-8">Frequently Asked Questions</h2>
-                  <div className="space-y-1">
+                  <dl className="max-w-3xl mx-auto space-y-3">
                     {post.faqs.map((faq, index) => (
                       <FAQItem key={index} question={faq.question} answer={faq.answer} />
                     ))}
-                  </div>
+                  </dl>
                 </div>
               )}
               

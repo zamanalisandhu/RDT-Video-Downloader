@@ -145,9 +145,6 @@ function mapWpPostToPostData(wpPost: any, rankMathHead?: string | null): PostDat
   };
 }
 
-/**
- * Fetches all posts sorted by date from WordPress REST API (or local markdown for legal docs).
- */
 export async function getSortedPostsData(category: 'blog' | 'legal' = 'blog'): Promise<PostData[]> {
   if (category === 'legal') {
     return getLocalSortedPosts('legal');

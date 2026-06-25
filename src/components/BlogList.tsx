@@ -53,12 +53,14 @@ export default function BlogList({ posts }: BlogListProps) {
             <article className="flex flex-col h-full flex-grow">
               {post.image && (
                 <div className="aspect-[1200/628] w-full overflow-hidden bg-slate-50 rounded-[20px] mb-6">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img 
                     src={post.image} 
                     alt={post.title} 
                     className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" 
                     loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = '/og-image.png';
+                    }}
                   />
                 </div>
               )}
