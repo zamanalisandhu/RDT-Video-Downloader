@@ -129,33 +129,18 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <button 
-              className="z-[140] p-2 text-slate-900 focus:outline-none rounded-full border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors"
+              className="z-[140] p-2 text-slate-900 focus:outline-none rounded-full border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors relative w-9 h-9 flex items-center justify-center overflow-hidden"
               onClick={toggleMenu}
               aria-label="Toggle menu"
             >
-              <AnimatePresence mode="wait" initial={false}>
-                {isMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    <X size={20} strokeWidth={2.5} />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    <Menu size={20} strokeWidth={2.5} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <div className="relative w-5 h-5 flex items-center justify-center">
+                <span className={`absolute transition-all duration-300 transform ${isMenuOpen ? 'rotate-90 opacity-0 scale-75' : 'rotate-0 opacity-100 scale-100'}`}>
+                  <Menu size={20} strokeWidth={2.5} />
+                </span>
+                <span className={`absolute transition-all duration-300 transform ${isMenuOpen ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-75'}`}>
+                  <X size={20} strokeWidth={2.5} />
+                </span>
+              </div>
             </button>
           </div>
         </header>

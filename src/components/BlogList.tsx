@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { BookOpen } from 'lucide-react';
 import { PostData } from '@/types';
 
@@ -10,21 +9,6 @@ interface BlogListProps {
 }
 
 export default function BlogList({ posts }: BlogListProps) {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
-
   if (posts.length === 0) {
     return (
       <div className="text-center py-32 bg-white">
@@ -38,14 +22,17 @@ export default function BlogList({ posts }: BlogListProps) {
   }
 
   return (
-    <motion.ul 
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 list-none"
-    >
-      {posts.map((post) => (
-        <motion.li key={post.slug} variants={itemVariants} className="list-none">
+    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 list-none">
+      {posts.map((post, index) => (
+        <li 
+          key={post.slug} 
+          className={`list-none animate-fade-in-up ${
+            index === 0 ? 'animation-delay-100' :
+            index === 1 ? 'animation-delay-150' :
+            index === 2 ? 'animation-delay-200' :
+            'animation-delay-300'
+          }`}
+        >
           <Link 
             href={`/${post.slug}`}
             className="group flex flex-col bg-white border border-[#FFE8DF] hover:border-brand-orange/30 rounded-[32px] hover:shadow-2xl hover:shadow-slate-200/60 hover:-translate-y-2 transition-all duration-500 h-full p-6"
@@ -56,6 +43,8 @@ export default function BlogList({ posts }: BlogListProps) {
                   <img 
                     src={post.image} 
                     alt={post.title} 
+                    width={600}
+                    height={314}
                     className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" 
                     loading="lazy"
                     onError={(e) => {
@@ -83,8 +72,8 @@ export default function BlogList({ posts }: BlogListProps) {
               </div>
             </article>
           </Link>
-        </motion.li>
+        </li>
       ))}
-    </motion.ul>
+    </ul>
   );
 }
