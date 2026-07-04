@@ -18,9 +18,26 @@ export default function AboutPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen flex flex-col flex-grow bg-white py-8">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h1 className="text-4xl font-bold text-slate-900 mb-6">About RDT Video Downloader</h1>
+      <main className="min-h-screen flex flex-col flex-grow bg-white">
+        {/* About Header Banner Section */}
+        <section className="relative pt-12 pb-8 text-center border-b border-slate-100/80 bg-slate-50/30">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h1 
+              className="text-[32px] md:text-[40px] font-black text-slate-900 mb-4 tracking-tight leading-tight animate-fade-in-up"
+              style={{ fontFamily: 'var(--font-title)' }}
+            >
+              About RDT Video Downloader
+            </h1>
+            <p 
+              className="text-[15px] md:text-[16px] text-slate-500 max-w-2xl mx-auto leading-relaxed animate-fade-in-up animation-delay-150"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              Learn about our mission, our media-merging technology, and our commitment to user privacy.
+            </p>
+          </div>
+        </section>
+
+        <div className="container mx-auto px-4 max-w-4xl py-10">
           
           <div className="prose prose-slate max-w-none space-y-6 text-lg text-slate-600">
             <p>
