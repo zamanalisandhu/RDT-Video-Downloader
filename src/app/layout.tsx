@@ -1,10 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ClientSideHelpers from "@/components/ClientSideHelpers";
 import CookieConsent from "@/components/CookieConsent";
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const viewport: Viewport = {
+  themeColor: "#162235",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://rdtvideodownloader.com'),
@@ -18,7 +22,11 @@ export const metadata: Metadata = {
   creator: "RDT Video Downloader",
   publisher: "RDT Video Downloader",
   alternates: {
-    canonical: './',
+    canonical: "https://rdtvideodownloader.com",
+    languages: {
+      "en": "https://rdtvideodownloader.com",
+      "x-default": "https://rdtvideodownloader.com",
+    },
   },
   formatDetection: {
     email: false,
@@ -31,20 +39,11 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://rdtvideodownloader.com/",
     siteName: "RDT Video Downloader",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "RDT Video Downloader - Save Reddit Videos with Sound",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Reddit Video Downloader - Download Reddit Video with Sound - Free HD MP4 | RDT",
     description: "Download Reddit videos with audio in 1080p HD. Free MP4 downloader for videos, GIFs & galleries. No watermark, no signup. Works on iPhone, Android, PC.",
-    images: ["/twitter-card.jpg"],
   },
   robots: {
     index: true,
@@ -62,9 +61,10 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   icons: {
-    icon: '/logo.png',
-    shortcut: '/logo.png',
-    apple: '/logo.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    apple: '/apple-touch-icon.png',
   },
 };
 

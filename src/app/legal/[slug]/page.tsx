@@ -14,7 +14,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title: `${post.title} - RDT Video Downloader`,
       description: `Official ${post.title} for RDT Video Downloader. Read our policies regarding media extraction and user privacy.`,
       alternates: {
-        canonical: `/legal/${params.slug}`,
+        canonical: `https://rdtvideodownloader.com/legal/${params.slug}`,
+        languages: {
+          'en': `https://rdtvideodownloader.com/legal/${params.slug}`,
+          'x-default': `https://rdtvideodownloader.com/legal/${params.slug}`,
+        },
       },
     };
   } catch {

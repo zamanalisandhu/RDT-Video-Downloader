@@ -6,7 +6,11 @@ export const metadata: Metadata = {
   title: "About Us - RDT Video Downloader",
   description: "Learn about RDT Video Downloader, our mission, technology, and commitment to privacy.",
   alternates: {
-    canonical: '/about',
+    canonical: 'https://rdtvideodownloader.com/about',
+    languages: {
+      'en': 'https://rdtvideodownloader.com/about',
+      'x-default': 'https://rdtvideodownloader.com/about',
+    },
   },
 };
 

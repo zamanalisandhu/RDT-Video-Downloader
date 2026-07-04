@@ -152,6 +152,10 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
       },
       alternates: {
         canonical: `${siteUrl}/${params.slug}`,
+        languages: {
+          'en': `${siteUrl}/${params.slug}`,
+          'x-default': `${siteUrl}/${params.slug}`,
+        },
       },
     };
   } catch {
@@ -341,6 +345,8 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
                     height={419}
                     style={{ aspectRatio: '800/419' }}
                     className="object-cover w-full h-auto"
+                    loading="eager"
+                    fetchPriority="high"
                   />
                 </div>
               )}

@@ -17,6 +17,9 @@ export default function MediaDisplay({ info }: MediaDisplayProps) {
             alt={info.title || 'Video thumbnail'}
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
+            width={112}
+            height={72}
+            loading="lazy"
           />
         </div>
       )}

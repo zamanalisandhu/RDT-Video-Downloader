@@ -9,8 +9,7 @@ export default function HowItWorks() {
         <div className="text-center mb-6">
           <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2.5">How to Save Reddit Videos in 3 Steps</h2>
           <p className="text-sm text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Fast, simple, and optimized. We give you the raw media file 
-            in the highest possible quality, instantly.
+            {`Saving a Reddit video with RDT takes less than ten seconds from start to finish. Whether you want to save a Reddit video on iPhone, pull a clip on Android, or download a Reddit video to PC, the process is identical — no app to install, no account to create, no learning curve to climb. Here is exactly how to download Reddit videos with sound, one step at a time, using our free reddit video downloader.`}
           </p>
         </div>
 
@@ -20,17 +19,17 @@ export default function HowItWorks() {
           <HowItWorksStep 
             number={1}
             title="Step 1: Copy the Reddit URL"
-            description="Open the Reddit post containing the video, GIF, or gallery you want to save. Tap the share button and select 'Copy Link' — works on all devices."
+            description={`Open the Reddit post containing the video, GIF, or gallery you want to save. Tap the share button underneath the post and select "Copy Link" from the menu — this works the same way on iPhone, Android, and the mobile web. On desktop, right-click the post's timestamp and choose "Copy Link Address" instead. The reddit post link will look something like reddit.com/r/subreddit/comments/xxxxx/post_title/ — that's the URL you need to paste in the next step.`}
           />
           <HowItWorksStep 
             number={2}
             title="Step 2: Paste & Process"
-            description="Return to RDT Video Downloader and paste the URL above. Click 'Download Now' and our servers will merge audio automatically in under 2 seconds."
+            description={`Return to RDT, paste the reddit post link into the input box at the top of the page, and hit the Download button. On Windows press Ctrl+V to paste, on Mac use Cmd+V, and on mobile a long-press brings up the paste menu. Our reddit mp4 downloader fetches both the video stream and the audio stream in parallel, converts the reddit video to mp4 with sound, and prepares your final file — usually in under two seconds for typical Reddit posts.`}
           />
           <HowItWorksStep 
             number={3}
             title="Step 3: Save to Your Device"
-            description="Choose your preferred resolution (up to 1080p HD) and format. The file downloads directly to your device with no third-party redirects."
+            description={`Pick your preferred quality — usually 1080p, 720p, or 480p depending on what the original poster uploaded — and click Download one more time. The MP4 file lands in your browser's downloads folder. To save a Reddit video on iPhone, tap the share icon on the saved file and choose "Save Video" to push it directly into your camera roll, or use the Files app to organize it. On Android, the file appears in your Gallery app automatically within a few seconds, no extra steps required.`}
           />
         </ol>
       </div>

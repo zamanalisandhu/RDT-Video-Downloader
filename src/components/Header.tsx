@@ -85,6 +85,10 @@ export default function Header() {
                   src="/logo.png"
                   alt="RDT Video Downloader Logo"
                   className="object-cover w-full h-full"
+                  width={36}
+                  height={36}
+                  loading="eager"
+                  fetchPriority="high"
                 />
               </div>
               <span className="text-base sm:text-xl md:text-[20px] font-black text-slate-900 tracking-tighter sm:tracking-tight transition-colors">
@@ -175,6 +179,9 @@ export default function Header() {
                       src="/logo.png"
                       alt="Logo"
                       className="object-cover w-full h-full"
+                      width={32}
+                      height={32}
+                      loading="lazy"
                     />
                   </div>
                   <span className="font-bold text-slate-900">

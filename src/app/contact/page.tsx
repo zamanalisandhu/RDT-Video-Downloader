@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   title: "Contact Us - RDT Video Downloader",
   description: "Have questions or feedback? Contact the RDT Video Downloader team for support or suggestions.",
   alternates: {
-    canonical: '/contact',
+    canonical: 'https://rdtvideodownloader.com/contact',
+    languages: {
+      'en': 'https://rdtvideodownloader.com/contact',
+      'x-default': 'https://rdtvideodownloader.com/contact',
+    },
   },
 };
 

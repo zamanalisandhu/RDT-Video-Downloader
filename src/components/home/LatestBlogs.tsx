@@ -29,7 +29,7 @@ export default function LatestBlogs({ posts }: LatestBlogsProps) {
               Latest Reddit Saving Tips
             </h2>
             <p className="text-slate-600 mt-2 text-sm">
-              Expert advice, legal breakdowns, and easy-to-follow tutorials on downloading Reddit media.
+              {`Weekly guides on how to save reddit video content and get the most out of Reddit's media ecosystem — from device-specific tricks to format deep-dives. Here are our three most recent posts, hand-picked for visitors who land on this page looking to actually learn how to download reddit video files for a specific use case rather than browse aimlessly. Each one includes step-by-step instructions, screenshots, and troubleshooting tips for the most common failure cases.`}
             </p>
           </div>
           <div className="mt-4 md:mt-0">

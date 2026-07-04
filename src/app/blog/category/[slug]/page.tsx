@@ -35,6 +35,10 @@ export async function generateMetadata({ params }: CategoryPageParams): Promise<
     description: `Browse all articles, guides, and tools in our ${categoryName} category on RDT Video Downloader. Learn how to save Reddit videos with sound.`,
     alternates: {
       canonical: `${siteUrl}/blog/category/${params.slug}`,
+      languages: {
+        'en': `${siteUrl}/blog/category/${params.slug}`,
+        'x-default': `${siteUrl}/blog/category/${params.slug}`,
+      },
     }
   };
 }

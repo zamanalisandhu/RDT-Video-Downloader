@@ -159,7 +159,7 @@ export default function Hero() {
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-0.5">
-                <h4 className="font-extrabold text-slate-900 text-base leading-tight">Our Chrome Extension is Live!</h4>
+                <h2 className="font-extrabold text-slate-900 text-base leading-tight">Our Chrome Extension is Live!</h2>
                 <span className="px-1.5 py-0.2 rounded-full bg-emerald-50 border border-emerald-100 text-[9px] font-black text-emerald-600 tracking-wider uppercase">OFFICIAL</span>
               </div>
               <p className="text-slate-500 text-xs font-medium">Download Reddit videos directly from the page with a single click.</p>

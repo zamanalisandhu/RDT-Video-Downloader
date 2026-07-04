@@ -6,11 +6,14 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: '*',
-      allow: '/',
+      allow: [
+        '/',
+        '/*?utm_',
+        '/*?ref=',
+      ],
       disallow: [
         '/api/', 
         '/_next/', 
-        '/*?*',        // Protect crawl budget by disallowing any URL with query parameters
         '/*?url=',     // Explicit protection for downloader queries
       ],
     },

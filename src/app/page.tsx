@@ -18,11 +18,6 @@ import RelatedTools from '@/components/home/RelatedTools';
 import LatestBlogs from '@/components/home/LatestBlogs';
 import DetailedGuide from '@/components/home/DetailedGuide';
 
-export const metadata = {
-  alternates: {
-    canonical: '/',
-  },
-};
 
 export default async function Home() {
   const latestPosts = (await getSortedPostsData('blog')).slice(0, 3);

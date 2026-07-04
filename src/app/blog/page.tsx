@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   description: "Guides, tips, and updates about downloading Reddit videos, audio, and images.",
   alternates: {
     canonical: `${siteUrl}/blog`,
+    languages: {
+      'en': `${siteUrl}/blog`,
+      'x-default': `${siteUrl}/blog`,
+    },
   },
   openGraph: {
     title: "Blog | RDT Video Downloader",

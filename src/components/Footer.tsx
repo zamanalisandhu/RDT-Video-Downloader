@@ -26,34 +26,43 @@ export default function Footer() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3 items-center">
               {/* Fazier Launch Badge */}
-              <a href="https://fazier.com/launches/rdtvideodownloader.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
+              <a href="https://fazier.com/launches/rdtvideodownloader.com" target="_blank" rel="nofollow noopener noreferrer" className="hover:opacity-90 transition-opacity">
                 <img 
                   src="https://fazier.com/api/v1/public/badges/launch_badges.svg?badge_type=launched&theme=neutral" 
                   alt="Fazier badge" 
                   className="h-6 w-auto"
+                  width={80}
+                  height={24}
+                  loading="lazy"
                 />
               </a>
 
               {/* Startup Fame Badge */}
-              <a href="https://startupfa.me/s/rdt?utm_source=rdtvideodownloader.com" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
+              <a href="https://startupfa.me/s/rdt?utm_source=rdtvideodownloader.com" target="_blank" rel="nofollow noopener noreferrer" className="hover:opacity-90 transition-opacity">
                 <img 
                   src="https://startupfa.me/badges/featured-badge.webp" 
                   alt="RTD Video Downloader - Featured on Startup Fame" 
                   className="h-6 w-auto"
+                  width={84}
+                  height={24}
+                  loading="lazy"
                 />
               </a>
 
               {/* Plug Your Build Badge */}
-              <a href="https://plugyourbuild.com/listing/rdt-video-downloader-24b2e0" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
+              <a href="https://plugyourbuild.com/listing/rdt-video-downloader-24b2e0" target="_blank" rel="nofollow noopener noreferrer" className="hover:opacity-90 transition-opacity">
                 <img 
                   src="https://plugyourbuild.com/api/badge/rdt-video-downloader-24b2e0?style=dark"
                   alt="Listed on Plug Your Build" 
                   className="h-6 w-auto"
+                  width={124}
+                  height={24}
+                  loading="lazy"
                 />
               </a>
 
               {/* ProjectHunt Badge */}
-              <a href="https://projecthunt.me" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
+              <a href="https://projecthunt.me" target="_blank" rel="nofollow noopener noreferrer" className="hover:opacity-90 transition-opacity">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" role="img" aria-label="Featured on: projecthunt.me" className="h-6 w-auto">
                   <title>Featured on projecthunt.me</title>
                   <g>
@@ -70,11 +79,14 @@ export default function Footer() {
               </a>
 
               {/* Startups.fm Badge */}
-              <a href="https://startups.fm/startups/rdt-video-downloader" target="_blank" rel="noopener noreferrer" className="hover:opacity-90 transition-opacity">
+              <a href="https://startups.fm/startups/rdt-video-downloader" target="_blank" rel="nofollow noopener noreferrer" className="hover:opacity-90 transition-opacity">
                 <img 
                   src="https://startups.fm/badge/rdt-video-downloader" 
                   alt="Featured on Startups.fm" 
                   className="h-6 w-auto"
+                  width={84}
+                  height={24}
+                  loading="lazy"
                 />
               </a>
             </div>
