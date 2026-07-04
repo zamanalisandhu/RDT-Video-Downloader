@@ -33,7 +33,9 @@ export function pageSEO(options: PageSEOOptions): Metadata {
   const twitterImage = image || `${SITE_URL}/twitter-image`;
 
   return {
-    title,
+    title: {
+      absolute: title,
+    },
     description,
     alternates: {
       canonical: fullUrl,
