@@ -7,6 +7,7 @@ import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { FAQItem } from '@/components/FAQAccordion';
 import GutenbergFaqHandler from '@/components/GutenbergFaqHandler';
+import { articleSEO } from '@/lib/seo';
 
 import { Metadata } from 'next';
 
@@ -75,7 +76,7 @@ function parseServerSideFaqs(html: string): { question: string; answer: string }
     for (let i = 1; i < rmParts.length; i++) {
       const rmHtml = rmParts[i];
       const qMatch = rmHtml.match(/class="[^"]*rank-math-question[^"]*"[^>]*>([\s\S]*?)<\/(?:h[1-6]|div|span|p)/i);
-      const aMatch = rmHtml.match(/class="[^"]*rank-math-answer[^"]*"[^>]*>([\s\S]*?)<\/div/i);
+      const aMatch = rmHtml.match(/class="[^"]*rank-math-answer[^>]*>([\s\S]*?)<\/div/i);
       if (qMatch && aMatch) {
         const question = qMatch[1].replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
         const answer = aMatch[1].replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
@@ -111,53 +112,32 @@ export async function generateMetadata({ params }: BlogPostParams): Promise<Meta
     const post = await getPostData(params.slug, 'blog');
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rdtvideodownloader.com';
     
-    // Prioritize front-matter metaTitle and metaDescription, and strip out " - My Blog" from WordPress SEO titles
     const rawTitle = post.metaTitle || post.title;
-    const title = rawTitle.replace(/\s*-\s*My\s*Blog/gi, '').trim();
+    let title = rawTitle
+      .replace(/\s*-\s*My\s*Blog/gi, '')
+      .replace(/\s*-\s*admin/gi, '')
+      .trim();
+    
+    // Ensure "RDT Video Downloader" branding exists exactly once in the title
+    if (!title.includes('RDT Video Downloader')) {
+      title = `${title} | RDT Video Downloader`;
+    }
+
     const description = post.metaDescription || post.excerpt || `Read our guide about ${post.title} on RDT Video Downloader.`;
     
-    // Resolve absolute image URL
     const absoluteImageUrl = post.image
       ? (post.image.startsWith('http') ? post.image : `${siteUrl}${post.image.startsWith('/') ? '' : '/'}${post.image}`)
       : `${siteUrl}/og-image.jpg`;
 
-    return {
+    return articleSEO({
       title,
       description,
-      robots: {
-        index: true,
-        follow: true,
-      },
-      openGraph: {
-        title,
-        description,
-        type: 'article',
-        publishedTime: post.date,
-        modifiedTime: post.date,
-        authors: ['RDT Editorial Team'],
-        images: [
-          {
-            url: absoluteImageUrl,
-            width: 1200,
-            height: 630,
-            alt: post.title,
-          },
-        ],
-      },
-      twitter: {
-        card: 'summary',
-        title,
-        description,
-        images: [absoluteImageUrl],
-      },
-      alternates: {
-        canonical: `${siteUrl}/${params.slug}`,
-        languages: {
-          'en': `${siteUrl}/${params.slug}`,
-          'x-default': `${siteUrl}/${params.slug}`,
-        },
-      },
-    };
+      path: `/${params.slug}`,
+      publishedTime: post.date,
+      modifiedTime: post.date,
+      authors: [post.author || 'RDT Editorial Team'],
+      image: absoluteImageUrl,
+    });
   } catch {
     return {
       title: 'Blog Post',

@@ -17,7 +17,13 @@ import Comparison from '@/components/home/Comparison';
 import RelatedTools from '@/components/home/RelatedTools';
 import LatestBlogs from '@/components/home/LatestBlogs';
 import DetailedGuide from '@/components/home/DetailedGuide';
+import { homepageSEO } from "@/lib/seo";
+import { Metadata } from 'next';
 
+export const metadata: Metadata = homepageSEO(
+  "Reddit Video Downloader - Download Reddit Video with Sound - Free HD MP4 | RDT",
+  "Download Reddit videos with audio in 1080p HD. Free MP4 downloader for videos, GIFs & galleries. No watermark, no signup. Works on iPhone, Android, PC."
+);
 
 export default async function Home() {
   const latestPosts = (await getSortedPostsData('blog')).slice(0, 3);

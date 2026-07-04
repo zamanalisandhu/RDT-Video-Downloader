@@ -2,18 +2,13 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ContactForm from '@/components/ContactForm';
 import { Metadata } from 'next';
+import { pageSEO } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: "Contact Us - RDT Video Downloader",
-  description: "Have questions or feedback? Contact the RDT Video Downloader team for support or suggestions.",
-  alternates: {
-    canonical: 'https://rdtvideodownloader.com/contact',
-    languages: {
-      'en': 'https://rdtvideodownloader.com/contact',
-      'x-default': 'https://rdtvideodownloader.com/contact',
-    },
-  },
-};
+export const metadata: Metadata = pageSEO({
+  title: "Contact RDT Video Downloader — Support & Feedback",
+  description: "Get in touch with the RDT Video Downloader team for support, feature requests, partnerships, or press inquiries. We typically respond within 24 hours.",
+  path: "/contact",
+});
 
 export default function Contact() {
   return (

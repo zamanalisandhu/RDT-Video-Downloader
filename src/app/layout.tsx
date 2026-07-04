@@ -33,18 +33,6 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  openGraph: {
-    title: "Reddit Video Downloader - Download Reddit Video with Sound - Free HD MP4 | RDT",
-    description: "Download Reddit videos with audio in 1080p HD. Free MP4 downloader for videos, GIFs & galleries. No watermark, no signup. Works on iPhone, Android, PC.",
-    type: "website",
-    url: "https://rdtvideodownloader.com/",
-    siteName: "RDT Video Downloader",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Reddit Video Downloader - Download Reddit Video with Sound - Free HD MP4 | RDT",
-    description: "Download Reddit videos with audio in 1080p HD. Free MP4 downloader for videos, GIFs & galleries. No watermark, no signup. Works on iPhone, Android, PC.",
-  },
   robots: {
     index: true,
     follow: true,

@@ -1,18 +1,13 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Metadata } from 'next';
+import { pageSEO } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: "About Us - RDT Video Downloader",
-  description: "Learn about RDT Video Downloader, our mission, technology, and commitment to privacy.",
-  alternates: {
-    canonical: 'https://rdtvideodownloader.com/about',
-    languages: {
-      'en': 'https://rdtvideodownloader.com/about',
-      'x-default': 'https://rdtvideodownloader.com/about',
-    },
-  },
-};
+export const metadata: Metadata = pageSEO({
+  title: "About RDT Video Downloader — Our Mission & Technology",
+  description: "Learn about RDT Video Downloader, our mission, our MPEG-DASH merging technology, and our commitment to user privacy since 2024.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

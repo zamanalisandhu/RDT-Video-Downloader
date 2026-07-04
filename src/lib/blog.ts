@@ -91,8 +91,11 @@ function mapWpPostToPostData(wpPost: any, rankMathHead?: string | null): PostDat
   const contentHtml = decodeHtml(rawContent);
   const image = getFeaturedImage(wpPost);
   
-  // Extract author name from embed or use fallback
-  const author = wpPost._embedded?.author?.[0]?.name || 'RDT Admin';
+  // Extract author name from embed or use fallback (clean generic author names for E-E-A-T guidelines)
+  const rawAuthor = wpPost._embedded?.author?.[0]?.name || 'RDT Editorial Team';
+  const author = (rawAuthor.toLowerCase() === 'admin' || rawAuthor.toLowerCase() === 'rdt admin')
+    ? 'RDT Editorial Team'
+    : rawAuthor;
   
   // Extract categories and tags
   const termsList = wpPost._embedded?.['wp:term']?.flat() || [];
@@ -122,6 +125,12 @@ function mapWpPostToPostData(wpPost: any, rankMathHead?: string | null): PostDat
       metaDescription = decodeHtml(wpPost.yoast_head_json.description);
     }
   }
+
+  // Clean title metadata by stripping out " - admin" and " - My Blog" from WordPress SEO outputs
+  metaTitle = metaTitle
+    .replace(/\s*-\s*My\s*Blog/gi, '')
+    .replace(/\s*-\s*admin/gi, '')
+    .trim();
 
   // Extract custom FAQs if available
   const faqs = wpPost.faqs || [];

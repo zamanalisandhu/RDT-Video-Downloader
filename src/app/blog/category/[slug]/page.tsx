@@ -2,6 +2,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BlogList from '@/components/BlogList';
 import { getSortedPostsData } from '@/lib/blog';
+import { pageSEO } from '@/lib/seo';
 import { Metadata } from 'next';
 
 interface CategoryPageParams {
@@ -28,19 +29,36 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: CategoryPageParams): Promise<Metadata> {
-  const categoryName = getCategoryDisplayName(params.slug);
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rdtvideodownloader.com';
-  return {
-    title: `Reddit Video Downloader ${categoryName} & Guides (2026)`,
-    description: `Browse all articles, guides, and tools in our ${categoryName} category on RDT Video Downloader. Learn how to save Reddit videos with sound.`,
-    alternates: {
-      canonical: `${siteUrl}/blog/category/${params.slug}`,
-      languages: {
-        'en': `${siteUrl}/blog/category/${params.slug}`,
-        'x-default': `${siteUrl}/blog/category/${params.slug}`,
-      },
-    }
+  const slug = params.slug;
+  const categoryName = getCategoryDisplayName(slug);
+
+  const CATEGORY_TITLES: Record<string, string> = {
+    tutorials: "Reddit Video Downloader Tutorials & Step-by-Step Guides (2026)",
+    tools: "Reddit Video Downloader Tools & Helper Apps (2026)",
+    guides: "Reddit Video Downloader Guides & How-To Articles (2026)",
+    troubleshooting: "Reddit Video Downloader Troubleshooting & Fixes (2026)",
   };
+
+  const CATEGORY_DESCRIPTIONS: Record<string, string> = {
+    tutorials:
+      "Step-by-step Reddit video downloader tutorials. Learn to save Reddit videos with sound on iPhone, Android, and PC using our free HD MP4 downloader.",
+    tools:
+      "Browse Reddit downloader tools and helper apps. Free online tools to save Reddit videos, GIFs, galleries, and audio as MP4 or MP3 files.",
+    guides:
+      "In-depth Reddit saving guides. Master the Reddit video downloader — format conversion, device-specific tricks, and archiving best practices.",
+    troubleshooting:
+      "Reddit video downloader troubleshooting. Fix silent videos, failed merges, broken gallery downloads, and other common Reddit saving issues.",
+  };
+
+  const title = CATEGORY_TITLES[slug] || `Reddit Video Downloader ${categoryName} (2026)`;
+  const description = CATEGORY_DESCRIPTIONS[slug] ||
+    `Browse all articles, guides, and tools in our ${categoryName} category on RDT Video Downloader. Learn how to save Reddit videos with sound.`;
+
+  return pageSEO({
+    title: `${title} | RDT Video Downloader`,
+    description,
+    path: `/blog/category/${slug}`,
+  });
 }
 
 export default async function CategoryPage({ params }: CategoryPageParams) {

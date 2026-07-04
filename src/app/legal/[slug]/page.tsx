@@ -6,26 +6,36 @@ import { Shield, Clock, FileText, ArrowLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 import { Metadata } from 'next';
+import { pageSEO } from '@/lib/seo';
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  try {
-    const post = await getPostData(params.slug, 'legal');
-    return {
-      title: `${post.title} - RDT Video Downloader`,
-      description: `Official ${post.title} for RDT Video Downloader. Read our policies regarding media extraction and user privacy.`,
-      alternates: {
-        canonical: `https://rdtvideodownloader.com/legal/${params.slug}`,
-        languages: {
-          'en': `https://rdtvideodownloader.com/legal/${params.slug}`,
-          'x-default': `https://rdtvideodownloader.com/legal/${params.slug}`,
-        },
-      },
-    };
-  } catch {
-    return {
-      title: 'Legal Policy',
-    };
-  }
+  const slug = params.slug;
+
+  const LEGAL_TITLES: Record<string, { title: string; description: string }> = {
+    dmca: {
+      title: "DMCA Notice — Copyright Policy | RDT Video Downloader",
+      description: "Read RDT Video Downloader's DMCA policy. Learn how to file a takedown notice for copyrighted content and our process for handling infringement claims.",
+    },
+    "privacy-policy": {
+      title: "Privacy Policy — How We Handle Your Data | RDT Video Downloader",
+      description: "Our privacy policy explains what data we collect (none), how we process requests (real-time, no logs), and your rights. We don't store URLs, files, or personal identifiers.",
+    },
+    "terms-of-service": {
+      title: "Terms of Service — Usage Agreement | RDT Video Downloader",
+      description: "Review the terms of service for using RDT Video Downloader. Acceptable use, intellectual property, fair use guidelines, and limitation of liability.",
+    },
+  };
+
+  const meta = LEGAL_TITLES[slug] || {
+    title: `Legal — ${slug} | RDT Video Downloader`,
+    description: "RDT Video Downloader legal document.",
+  };
+
+  return pageSEO({
+    title: meta.title,
+    description: meta.description,
+    path: `/legal/${slug}`,
+  });
 }
 
 export async function generateStaticParams() {

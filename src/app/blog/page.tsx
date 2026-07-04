@@ -4,45 +4,18 @@ import { getSortedPostsData } from '@/lib/blog';
 import BlogHero from '@/components/BlogHero';
 import BlogList from '@/components/BlogList';
 import JsonLd from '@/components/JsonLd';
+import { pageSEO } from '@/lib/seo';
 import { Metadata } from 'next';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rdtvideodownloader.com';
-
-export const metadata: Metadata = {
-  title: "Blog",
-  description: "Guides, tips, and updates about downloading Reddit videos, audio, and images.",
-  alternates: {
-    canonical: `${siteUrl}/blog`,
-    languages: {
-      'en': `${siteUrl}/blog`,
-      'x-default': `${siteUrl}/blog`,
-    },
-  },
-  openGraph: {
-    title: "Blog | RDT Video Downloader",
-    description: "Guides, tips, and updates about downloading Reddit videos, audio, and images.",
-    url: `${siteUrl}/blog`,
-    type: "website",
-    siteName: "RDT Video Downloader",
-    images: [
-      {
-        url: `${siteUrl}/og-image.jpg`,
-        width: 1200,
-        height: 630,
-        alt: "Blog | RDT Video Downloader",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary",
-    title: "Blog | RDT Video Downloader",
-    description: "Guides, tips, and updates about downloading Reddit videos, audio, and images.",
-    images: [`${siteUrl}/og-image.jpg`],
-  },
-};
+export const metadata: Metadata = pageSEO({
+  title: "Blog — Reddit Saving Tips, Guides & Tutorials | RDT",
+  description: "Weekly guides on downloading Reddit videos with sound, saving Reddit GIFs as MP4, archiving gallery posts, and fixing silent video issues. Step-by-step tutorials for iPhone, Android, and PC.",
+  path: "/blog",
+});
 
 export default async function BlogPage() {
   const posts = await getSortedPostsData('blog');
+  const siteUrl = 'https://rdtvideodownloader.com';
 
   const blogSchema = {
     "@context": "https://schema.org",
