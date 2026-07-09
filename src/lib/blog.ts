@@ -32,6 +32,25 @@ export function decodeHtml(html: string): string {
 }
 
 /**
+ * Custom fetch with timeout to prevent Vercel build hangs when headless WordPress is slow.
+ */
+async function fetchWithTimeout(url: string, options: RequestInit = {}, timeoutMs = 8000): Promise<Response> {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+    clearTimeout(id);
+    return response;
+  } catch (error) {
+    clearTimeout(id);
+    throw error;
+  }
+}
+
+/**
  * Extracts the featured image from a WordPress post, supporting fallback custom keys
  * and a high-quality colorful gradient placeholder from Unsplash.
  */
@@ -160,9 +179,9 @@ export async function getSortedPostsData(category: 'blog' | 'legal' = 'blog'): P
   }
   
   try {
-    const res = await fetch('https://admin.rdtvideodownloader.com/wp-json/wp/v2/posts?_embed&per_page=100', {
+    const res = await fetchWithTimeout('https://admin.rdtvideodownloader.com/wp-json/wp/v2/posts?_embed&per_page=100', {
       next: { revalidate: 10 } // Incremental Static Regeneration (10 seconds)
-    });
+    }, 8000);
     
     if (!res.ok) {
       console.error(`Failed to fetch WordPress posts: ${res.status} ${res.statusText}`);
@@ -178,9 +197,9 @@ export async function getSortedPostsData(category: 'blog' | 'legal' = 'blog'): P
       let rankMathHead: string | null = null;
       if (wpPost.link) {
         try {
-          const rmRes = await fetch(`https://admin.rdtvideodownloader.com/wp-json/rankmath/v1/getHead?url=${encodeURIComponent(wpPost.link)}`, {
+          const rmRes = await fetchWithTimeout(`https://admin.rdtvideodownloader.com/wp-json/rankmath/v1/getHead?url=${encodeURIComponent(wpPost.link)}`, {
             next: { revalidate: 10 }
-          });
+          }, 4000);
           if (rmRes.ok) {
             const rmData = await rmRes.json();
             if (rmData.success && rmData.head) {
@@ -213,9 +232,9 @@ export async function getPostData(slug: string, category: 'blog' | 'legal' = 'bl
     return getLocalPost(slug, 'legal');
   }
   
-  const res = await fetch(`https://admin.rdtvideodownloader.com/wp-json/wp/v2/posts?_embed&slug=${slug}`, {
+  const res = await fetchWithTimeout(`https://admin.rdtvideodownloader.com/wp-json/wp/v2/posts?_embed&slug=${slug}`, {
     next: { revalidate: 10 } // Incremental Static Regeneration (10 seconds)
-  });
+  }, 8000);
   
   if (!res.ok) {
     throw new Error(`Failed to fetch WordPress post: ${res.status} ${res.statusText}`);
@@ -230,9 +249,9 @@ export async function getPostData(slug: string, category: 'blog' | 'legal' = 'bl
   let rankMathHead: string | null = null;
   if (wpPost.link) {
     try {
-      const rmRes = await fetch(`https://admin.rdtvideodownloader.com/wp-json/rankmath/v1/getHead?url=${encodeURIComponent(wpPost.link)}`, {
+      const rmRes = await fetchWithTimeout(`https://admin.rdtvideodownloader.com/wp-json/rankmath/v1/getHead?url=${encodeURIComponent(wpPost.link)}`, {
         next: { revalidate: 10 }
-      });
+      }, 4000);
       if (rmRes.ok) {
         const rmData = await rmRes.json();
         if (rmData.success && rmData.head) {
