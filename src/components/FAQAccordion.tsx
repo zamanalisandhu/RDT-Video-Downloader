@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronRight } from 'lucide-react';
 
 interface FAQItemProps {
   question: string;
@@ -13,50 +12,42 @@ export function FAQItem({ question, answer }: FAQItemProps) {
 
   return (
     <div 
-      className={`border rounded-2xl transition-all duration-300 overflow-hidden mb-3.5 ${
+      className={`wp-block-kadence-pane border rounded-[16px] transition-all duration-300 overflow-hidden mb-3.5 bg-white ${
         isOpen 
-          ? 'border-brand-orange bg-gradient-to-br from-white to-orange-50/15 shadow-md shadow-brand-orange/5' 
-          : 'border-slate-200 bg-white hover:border-brand-orange/30 hover:shadow-[0_6px_20px_rgba(255,69,0,0.02)]'
+          ? 'border-brand-orange shadow-md shadow-brand-orange/5' 
+          : 'border-slate-200 hover:border-slate-300 hover:shadow-sm'
       }`}
     >
       <dt>
         <button
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
-          className="w-full flex items-center justify-between p-4 sm:p-5 text-left cursor-pointer select-none focus:outline-none"
+          className="kt-blocks-accordion-header w-full flex items-center justify-between p-5 text-left cursor-pointer select-none focus:outline-none"
         >
-          <span className="flex items-center gap-3">
-            <span className={`text-[10px] font-black tracking-wider uppercase px-2 py-0.5 rounded-md shrink-0 transition-colors duration-300 ${
-              isOpen ? 'bg-brand-orange text-white' : 'bg-slate-100 text-slate-500'
-            }`}>Q</span>
-            <span className={`text-[15px] sm:text-[17px] font-extrabold transition-colors duration-300 pr-4 ${
-              isOpen ? 'text-brand-orange' : 'text-slate-900'
-            }`}>
-              {question}
-            </span>
+          <span className="text-[17px] font-semibold text-slate-900 pr-4">
+            {question}
           </span>
-          <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border flex items-center justify-center transition-all duration-300 shrink-0 ${
-            isOpen 
-              ? 'bg-brand-orange/10 border-brand-orange/20 text-brand-orange rotate-90' 
-              : 'bg-slate-50 border-slate-100 text-slate-400'
-          }`}>
-            <ChevronRight size={16} />
+          <div 
+            className={`kt-blocks-accordion-icon-trigger relative w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
+              isOpen ? 'bg-brand-orange text-white rotate-45' : 'bg-slate-100 text-slate-500'
+            }`}
+          >
+            {/* Horizontal line of plus */}
+            <span className={`absolute w-3 h-0.5 rounded transition-colors duration-300 ${isOpen ? 'bg-white' : 'bg-slate-600'}`} />
+            {/* Vertical line of plus */}
+            <span className={`absolute w-0.5 h-3 rounded transition-colors duration-300 ${isOpen ? 'bg-white' : 'bg-slate-600'}`} />
           </div>
         </button>
       </dt>
       <dd 
-        className={`grid transition-all duration-300 ease-in-out ${
-          isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-        }`}
+        className="kt-accordion-panel transition-all duration-300 ease-in-out overflow-hidden"
+        style={{
+          maxHeight: isOpen ? '500px' : '0px',
+          opacity: isOpen ? 1 : 0,
+        }}
       >
-        <div className="overflow-hidden">
-          <div className="px-5 pb-5 pt-0 border-t border-slate-100/50">
-            <div className="pl-4 border-l-2 border-brand-orange/50 mt-4 mb-1">
-              <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
-                {answer}
-              </p>
-            </div>
-          </div>
+        <div className="px-6 pb-5 pt-0 text-slate-600 leading-relaxed text-[15px]">
+          {answer}
         </div>
       </dd>
     </div>

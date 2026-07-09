@@ -284,10 +284,10 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
         <main className="min-h-screen flex flex-col flex-grow bg-white">
           
           <article className="flex-grow py-12 bg-white">
-            <div className="container mx-auto px-4 max-w-3xl">
+            <div className="container mx-auto px-4 max-w-[850px]">
               
               {/* Back to Guides */}
-              <div className="mb-4">
+              <div className="mb-6">
                 <Link 
                   href="/blog" 
                   className="text-brand-orange hover:text-brand-orange-light font-bold text-sm inline-flex items-center gap-1.5 transition-colors group"
@@ -297,34 +297,38 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
               </div>
 
               {/* Category Badge */}
-              <div className="text-xs font-bold uppercase tracking-wider text-brand-orange mb-3">
-                {post.categoryName || 'Blog'}
+              <div className="text-center mb-4">
+                <span className="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-orange bg-brand-orange/5 border border-brand-orange/10 rounded-full">
+                  {post.categoryName || 'Blog'}
+                </span>
               </div>
               
               {/* Title */}
-              <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight mb-4 tracking-tight">
+              <h1 
+                className="text-center font-black text-slate-900 leading-[1.25] tracking-tight mb-5 text-[32px] md:text-[2.6rem]"
+                style={{ fontFamily: 'var(--font-title)' }}
+              >
                 {post.title}
               </h1>
 
               {/* Metadata */}
-              <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-slate-400 mb-6 uppercase tracking-wider">
-                <time dateTime={post.date}>{post.date}</time>
-                <span>·</span>
+              <div className="flex items-center justify-center flex-wrap gap-2.5 text-[13px] font-medium text-slate-500 mb-8 tracking-normal">
                 <span>By {authorSchema.name}</span>
-                <span>·</span>
+                <span className="text-slate-300">•</span>
+                <time dateTime={post.date}>{post.date}</time>
+                <span className="text-slate-300">•</span>
                 <span>{post.readingTime || 5} min read</span>
               </div>
 
               {/* Featured Image */}
               {post.image && (
-                <div className="aspect-[800/419] w-full overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 mb-8">
+                <div className="blog-image-wrapper aspect-[1200/628] w-full overflow-hidden rounded-[16px] border border-slate-100 bg-slate-50 shadow-xl shadow-slate-200/40 mb-10">
                   <img 
                     src={post.image} 
                     alt={post.title} 
-                    width={800}
-                    height={419}
-                    style={{ aspectRatio: '800/419' }}
-                    className="object-cover w-full h-auto"
+                    width={1200}
+                    height={628}
+                    className="object-cover w-full h-full"
                     loading="eager"
                     fetchPriority="high"
                   />
@@ -337,21 +341,27 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
                   prose-headings:text-slate-900 prose-headings:font-bold prose-headings:tracking-tight
                   prose-h2:text-2xl prose-h2:font-bold prose-h2:mt-10 prose-h2:mb-4
                   prose-h3:text-xl prose-h3:font-bold prose-h3:mt-8 prose-h3:mb-3
-                  prose-p:text-slate-600 prose-p:leading-relaxed prose-p:text-[16px] prose-p:mb-5
+                  prose-p:text-slate-600 prose-p:leading-[1.65] prose-p:text-[1.05rem] prose-p:mb-6
                   prose-a:text-brand-orange prose-a:no-underline hover:prose-a:underline font-semibold
                   prose-strong:text-slate-900 prose-strong:font-bold
                   prose-img:rounded-2xl prose-img:border prose-img:border-slate-100 prose-img:my-6
                   prose-blockquote:border-l-4 prose-blockquote:border-brand-orange prose-blockquote:bg-slate-50/50 
                   prose-blockquote:px-5 prose-blockquote:py-4 prose-blockquote:rounded-r-xl prose-blockquote:not-italic prose-blockquote:text-slate-600
-                  prose-li:text-slate-600 prose-li:text-[16px] prose-li:leading-relaxed"
+                  prose-li:text-slate-600 prose-li:text-[1.05rem] prose-li:leading-[1.65]"
+                style={{ fontFamily: 'var(--font-sans)' }}
                 dangerouslySetInnerHTML={{ __html: finalContentHtml }}
               />
 
               {/* Injected FAQ Section visually at the end of content if present */}
               {hasFaqs && (
-                <div className="faq-section mt-10 pt-8 border-t border-slate-100">
-                  <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-8 tracking-tight">Frequently Asked Questions</h2>
-                  <dl className="max-w-3xl mx-auto space-y-3">
+                <div className="faq-section mt-12 pt-10 border-t border-slate-100">
+                  <h2 
+                    className="text-2xl md:text-3xl font-bold text-slate-900 mb-8 tracking-tight"
+                    style={{ fontFamily: 'var(--font-title)' }}
+                  >
+                    Frequently Asked Questions
+                  </h2>
+                  <dl className="space-y-4">
                     {combinedFaqs.map((faq, index) => (
                       <FAQItem key={index} question={faq.question} answer={faq.answer} />
                     ))}
@@ -423,28 +433,53 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
                 </div>
               )}
 
-              {/* Related Guides */}
+              {/* Related Guides / Recommended Articles Footer Grid */}
               {relatedGuides.length > 0 && (
-                <div className="mt-14 pt-8 border-t border-slate-100">
-                  <h3 className="text-xl font-bold text-slate-900 mb-6">Related Guides</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="mt-16 pt-10 border-t border-slate-100">
+                  <h3 
+                    className="text-2xl font-bold text-slate-900 mb-8 tracking-tight"
+                    style={{ fontFamily: 'var(--font-title)' }}
+                  >
+                    Recommended Guides
+                  </h3>
+                  <div className="blog-grid grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {relatedGuides.map((guide) => (
                       <Link 
                         key={guide.slug}
                         href={`/${guide.slug}`}
-                        className="group block bg-white border border-slate-100 rounded-2xl p-5 hover:border-brand-orange/20 hover:shadow-lg hover:shadow-slate-100/50 transition-all text-left"
+                        className="blog-card group flex flex-col bg-white border border-slate-200/60 rounded-2xl overflow-hidden hover:border-brand-orange/20 hover:shadow-xl hover:shadow-slate-100/40 transition-all duration-300 text-left"
                       >
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-brand-orange/10 text-brand-orange">
-                            {guide.categoryName || 'Guide'}
-                          </span>
-                          <span className="text-[11px] font-medium text-slate-400">{guide.date}</span>
-                        </div>
-                        <h4 className="text-base font-bold text-slate-900 group-hover:text-brand-orange transition-colors mb-2 line-clamp-2 leading-snug">
-                          {guide.title}
-                        </h4>
-                        <div className="flex items-center gap-1.5 text-slate-500 font-bold text-xs mt-3">
-                          Read Guide <ArrowRight className="group-hover:translate-x-0.5 transition-transform" size={14} />
+                        {guide.image && (
+                          <div className="blog-image-wrapper aspect-[1200/628] w-full overflow-hidden bg-slate-50 border-b border-slate-100">
+                            <img 
+                              src={guide.image} 
+                              alt={guide.title} 
+                              className="object-cover w-full h-full group-hover:scale-[1.03] transition-transform duration-500 ease-out"
+                              width={400}
+                              height={209}
+                              loading="lazy"
+                            />
+                          </div>
+                        )}
+                        <div className="p-5 flex flex-col flex-grow">
+                          <div className="flex items-center gap-2 mb-2.5">
+                            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-brand-orange/5 text-brand-orange border border-brand-orange/10">
+                              {guide.categoryName || 'Guide'}
+                            </span>
+                            <span className="text-[11px] font-medium text-slate-400">{guide.date}</span>
+                          </div>
+                          <h4 
+                            className="text-base font-bold text-slate-900 group-hover:text-brand-orange transition-colors mb-2 line-clamp-2 leading-snug"
+                            style={{ fontFamily: 'var(--font-title)' }}
+                          >
+                            {guide.title}
+                          </h4>
+                          <p className="text-slate-500 text-[13px] leading-relaxed line-clamp-3 mb-4 mt-auto">
+                            {guide.excerpt}
+                          </p>
+                          <div className="flex items-center gap-1.5 text-brand-orange font-bold text-xs mt-3">
+                            Read Guide <ArrowRight className="group-hover:translate-x-0.5 transition-transform" size={14} />
+                          </div>
                         </div>
                       </Link>
                     ))}
