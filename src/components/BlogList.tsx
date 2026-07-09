@@ -22,7 +22,7 @@ export default function BlogList({ posts }: BlogListProps) {
   }
 
   return (
-    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 list-none">
+    <ul className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 max-w-5xl mx-auto list-none">
       {posts.map((post, index) => (
         <li 
           key={post.slug} 
@@ -43,8 +43,8 @@ export default function BlogList({ posts }: BlogListProps) {
                   <img 
                     src={post.image} 
                     alt={post.title} 
-                    width={600}
-                    height={314}
+                    width={800}
+                    height={419}
                     className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" 
                     loading="lazy"
                     onError={(e) => {
@@ -58,11 +58,11 @@ export default function BlogList({ posts }: BlogListProps) {
                   {post.date} &nbsp;•&nbsp; {post.readingTime || 5} min read
                 </div>
                 
-                <h2 className="text-[20px] md:text-[22px] font-black text-slate-900 mb-3 group-hover:text-brand-orange transition-colors leading-snug">
+                <h2 className="text-[22px] md:text-[24px] font-black text-slate-900 mb-3 group-hover:text-brand-orange transition-colors leading-snug">
                   {post.title}
                 </h2>
                 
-                <p className="text-slate-500 text-[14px] md:text-[15px] line-clamp-3 mb-6 leading-relaxed max-w-sm">
+                <p className="text-slate-500 text-[14px] md:text-[15px] line-clamp-3 mb-6 leading-relaxed max-w-md">
                   {post.excerpt}
                 </p>
                 
