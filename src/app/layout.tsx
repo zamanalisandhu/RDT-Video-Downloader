@@ -18,7 +18,6 @@ export const metadata: Metadata = {
     template: "%s | RDT Video Downloader"
   },
   description: "Download Reddit videos with audio in 1080p HD. Free MP4 downloader for videos, GIFs & galleries. No watermark, no signup. Works on iPhone, Android, PC.",
-  keywords: ["reddit video downloader", "reddit downloader with audio", "save reddit video", "reddit mp4", "reddit gif downloader", "reddit image downloader", "reddit gallery downloader"],
   authors: [{ name: "RDT Video Downloader" }],
   creator: "RDT Video Downloader",
   publisher: "RDT Video Downloader",

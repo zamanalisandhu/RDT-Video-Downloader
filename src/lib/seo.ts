@@ -12,6 +12,7 @@ interface PageSEOOptions {
   publishedTime?: string;          // for articles (ISO date)
   modifiedTime?: string;           // for articles (ISO date)
   authors?: string[];              // for articles
+  keywords?: string[];             // optional keywords
 }
 
 export function pageSEO(options: PageSEOOptions): Metadata {
@@ -24,6 +25,7 @@ export function pageSEO(options: PageSEOOptions): Metadata {
     publishedTime,
     modifiedTime,
     authors,
+    keywords,
   } = options;
 
   // Normalize path — ensure leading slash, no trailing slash (except root)
@@ -37,6 +39,7 @@ export function pageSEO(options: PageSEOOptions): Metadata {
       absolute: title,
     },
     description,
+    keywords,
     alternates: {
       canonical: fullUrl,
       languages: {
@@ -80,6 +83,15 @@ export function homepageSEO(title: string, description: string): Metadata {
     description,
     path: '/',
     ogType: 'website',
+    keywords: [
+      "reddit video downloader",
+      "reddit downloader with audio",
+      "save reddit video",
+      "reddit mp4",
+      "reddit gif downloader",
+      "reddit image downloader",
+      "reddit gallery downloader"
+    ]
   });
 }
 
