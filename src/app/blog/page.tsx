@@ -53,7 +53,7 @@ export default async function BlogPage() {
         <BlogHero />
         
         <div className="flex-grow pb-16 pt-4">
-          <div className="container mx-auto px-4 max-w-6xl">
+          <div className="container mx-auto px-4 max-w-[1200px]">
             <BlogList posts={posts} />
           </div>
         </div>

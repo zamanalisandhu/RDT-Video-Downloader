@@ -86,13 +86,13 @@ export default async function CategoryPage({ params }: CategoryPageParams) {
               Category Archive
             </span>
             <h1 
-              className="text-[32px] md:text-[40px] font-black text-slate-900 mb-4 tracking-tight leading-tight"
+              className="section-title text-[32px] md:text-[40px] font-black text-slate-900 mb-4 tracking-tight leading-tight"
               style={{ fontFamily: 'var(--font-title)' }}
             >
               {categoryName}
             </h1>
             <p 
-              className="text-[15px] md:text-[16px] text-slate-500 max-w-2xl mx-auto leading-relaxed"
+              className="section-subtitle text-[15px] md:text-[16px] text-slate-500 max-w-2xl mx-auto leading-relaxed mb-12"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               Discover expert tutorials, tools, and troubleshooting guides focused on {categoryName.toLowerCase()} to help you download and manage Reddit media files effortlessly.
@@ -102,7 +102,7 @@ export default async function CategoryPage({ params }: CategoryPageParams) {
 
         {/* Category Articles Grid */}
         <section className="flex-grow pb-16 pt-4">
-          <div className="container mx-auto px-4 max-w-6xl">
+          <div className="container mx-auto px-4 max-w-[1200px]">
             <BlogList posts={filteredPosts} />
           </div>
         </section>
