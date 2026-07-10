@@ -2,8 +2,7 @@ import { MetadataRoute } from 'next';
 import { getSortedPostsData as getBlogPosts } from '@/lib/blog';
 import { getSortedPostsData as getLegalPosts } from '@/lib/markdown';
 
-export const dynamic = 'force-static';
-export const revalidate = 3600; // Revalidate every hour
+export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rdtvideodownloader.com';
