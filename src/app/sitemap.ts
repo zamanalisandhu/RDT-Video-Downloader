@@ -17,16 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/blog`, lastModified: currentDate, changeFrequency: 'daily', priority: 0.8 },
   ];
 
-  // 2. Blog Categories
-  const categories = ['tutorials', 'tools', 'guides', 'troubleshooting'];
-  const categoryRoutes: MetadataRoute.Sitemap = categories.map((cat) => ({
-    url: `${baseUrl}/blog/category/${cat}`,
-    lastModified: currentDate,
-    changeFrequency: 'daily',
-    priority: 0.8,
-  }));
-
-  // 3. WordPress Blog Posts
+  // 2. WordPress Blog Posts
   let blogRoutes: MetadataRoute.Sitemap = [];
   try {
     const blogPosts = await getBlogPosts('blog');
@@ -44,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error generating blog sitemap routes:', error);
   }
 
-  // 4. Legal Pages (Local markdown)
+  // 3. Legal Pages (Local markdown)
   let legalRoutes: MetadataRoute.Sitemap = [];
   try {
     const legalPosts = getLegalPosts('legal');
@@ -62,5 +53,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error generating legal sitemap routes:', error);
   }
 
-  return [...mainRoutes, ...categoryRoutes, ...blogRoutes, ...legalRoutes];
+  return [...mainRoutes, ...blogRoutes, ...legalRoutes];
 }
