@@ -69,7 +69,14 @@ const nextConfig = {
   
   // Dynamic 301 redirects to preserve SEO juice
   async redirects() {
-    return getBlogRedirects();
+    return [
+      ...getBlogRedirects(),
+      {
+        source: '/blog/:slug',
+        destination: '/:slug',
+        permanent: true,
+      },
+    ];
   },
   
   // Aggressive caching for static assets
