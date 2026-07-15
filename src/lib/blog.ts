@@ -193,27 +193,11 @@ export async function getSortedPostsData(category: 'blog' | 'legal' = 'blog'): P
       return [];
     }
     
-    const postsWithRankMath = await Promise.all(wpPosts.map(async (wpPost) => {
-      let rankMathHead: string | null = null;
-      if (wpPost.link) {
-        try {
-          const rmRes = await fetchWithTimeout(`https://admin.rdtvideodownloader.com/wp-json/rankmath/v1/getHead?url=${encodeURIComponent(wpPost.link)}`, {
-            next: { revalidate: 10 }
-          }, 4000);
-          if (rmRes.ok) {
-            const rmData = await rmRes.json();
-            if (rmData.success && rmData.head) {
-              rankMathHead = rmData.head;
-            }
-          }
-        } catch (e) {
-          console.error(`Error fetching RankMath head for post ${wpPost.id}:`, e);
-        }
-      }
-      return mapWpPostToPostData(wpPost, rankMathHead);
-    }));
-
-    return postsWithRankMath.sort((a, b) => {
+    const mappedPosts = wpPosts.map((wpPost) => {
+      return mapWpPostToPostData(wpPost, null);
+    });
+ 
+    return mappedPosts.sort((a, b) => {
       if (a.date < b.date) return 1;
       if (a.date > b.date) return -1;
       return 0;

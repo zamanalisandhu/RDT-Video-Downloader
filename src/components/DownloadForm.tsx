@@ -59,6 +59,7 @@ export default function DownloadForm() {
         setCurrentStep('idle');
         return;
       }
+
       setInfo(data);
       toast.success('Video found! Choose your quality below.');
       setCurrentStep('idle');
@@ -282,17 +283,77 @@ export default function DownloadForm() {
           className="relative group mt-6"
         >
           {/* Decorative gradient glow */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-green-400/10 via-emerald-500/10 to-green-400/10 rounded-[2rem] blur-xl opacity-20 transition duration-1000"></div>
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/5 via-green-500/5 to-emerald-500/5 rounded-[2rem] blur-xl opacity-30 pointer-events-none"></div>
 
-          <div className="relative bg-white/80 backdrop-blur-xl border border-white rounded-[2rem] p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] space-y-6">
-            <div className="flex items-center gap-3 text-sm font-bold text-emerald-600 bg-emerald-50 w-fit px-4 py-1.5 rounded-full border border-emerald-100">
-              <CheckCircle2 size={16} />
-              Media processed successfully
+          <div className="relative bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.03)] space-y-6">
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-emerald-600 bg-emerald-50/70 w-fit px-3 py-1.5 rounded-full border border-emerald-100">
+              <CheckCircle2 size={14} className="text-emerald-500" />
+              <span>Media ready to download</span>
             </div>
 
             <MediaDisplay info={info} />
+
+            {/* Gallery Image Grid */}
+            {info.type === 'gallery' && info.images && info.images.length > 0 && (
+              <div className="space-y-3 border-t border-slate-100 pt-4">
+                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider text-left">Gallery Images ({info.images.length})</h4>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {info.images.map((img, idx) => (
+                    <div key={idx} className="relative group/img bg-slate-50 border border-slate-100 rounded-xl overflow-hidden aspect-square">
+                      <img 
+                        src={img.url} 
+                        alt={`Gallery image ${idx + 1}`} 
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover/img:scale-105"
+                        loading="lazy"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center p-2">
+                        <a 
+                          href={img.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 py-1.5 bg-white text-slate-900 rounded-lg text-[11px] font-bold shadow-md hover:bg-slate-100 transition-all flex items-center gap-1"
+                        >
+                          <Download size={10} />
+                          <span>View</span>
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Multiple Video Formats Selection */}
+            {info.formats && info.formats.length > 1 && (
+              <div className="space-y-3 border-t border-slate-100 pt-4">
+                <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider text-left">All Available Qualities</h4>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {info.formats
+                    .filter((f) => f.quality)
+                    .map((format) => {
+                      const isDownloading = downloadingQuality === format.quality;
+                      return (
+                        <button
+                          key={format.quality}
+                          onClick={() => handleDownload(format.height || 720, format.quality)}
+                          disabled={downloadingQuality !== null}
+                          className="flex items-center justify-center gap-2 px-3.5 py-3 bg-slate-50 hover:bg-brand-orange/5 border border-slate-200/60 hover:border-brand-orange/30 text-slate-700 hover:text-brand-orange rounded-xl text-xs font-bold transition-all disabled:opacity-50"
+                        >
+                          {isDownloading ? (
+                            <Loader2 className="animate-spin text-brand-orange" size={12} />
+                          ) : (
+                            <Download size={12} className="text-slate-400 group-hover:text-brand-orange transition-colors" />
+                          )}
+                          <span>{format.quality}</span>
+                        </button>
+                      );
+                    })}
+                </div>
+              </div>
+            )}
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
               <button
                 onClick={() => {
                   const bestFormat = info.formats
@@ -309,14 +370,22 @@ export default function DownloadForm() {
                   }
                 }}
                 disabled={downloadingQuality !== null}
-                className="relative overflow-hidden flex items-center justify-center gap-3 py-5 px-8 bg-brand-orange text-white rounded-2xl font-bold text-xl hover:bg-brand-orange-dark transition-all shadow-xl shadow-brand-orange/20 active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100 group/dl"
+                className="relative overflow-hidden flex items-center justify-center gap-2.5 py-4 px-8 bg-brand-orange text-white rounded-xl font-extrabold text-base hover:bg-brand-orange-light transition-all shadow-md shadow-brand-orange/15 hover:shadow-brand-orange/25 active:scale-[0.98] disabled:opacity-75 disabled:active:scale-100 group/dl"
               >
                 {downloadingQuality ? (
-                  <Loader2 className="animate-spin" size={24} />
+                  <Loader2 className="animate-spin" size={18} />
                 ) : (
-                  <Download size={24} className="group-hover/dl:translate-y-1 transition-transform" />
+                  <Download size={18} className="group-hover/dl:translate-y-0.5 transition-transform" />
                 )}
-                <span>{downloadingQuality ? 'Processing...' : 'Download Video'}</span>
+                <span>
+                  {downloadingQuality 
+                    ? 'Processing...' 
+                    : info.type === 'image' 
+                      ? 'Download Image' 
+                      : info.type === 'gallery'
+                        ? 'Download Main Image'
+                        : 'Download Best Quality'}
+                </span>
                 
                 {/* Glossy overlay effect */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 -translate-x-full group-hover/dl:translate-x-full transition-transform duration-1000"></div>
@@ -324,9 +393,9 @@ export default function DownloadForm() {
 
               <button
                 onClick={handleClear}
-                className="flex items-center justify-center gap-3 py-5 px-8 bg-slate-50 text-slate-600 rounded-2xl font-bold text-xl hover:bg-slate-100 hover:text-slate-900 transition-all border border-slate-200 active:scale-[0.98]"
+                className="flex items-center justify-center gap-2.5 py-4 px-8 bg-slate-50 text-slate-600 rounded-xl font-bold text-base hover:bg-slate-100 hover:text-slate-800 transition-all border border-slate-200/60 active:scale-[0.98]"
               >
-                <RotateCcw size={24} className="hover:rotate-180 transition-transform duration-500" />
+                <RotateCcw size={18} className="hover:rotate-180 transition-transform duration-500" />
                 <span>Download Another</span>
               </button>
             </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, ArrowRightLeft, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Zap, Layers } from 'lucide-react';
 import LiveCounter from '@/components/LiveCounter';
 import HeroBadge from '@/components/HeroBadge';
 import DownloadForm from '@/components/DownloadForm';
@@ -40,8 +40,8 @@ export default function Hero() {
       />
 
       {/* Decorative Glowing Orbs */}
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-gradient-to-tr from-brand-orange/10 to-orange-400/5 rounded-full blur-[140px] pointer-events-none animate-pulse" style={{ animationDuration: '8s' }} />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[45%] h-[45%] bg-gradient-to-br from-indigo-500/5 to-purple-500/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-gradient-to-tr from-[#FF4500]/10 to-orange-400/5 rounded-full blur-[140px] pointer-events-none animate-pulse" style={{ animationDuration: '8s' }} />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[45%] h-[45%] bg-gradient-to-br from-[#0079D3]/8 to-[#0079D3]/3 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10 text-center">
         {/* Extension Promo Badge */}
@@ -80,8 +80,8 @@ export default function Hero() {
             transition={{ delay: 0.2 }}
             className="text-2xl sm:text-4xl md:text-[46px] font-black text-slate-900 tracking-tight leading-[1.1] mb-4"
           >
-            Reddit Video Downloader{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-orange-500 to-rose-500">
+            <span className="text-[#FF4500]">Reddit</span> Video Downloader{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF4500] via-[#ff5c1a] to-[#0079D3]">
               with Audio
             </span>
           </motion.h1>
@@ -121,27 +121,27 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-8 max-w-2xl mx-auto grid grid-cols-3 gap-4 border-t border-slate-100 pt-6"
+          className="mt-10 max-w-2xl mx-auto grid grid-cols-3 gap-6 border-t border-slate-100 pt-8"
         >
-          <div className="flex flex-col items-center text-center">
-            <div className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-100 flex items-center justify-center text-brand-orange mb-1.5">
-              <Zap size={15} className="fill-brand-orange/10" />
+          <div className="flex flex-col items-center text-center group/item">
+            <div className="w-10 h-10 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-brand-orange mb-2 transition-all duration-300 group-hover/item:scale-105 group-hover/item:shadow-sm">
+              <Zap size={16} className="fill-brand-orange/10" />
             </div>
-            <span className="text-xs font-bold text-slate-900">Ultra Fast Muxing</span>
+            <span className="text-xs font-bold text-slate-800">Ultra Fast Muxing</span>
           </div>
 
-          <div className="flex flex-col items-center text-center">
-            <div className="w-8 h-8 rounded-lg bg-green-50 border border-green-100 flex items-center justify-center text-green-600 mb-1.5">
-              <ShieldCheck size={15} className="fill-green-50/10" />
+          <div className="flex flex-col items-center text-center group/item">
+            <div className="w-10 h-10 rounded-xl bg-green-50 border border-green-100 flex items-center justify-center text-green-600 mb-2 transition-all duration-300 group-hover/item:scale-105 group-hover/item:shadow-sm">
+              <ShieldCheck size={16} className="fill-green-600/10" />
             </div>
-            <span className="text-xs font-bold text-slate-900">100% Secure & Clean</span>
+            <span className="text-xs font-bold text-slate-800">100% Secure & Clean</span>
           </div>
 
-          <div className="flex flex-col items-center text-center">
-            <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-1.5">
-              <ArrowRightLeft size={15} />
+          <div className="flex flex-col items-center text-center group/item">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-2 transition-all duration-300 group-hover/item:scale-105 group-hover/item:shadow-sm">
+              <Layers size={16} className="fill-blue-600/10" />
             </div>
-            <span className="text-xs font-bold text-slate-900">Separate Audio Mux</span>
+            <span className="text-xs font-bold text-slate-800">HD Audio Merge</span>
           </div>
         </motion.div>
 

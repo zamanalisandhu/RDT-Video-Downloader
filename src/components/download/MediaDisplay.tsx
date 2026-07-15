@@ -1,16 +1,32 @@
 'use client';
 
+import { useState } from 'react';
 import { VideoInfo } from '@/lib/api-client';
+import { Film } from 'lucide-react';
 
 interface MediaDisplayProps {
   info: VideoInfo;
 }
 
 export default function MediaDisplay({ info }: MediaDisplayProps) {
+  const [imgError, setImgError] = useState(false);
+
+  const isGenericLogo = info.thumbnail && (
+    info.thumbnail.includes('redditstatic.com') ||
+    info.thumbnail.includes('reddit.com/static') ||
+    info.thumbnail.includes('no_thumbnail') ||
+    info.thumbnail.includes('redditLogo') ||
+    info.thumbnail === 'default' ||
+    info.thumbnail === 'self' ||
+    info.thumbnail === 'nsfw' ||
+    info.thumbnail === 'image' ||
+    !info.thumbnail.startsWith('http')
+  );
+
   return (
     <div className="flex items-start gap-3">
       {/* Thumbnail */}
-      {info.thumbnail && (
+      {info.thumbnail && !isGenericLogo && !imgError ? (
         <div className="shrink-0 w-20 h-14 sm:w-28 sm:h-[4.5rem] relative rounded-lg overflow-hidden bg-slate-100 border border-slate-200">
           <img
             src={info.thumbnail}
@@ -20,7 +36,12 @@ export default function MediaDisplay({ info }: MediaDisplayProps) {
             width={112}
             height={72}
             loading="lazy"
+            onError={() => setImgError(true)}
           />
+        </div>
+      ) : (
+        <div className="shrink-0 w-20 h-14 sm:w-28 sm:h-[4.5rem] relative rounded-lg bg-slate-50 border border-slate-200/60 flex items-center justify-center text-slate-400">
+          <Film size={20} className="text-slate-400/80" />
         </div>
       )}
 
