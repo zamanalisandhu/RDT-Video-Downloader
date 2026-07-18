@@ -6,15 +6,10 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: '*',
-      allow: [
-        '/',
-        '/*?utm_',
-        '/*?ref=',
-      ],
+      allow: '/',
       disallow: [
-        '/api/', 
-        '/_next/', 
-        '/*?url=',     // Explicit protection for downloader queries
+        '/api/',
+        '/_next/',
       ],
     },
     sitemap: `${baseUrl}/sitemap.xml`,
