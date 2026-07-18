@@ -22,7 +22,8 @@ function cleanPostContent(html: string): string {
   if (!html) return '';
   return html
     .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/<style[\s\S]*?<\/style>/gi, '');
+    .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<script[\s\S]*?<\/script>/gi, '');
 }
 
 /**
