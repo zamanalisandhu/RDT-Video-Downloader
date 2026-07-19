@@ -1,4 +1,5 @@
 import JsonLd from './JsonLd';
+import { homepageFaqs } from '@/lib/faqs';
 
 export default function SchemaMarkup() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rdtvideodownloader.com';
@@ -41,88 +42,14 @@ export default function SchemaMarkup() {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How to download Reddit videos with sound?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Downloading Reddit videos with sound is easy with RDT Video Downloader. Simply copy the Reddit post URL, paste it into our tool, and click 'Download.' Our server automatically extracts the separate video and audio streams and merges them into a single high-quality MP4 file for you."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is RDT Video Downloader the best Reddit video downloader for 2026?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes! RDT Video Downloader is optimized for 2026, supporting the latest Reddit media formats, 1080p Full HD resolution, and multi-image galleries. We offer the fastest processing speeds and zero watermarks."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I use the Reddit video downloader for iPhone?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "On iPhone, open the Reddit app, tap 'Share' and 'Copy Link.' Open Safari, go to rdtvideodownloader.com, paste the link, and tap 'Download.' Once the video processes, tap the download button. The video will be saved to your 'Files' app or 'Downloads' folder."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does this work as a Reddit video downloader for Android?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Absolutely. On Android, copy the Reddit link and paste it into our website using Chrome or any mobile browser. You can save videos directly to your device's gallery in seconds."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I save Reddit videos to my camera roll?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. After downloading the video on your mobile device, locate it in your downloads folder. On iPhone, tap the share icon on the video and select 'Save Video' to move it to your camera roll. On Android, it typically appears in your gallery automatically."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there a free Reddit video downloader without watermarks?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, RDT Video Downloader is completely free and never adds watermarks to your downloads. You get the original, clean content exactly as it was posted on Reddit."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How does the Reddit gallery downloader work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "When you paste a link to a Reddit gallery post, our tool identifies all images in the collection. You can then choose to download them individually in high resolution or save the entire gallery as a single ZIP archive."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I use this as a Reddit GIF downloader?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Reddit GIFs (often hosted as .gifv or .mp4) can be downloaded easily. We convert them to standard MP4 format which offers better quality and smaller file sizes for easy sharing."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do you offer a Reddit to MP3 converter?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "If a Reddit post contains audio, our tool provides an option to download just the audio track. This is perfect for extracting podcasts, music, or interviews from Reddit posts."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Why is the Reddit video silent when I download it elsewhere?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Reddit stores audio and video separately. Most basic downloaders only grab the video file, resulting in no sound. RDT Video Downloader solves this by automatically merging the audio and video streams server-side."
-        }
+    "mainEntity": homepageFaqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
       }
-    ]
+    }))
   };
 
   const howToSchema = {

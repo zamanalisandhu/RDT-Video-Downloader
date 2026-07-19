@@ -15,7 +15,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/blog`, lastModified: currentDate, changeFrequency: 'daily', priority: 0.8 },
   ];
 
-  // 2. WordPress Blog Posts
+  // 2. Target Category Landing Pages
+  const categoryRoutes: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}/reddit-to-mp4`, lastModified: currentDate, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${baseUrl}/reddit-to-mp3`, lastModified: currentDate, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${baseUrl}/reddit-to-gif`, lastModified: currentDate, changeFrequency: 'daily', priority: 0.9 },
+    { url: `${baseUrl}/reddit-image-downloader`, lastModified: currentDate, changeFrequency: 'daily', priority: 0.9 },
+  ];
+
+  // 3. WordPress Blog Posts
   let blogRoutes: MetadataRoute.Sitemap = [];
   try {
     const blogPosts = await getBlogPosts('blog');
@@ -33,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error generating blog sitemap routes:', error);
   }
 
-  // 3. Legal Pages (Explicit definition guarantees 100% inclusion in Vercel production sitemap.xml)
+  // 4. Legal Pages
   const legalSlugs = ['privacy-policy', 'terms-of-service', 'dmca'];
   const legalRoutes: MetadataRoute.Sitemap = legalSlugs.map((slug) => ({
     url: `${baseUrl}/legal/${slug}`,
@@ -42,5 +50,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }));
 
-  return [...mainRoutes, ...blogRoutes, ...legalRoutes];
+  return [...mainRoutes, ...categoryRoutes, ...blogRoutes, ...legalRoutes];
 }

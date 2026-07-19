@@ -7,8 +7,8 @@ export default function Footer() {
   return (
     <footer className="bg-white pt-9 pb-7 border-t border-slate-200">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
-          <div className="max-w-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+          <div className="max-w-sm sm:col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4 group">
               <div className="relative w-8 h-8 rounded-lg overflow-hidden shadow-lg shadow-brand-orange/20 group-hover:scale-105 transition-transform">
                 <Image
@@ -20,7 +20,7 @@ export default function Footer() {
               </div>
               <span className="text-xl font-bold text-slate-900 tracking-tight">RDT Video Downloader</span>
             </Link>
-            <p className="text-slate-600 leading-relaxed">
+            <p className="text-slate-600 leading-relaxed text-sm">
               The fastest way to download videos, images, and GIFs from Reddit. 
               No watermarks, no limits.
             </p>
@@ -60,41 +60,43 @@ export default function Footer() {
                   loading="lazy"
                 />
               </a>
-
-              {/* ProjectHunt Badge */}
-              <a href="https://projecthunt.me" target="_blank" rel="nofollow noopener noreferrer" className="hover:opacity-90 transition-opacity">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" role="img" aria-label="Featured on: projecthunt.me" className="h-6 w-auto">
-                  <title>Featured on projecthunt.me</title>
-                  <g>
-                    <rect width="180" height="48" rx="4" fill="#FFFFFF" stroke="#E85C0D" strokeWidth="1.5"/>
-                  </g>
-                  <g transform="translate(10, 8)">
-                    <image href="https://projecthunt.me/favicon.ico" width="32" height="32"/>
-                  </g>
-                  <g fill="#666666" textAnchor="start" fontFamily="Verdana,Geneva,DejaVu Sans,sans-serif">
-                    <text x="50" y="22" fontSize="13" fontWeight="500">Featured on</text>
-                    <text x="50" y="38" fontSize="14" fontWeight="600" fill="#E85C0D">projecthunt.me</text>
-                  </g>
-                </svg>
-              </a>
-
-              {/* Startups.fm Badge */}
-              <a href="https://startups.fm/startups/rdt-video-downloader" target="_blank" rel="nofollow noopener noreferrer" className="hover:opacity-90 transition-opacity">
-                <img 
-                  src="https://startups.fm/badge/rdt-video-downloader" 
-                  alt="Featured on Startups.fm" 
-                  className="h-6 w-auto"
-                  width={84}
-                  height={24}
-                  loading="lazy"
-                />
-              </a>
             </div>
+          </div>
+
+          <div>
+            <p className="font-bold text-slate-900 mb-4 uppercase text-sm tracking-wider">Free Tools</p>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/reddit-to-mp4" className="text-slate-600 hover:text-brand-orange transition-colors">
+                  Reddit to MP4
+                </Link>
+              </li>
+              <li>
+                <Link href="/reddit-to-mp3" className="text-slate-600 hover:text-brand-orange transition-colors">
+                  Reddit to MP3
+                </Link>
+              </li>
+              <li>
+                <Link href="/reddit-to-gif" className="text-slate-600 hover:text-brand-orange transition-colors">
+                  Reddit GIF Downloader
+                </Link>
+              </li>
+              <li>
+                <Link href="/reddit-image-downloader" className="text-slate-600 hover:text-brand-orange transition-colors">
+                  Reddit Image Downloader
+                </Link>
+              </li>
+            </ul>
           </div>
           
           <div>
             <p className="font-bold text-slate-900 mb-4 uppercase text-sm tracking-wider">Navigation</p>
-            <ul className="space-y-2">
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/" className="text-slate-600 hover:text-brand-orange transition-colors">
+                  Home
+                </Link>
+              </li>
               <li>
                 <Link href="/about" className="text-slate-600 hover:text-brand-orange transition-colors">
                   About
@@ -115,7 +117,7 @@ export default function Footer() {
 
           <div>
             <p className="font-bold text-slate-900 mb-4 uppercase text-sm tracking-wider">Legal</p>
-            <ul className="space-y-2">
+            <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/legal/privacy-policy" className="text-slate-600 hover:text-brand-orange transition-colors">
                   Privacy Policy

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import ClientSideHelpers from "@/components/ClientSideHelpers";
 import CookieConsent from "@/components/CookieConsent";
@@ -69,11 +70,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://rdtapidownload.techiesline.workers.dev" />
         {process.env.NEXT_PUBLIC_GA_ID && <link rel="preconnect" href="https://www.googletagmanager.com" />}
         {process.env.NEXT_PUBLIC_CLARITY_ID && <link rel="preconnect" href="https://www.clarity.ms" />}
-        {/* Google AdSense */}
-        <script
+        {/* Google AdSense - Loaded non-blocking */}
+        <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8248447086167339"
           crossOrigin="anonymous"
+          strategy="afterInteractive"
         />
       </head>
       <body className={`${inter.className} antialiased bg-white text-slate-900`}>
@@ -82,8 +84,14 @@ export default function RootLayout({
         <ScrollToTop />
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} />
-            <script
+            <Script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script
+              id="gtag-init"
+              strategy="afterInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -99,7 +107,9 @@ export default function RootLayout({
           </>
         )}
         {process.env.NEXT_PUBLIC_CLARITY_ID && (
-          <script
+          <Script
+            id="clarity-init"
+            strategy="lazyOnload"
             dangerouslySetInnerHTML={{
               __html: `
                 (function(c,l,a,r,i,t,y){

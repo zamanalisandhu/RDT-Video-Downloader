@@ -27,7 +27,12 @@ const ChromeIcon = ({ className, size = 14, style }: { className?: string; size?
   </svg>
 );
 
-export default function Hero() {
+interface HeroProps {
+  title?: React.ReactNode;
+  subtitle?: string;
+}
+
+export default function Hero({ title, subtitle }: HeroProps = {}) {
   return (
     <section className="pt-10 pb-16 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
       {/* Premium Background Grid Pattern */}
@@ -80,10 +85,14 @@ export default function Hero() {
             transition={{ delay: 0.2 }}
             className="text-2xl sm:text-4xl md:text-[46px] font-black text-slate-900 tracking-tight leading-[1.1] mb-4"
           >
-            <span className="text-[#FF4500]">Reddit</span> Video Downloader{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF4500] via-[#ff5c1a] to-[#0079D3]">
-              with Audio
-            </span>
+            {title || (
+              <>
+                <span className="text-[#FF4500]">Reddit</span> Video Downloader{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF4500] via-[#ff5c1a] to-[#0079D3]">
+                  with Audio
+                </span>
+              </>
+            )}
           </motion.h1>
 
           <motion.p
@@ -92,7 +101,7 @@ export default function Hero() {
             transition={{ delay: 0.3 }}
             className="text-sm sm:text-base md:text-lg text-slate-500 font-semibold max-w-2xl mx-auto leading-relaxed"
           >
-            Save Reddit videos, galleries, and GIFs instantly. Free, unlimited, and watermark-free downloads across all devices.
+            {subtitle || "Save Reddit videos, galleries, and GIFs instantly. Free, unlimited, and watermark-free downloads across all devices."}
           </motion.p>
         </div>
         

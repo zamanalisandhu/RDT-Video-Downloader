@@ -27,11 +27,12 @@ export default function Header() {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'How it works', href: '/#how-it-works' },
-    { name: 'FAQ', href: '/#faq' },
-    { name: 'About', href: '/about' },
+    { name: 'MP4', href: '/reddit-to-mp4' },
+    { name: 'MP3', href: '/reddit-to-mp3' },
+    { name: 'GIF', href: '/reddit-to-gif' },
+    { name: 'Image', href: '/reddit-image-downloader' },
     { name: 'Blog', href: '/blog' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'About', href: '/about' },
   ];
 
   const isActive = (href: string) => {
