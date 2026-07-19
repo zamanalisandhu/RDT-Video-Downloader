@@ -22,29 +22,5 @@ export const homepageFaqs = [
   {
     question: "What video quality and resolution options are available?",
     answer: "We deliver the maximum quality uploaded by the original poster up to 1080p Full HD. Depending on the source upload, you can choose between 1080p, 720p, 480p, and 360p MP4 resolutions."
-  },
-  {
-    question: "Can I extract audio only (Reddit to MP3)?",
-    answer: "Yes! If a Reddit video post contains sound, our downloader offers an isolated 'Audio / MP3' option so you can download just the audio track for podcasts, music clips, or ringtones."
-  },
-  {
-    question: "How do I download animated GIFs from Reddit?",
-    answer: "Simply paste the Reddit GIF post URL into our input box. RDT converts animated GIFs and Imgur GIFV posts into lightweight MP4 animation loops for smooth sharing on WhatsApp, Discord, and Telegram."
-  },
-  {
-    question: "How does the Reddit gallery image downloader work?",
-    answer: "When you paste a link to a multi-photo Reddit gallery post, RDT parses all images in uncompressed original resolution. You can download individual photos or click one button to save the full gallery as a ZIP archive."
-  },
-  {
-    question: "Is RDT Video Downloader safe, private, and secure?",
-    answer: "Yes. We respect your privacy. Our site uses SSL encryption, requires no account registration or software installation, and we do not log your downloaded URLs or personal data."
-  },
-  {
-    question: "Are there any daily or bandwidth limits on downloads?",
-    answer: "No. You can save as many videos, galleries, audio clips, and GIFs as you want every day with zero speed throttling or cap limits."
-  },
-  {
-    question: "Do you offer a Chrome Extension for faster downloads?",
-    answer: "Yes! We have an official Chrome Extension available on the Chrome Web Store that adds a 1-click download button directly inside your Reddit feed so you can save videos without copy-pasting links."
   }
 ];

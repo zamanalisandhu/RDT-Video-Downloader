@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { homepageFaqs } from '@/lib/faqs';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface FAQItemProps {
   question: string;
@@ -57,31 +56,13 @@ export function FAQItem({ question, answer }: FAQItemProps) {
 }
 
 export default function FAQAccordion() {
-  const [showAll, setShowAll] = useState(false);
-
-  // Show 6 FAQs initially, or all 12 when expanded
-  const visibleFaqs = showAll ? homepageFaqs : homepageFaqs.slice(0, 6);
-
   return (
     <div className="max-w-3xl mx-auto">
-      <dl className="mb-6">
-        {visibleFaqs.map((faq, index) => (
+      <dl>
+        {homepageFaqs.map((faq, index) => (
           <FAQItem key={index} question={faq.question} answer={faq.answer} />
         ))}
       </dl>
-
-      {/* Show More / Show Less Toggle Button */}
-      {homepageFaqs.length > 6 && (
-        <div className="text-center pt-2">
-          <button
-            onClick={() => setShowAll(!showAll)}
-            className="inline-flex items-center gap-2 px-6 py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold text-sm rounded-xl border border-slate-200/80 transition-all hover:border-slate-300 active:scale-[0.98] shadow-sm"
-          >
-            <span>{showAll ? 'Show Fewer FAQs' : `Show More FAQs (${homepageFaqs.length - 6} more)`}</span>
-            {showAll ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-          </button>
-        </div>
-      )}
     </div>
   );
 }
