@@ -99,3 +99,14 @@ body {
 .animation-delay-300 {
   animation-delay: 300ms;
 }
+
+/* Prevent horizontal overflow of long URLs, code blocks, and links globally on mobile viewports */
+code, pre, a, p, li, h1, h2, h3, h4 {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Force break-all for monospace code or raw text strings that do not contain natural breaks */
+code, .font-mono {
+  word-break: break-all;
+}
