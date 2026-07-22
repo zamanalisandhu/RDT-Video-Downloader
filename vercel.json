@@ -1,6 +1,6 @@
 {
   "functions": {
-    "*.php": {
+    "api/*.php": {
       "runtime": "vercel-php@0.8.0"
     }
   },
@@ -15,18 +15,18 @@
     { "src": "/ads.txt", "dest": "/ads.txt" },
     { "src": "/robots.txt", "dest": "/robots.txt" },
     
-    { "src": "/reddit-to-mp4", "dest": "/reddit-to-mp4.php" },
-    { "src": "/reddit-to-mp3", "dest": "/reddit-to-mp3.php" },
-    { "src": "/reddit-to-gif", "dest": "/reddit-to-gif.php" },
-    { "src": "/reddit-image-downloader", "dest": "/reddit-image-downloader.php" },
-    { "src": "/about", "dest": "/about.php" },
-    { "src": "/contact", "dest": "/contact.php" },
-    { "src": "/blog", "dest": "/blog.php" },
-    { "src": "/blog/([^/]+)", "dest": "/single-post.php?slug=$1" },
-    { "src": "/legal/([^/]+)", "dest": "/legal.php?slug=$1" },
-    { "src": "/sitemap.xml", "dest": "/sitemap.php" },
-    { "src": "/$", "dest": "/index.php" },
-    { "src": "/index.php", "dest": "/index.php" },
-    { "src": "/index", "dest": "/index.php" }
+    { "src": "/reddit-to-mp4", "dest": "/api/reddit-to-mp4.php" },
+    { "src": "/reddit-to-mp3", "dest": "/api/reddit-to-mp3.php" },
+    { "src": "/reddit-to-gif", "dest": "/api/reddit-to-gif.php" },
+    { "src": "/reddit-image-downloader", "dest": "/api/reddit-image-downloader.php" },
+    { "src": "/about", "dest": "/api/about.php" },
+    { "src": "/contact", "dest": "/api/contact.php" },
+    { "src": "/blog", "dest": "/api/blog.php" },
+    { "src": "/blog/([^/]+)", "dest": "/api/single-post.php?slug=$1" },
+    { "src": "/legal/([^/]+)", "dest": "/api/legal.php?slug=$1" },
+    { "src": "/sitemap.xml", "dest": "/api/sitemap.php" },
+    { "src": "/$", "dest": "/api/index.php" },
+    { "src": "/index.php", "dest": "/api/index.php" },
+    { "src": "/index", "dest": "/api/index.php" }
   ]
 }
