@@ -1,0 +1,51 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Ensure www is handled if needed or clean routing
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Route single blog posts
+RewriteRule ^blog/([^/]+)$ single-post.php?slug=$1 [L,QSA]
+
+# Route other clean URLs without .php extensions
+RewriteRule ^reddit-to-mp4$ reddit-to-mp4.php [L]
+RewriteRule ^reddit-to-mp3$ reddit-to-mp3.php [L]
+RewriteRule ^reddit-to-gif$ reddit-to-gif.php [L]
+RewriteRule ^reddit-image-downloader$ reddit-image-downloader.php [L]
+RewriteRule ^about$ about.php [L]
+RewriteRule ^contact$ contact.php [L]
+RewriteRule ^blog$ blog.php [L]
+</IfModule>
+
+# GZIP COMPRESSION
+<IfModule mod_deflate.c>
+  # Active compression for HTML, CSS, JS, XML, SVG, Fonts
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/xml application/xhtml+xml application/json image/svg+xml font/opentype font/truetype font/ttf font/otf image/x-icon
+</IfModule>
+
+# BROWSER CACHING (Expires headers)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  
+  # CSS and JavaScript: 1 Year cache because of minified production distribution
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType application/x-javascript "access plus 1 year"
+  
+  # Images (icons, logos, cards): 1 Year cache
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  
+  # Fonts
+  ExpiresByType font/opentype "access plus 1 year"
+  ExpiresByType font/truetype "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/otf "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
