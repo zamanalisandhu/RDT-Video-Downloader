@@ -308,34 +308,6 @@
         const progressBar = document.getElementById("rdt-progress-bar");
         const progressFill = document.getElementById("rdt-progress-fill");
 
-        const downloadWin = window.open('', '_blank');
-        if (!downloadWin) {
-            showToast('Popup blocked! Please allow popups to download.', 'error');
-            return;
-        }
-
-        downloadWin.document.write(`
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <title>Preparing Download...</title>
-              <style>
-                body { font-family: -apple-system, system-ui, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #ffffff; }
-                .c { text-align: center; }
-                .s { border: 4px solid #f3f3f3; border-top: 4px solid #ff4500; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
-                @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-                h1 { font-size: 1.2rem; color: #1a1a1a; margin: 0; }
-              </style>
-            </head>
-            <body>
-              <div class="c">
-                <div class="s"></div>
-                <h1>Preparing your download...</h1>
-              </div>
-            </body>
-          </html>
-        `);
-
         stepsContainer.style.display = "block";
         stepText2.textContent = isAudio ? "2. Extracting Audio Stream" : "2. Extracting Video & Audio Streams";
         stepStatus2.innerHTML = '<span class="text-brand-orange animate-pulse flex items-center gap-1"><svg class="animate-spin w-3 h-3" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> In Progress...</span>';
@@ -375,40 +347,25 @@
                     ? `rdtvideodownloader.com_${currentInfo.title.slice(0, 50).replace(/[^a-z0-9]/gi, '_')}.${isAudio ? 'mp3' : 'mp4'}`
                     : `rdtvideodownloader.com_file_${Date.now()}.${isAudio ? 'mp3' : 'mp4'}`;
 
-                downloadWin.document.body.innerHTML = `
-                  <div class="c">
-                    <div class="s"></div>
-                    <h1>Downloading Media</h1>
-                    <p style="color: #666; font-size: 0.9rem;">Your file is being saved now...</p>
-                  </div>
-                `;
-
-                const script = downloadWin.document.createElement('script');
-                script.textContent = `
-                  (function() {
-                    const iframe = document.createElement('iframe');
-                    iframe.style.display = 'none';
-                    iframe.src = "${data.downloadUrl}" + "&filename=" + encodeURIComponent("${fileName}");
-                    document.body.appendChild(iframe);
-                    
-                    setTimeout(() => {
-                      window.close();
-                    }, 10000);
-                  })();
-                `;
-                downloadWin.document.body.appendChild(script);
-                showToast('Download started!', 'success');
+                // Trigger file download using a dynamic anchor element
+                const a = document.createElement('a');
+                a.href = data.downloadUrl + "&filename=" + encodeURIComponent(fileName);
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                
                 setTimeout(() => {
+                    a.remove();
                     stepsContainer.style.display = "none";
-                }, 3000);
+                }, 4000);
+                
+                showToast('Download started!', 'success');
             } else {
-                downloadWin.close();
                 stepStatus2.innerHTML = '<span class="text-rose-500 font-bold">Failed</span>';
                 showToast(data.error || 'Download failed', 'error');
             }
         } catch (err) {
             clearInterval(progressInterval);
-            downloadWin.close();
             stepStatus2.innerHTML = '<span class="text-rose-500 font-bold">Failed</span>';
             showToast('Download failed. Please try again.', 'error');
         }
