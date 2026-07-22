@@ -32,8 +32,11 @@ function rdt_decode_html($str) {
  */
 function rdt_fetch_wp_api($endpoint, $ttl = 3600) {
     $cache_dir = __DIR__ . '/../cache/';
+    if (getenv('VERCEL') || !is_writable($cache_dir)) {
+        $cache_dir = sys_get_temp_dir() . '/rdt_cache/';
+    }
     if (!is_dir($cache_dir)) {
-        mkdir($cache_dir, 0755, true);
+        @mkdir($cache_dir, 0755, true);
     }
 
     $cache_file = $cache_dir . md5($endpoint) . '.json';
