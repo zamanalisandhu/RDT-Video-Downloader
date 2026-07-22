@@ -100,7 +100,7 @@ $posts = rdt_get_posts(3);
 
     <div class="container mx-auto px-4 max-w-6xl relative z-10 text-center">
         <!-- Hero Headline -->
-        <h1 class="text-[34px] sm:text-[42px] md:text-[52px] font-black text-slate-900 tracking-tight leading-[1.1] mb-5 max-w-5xl mx-auto" style="font-family: var(--font-title);">
+        <h1 class="text-[24px] min-[375px]:text-[28px] sm:text-[42px] md:text-[52px] font-black text-slate-900 tracking-tight leading-[1.1] mb-5 max-w-5xl mx-auto" style="font-family: var(--font-title);">
             Reddit Video Downloader
         </h1>
         <p class="text-base sm:text-lg text-slate-500 max-w-3xl mx-auto leading-relaxed mb-10">
