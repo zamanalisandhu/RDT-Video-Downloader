@@ -10,8 +10,9 @@ if ($path !== '/' && substr($path, -1) === '/') {
     $path = rtrim($path, '/');
 }
 
-// Serve existing static files directly
-if (file_exists(__DIR__ . $path) && !is_dir(__DIR__ . $path)) {
+// Serve existing static files directly from the parent root directory
+$root_static_file = dirname(__DIR__) . $path;
+if (file_exists($root_static_file) && !is_dir($root_static_file)) {
     return false; // let the built-in server serve the static file
 }
 
