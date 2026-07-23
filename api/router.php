@@ -42,6 +42,9 @@ $clean_pages = [
     '/contact' => '/contact.php',
     '/blog' => '/blog.php',
     '/sitemap.xml' => '/sitemap.php',
+    '/api/video-info' => '/video-info.php',
+    '/api/download' => '/download.php',
+    '/api/downloader' => '/downloader.php',
 ];
 
 if (isset($clean_pages[$path])) {

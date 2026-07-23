@@ -77,6 +77,63 @@ function rdt_fetch_wp_api($endpoint, $ttl = 3600) {
 }
 
 /**
+ * Live HTML Crawler to scrape SEO metadata from original WordPress post link (Technical SEO backup)
+ */
+function rdt_fetch_html_seo($url) {
+    if (empty($url)) return [];
+    
+    $cache_dir = __DIR__ . '/../cache/';
+    if (getenv('VERCEL') || !is_writable($cache_dir)) {
+        $cache_dir = sys_get_temp_dir() . '/rdt_cache/';
+    }
+    if (!is_dir($cache_dir)) {
+        @mkdir($cache_dir, 0755, true);
+    }
+    
+    $cache_file = $cache_dir . md5($url) . '_seo.json';
+    if (file_exists($cache_file) && (time() - filemtime($cache_file) < 1800)) {
+        $data = json_decode(file_get_contents($cache_file), true);
+        if (is_array($data)) return $data;
+    }
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 4);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    $html = curl_exec($ch);
+    curl_close($ch);
+
+    $meta_title = '';
+    $meta_description = '';
+
+    if (!empty($html)) {
+        // Scrape title
+        if (preg_match('/<title>([\s\S]*?)<\/title>/i', $html, $title_match)) {
+            $meta_title = html_entity_decode(trim($title_match[1]), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        }
+        // Scrape description
+        if (preg_match('/<meta\s+name=["\']description["\']\s+content=["\']([\s\S]*?)["\']/i', $html, $desc_match)) {
+            $meta_description = html_entity_decode(trim($desc_match[1]), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        }
+        if (empty($meta_description) && preg_match('/<meta\s+property=["\']og:description["\']\s+content=["\']([\s\S]*?)["\']/i', $html, $desc_match)) {
+            $meta_description = html_entity_decode(trim($desc_match[1]), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        }
+    }
+
+    $seo_data = [
+        'title' => $meta_title,
+        'description' => $meta_description
+    ];
+
+    file_put_contents($cache_file, json_encode($seo_data));
+    return $seo_data;
+}
+
+/**
  * Maps WordPress post format to structured array
  */
 function rdt_map_post($wp_post) {
@@ -97,11 +154,21 @@ function rdt_map_post($wp_post) {
     $content = rdt_decode_html($raw_content);
     
     // Extract Image
-    $image = 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&q=80&w=800';
+    $image = '';
     if (isset($wp_post['_embedded']['wp:featuredmedia'][0]['source_url'])) {
         $image = $wp_post['_embedded']['wp:featuredmedia'][0]['source_url'];
     } elseif (isset($wp_post['featured_image_url'])) {
         $image = $wp_post['featured_image_url'];
+    } elseif (isset($wp_post['yoast_head_json']['og_image'][0]['url'])) {
+        $image = $wp_post['yoast_head_json']['og_image'][0]['url'];
+    } elseif (isset($wp_post['yoast_head_json']['twitter_image'])) {
+        $image = $wp_post['yoast_head_json']['twitter_image'];
+    } elseif (isset($wp_post['jetpack_featured_media_url'])) {
+        $image = $wp_post['jetpack_featured_media_url'];
+    }
+
+    if (empty($image)) {
+        $image = 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&q=80&w=800';
     }
 
     // Author
@@ -132,15 +199,69 @@ function rdt_map_post($wp_post) {
     $reading_time = max(1, round($words_count / 200));
 
     // SEO Meta Tags
-    $meta_title = $title;
-    $meta_description = $excerpt;
+    $meta_title = '';
+    $meta_description = '';
 
-    if (isset($wp_post['yoast_head_json'])) {
+    // 0. Crawl live WordPress link to fetch exact SEO fields configured by RankMath/Yoast
+    $wp_link = $wp_post['link'] ?? '';
+    if (!empty($wp_link)) {
+        $live_seo = rdt_fetch_html_seo($wp_link);
+        if (!empty($live_seo['title'])) $meta_title = $live_seo['title'];
+        if (!empty($live_seo['description'])) $meta_description = $live_seo['description'];
+    }
+
+    // 1. Try generic/RankMath head_json structure
+    if (isset($wp_post['head_json']) && is_array($wp_post['head_json'])) {
+        $head = $wp_post['head_json'];
+        if (isset($head['title'])) $meta_title = rdt_decode_html($head['title']);
+        if (isset($head['description'])) $meta_description = rdt_decode_html($head['description']);
+        
+        // Fallbacks inside head_json
+        if (empty($meta_title) && isset($head['og_title'])) $meta_title = rdt_decode_html($head['og_title']);
+        if (empty($meta_description) && isset($head['og_description'])) $meta_description = rdt_decode_html($head['og_description']);
+    }
+
+    // 2. Try Yoast SEO JSON-LD structure
+    if (empty($meta_title) && isset($wp_post['yoast_head_json']) && is_array($wp_post['yoast_head_json'])) {
         $yoast = $wp_post['yoast_head_json'];
         if (isset($yoast['title'])) $meta_title = rdt_decode_html($yoast['title']);
         if (isset($yoast['description'])) $meta_description = rdt_decode_html($yoast['description']);
+        
+        // Fallbacks inside Yoast
+        if (empty($meta_title) && isset($yoast['og_title'])) $meta_title = rdt_decode_html($yoast['og_title']);
+        if (empty($meta_description) && isset($yoast['og_description'])) $meta_description = rdt_decode_html($yoast['og_description']);
     }
-    
+
+    // 3. Fallback: Parse raw head/yoast_head HTML strings via regex
+    $raw_head_string = $wp_post['head'] ?? $wp_post['yoast_head'] ?? '';
+    if (!empty($raw_head_string) && is_string($raw_head_string)) {
+        if (empty($meta_title) && preg_match('/<title>([\s\S]*?)<\/title>/i', $raw_head_string, $title_match)) {
+            $meta_title = rdt_decode_html(trim($title_match[1]));
+        }
+        if (empty($meta_description) && preg_match('/<meta\s+name=["\']description["\']\s+content=["\']([\s\S]*?)["\']/i', $raw_head_string, $desc_match)) {
+            $meta_description = rdt_decode_html(trim($desc_match[1]));
+        }
+        if (empty($meta_description) && preg_match('/<meta\s+property=["\']og:description["\']\s+content=["\']([\s\S]*?)["\']/i', $raw_head_string, $desc_match)) {
+            $meta_description = rdt_decode_html(trim($desc_match[1]));
+        }
+    }
+
+    // 4. Try legacy/fallback properties
+    if (empty($meta_title) && isset($wp_post['rank_math_title'])) {
+        $meta_title = rdt_decode_html($wp_post['rank_math_title']);
+    }
+    if (empty($meta_description) && isset($wp_post['rank_math_description'])) {
+        $meta_description = rdt_decode_html($wp_post['rank_math_description']);
+    }
+
+    // 5. Default post title and excerpt fallback
+    if (empty($meta_title)) {
+        $meta_title = $title;
+    }
+    if (empty($meta_description)) {
+        $meta_description = $excerpt;
+    }
+
     $meta_title = preg_replace('/\s*-\s*My\s*Blog/i', '', $meta_title);
     $meta_title = preg_replace('/\s*-\s*admin/i', '', $meta_title);
     $meta_title = trim($meta_title);

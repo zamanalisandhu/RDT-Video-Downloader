@@ -12,6 +12,56 @@ $desc = rdt_clean($page_desc ?? DEFAULT_SEO_DESC);
 $path = rdt_clean($page_path ?? '/');
 $canonical = 'https://rdtvideodownloader.com' . $path;
 
+// Auto-detect and generate structured schemas (technical SEO optimization)
+if (!isset($schema_markups)) {
+    $schema_markups = [];
+}
+
+// 1. Generate FAQ Schema if FAQs exist on the page
+$faqs_detected = $mp4Faqs ?? $mp3Faqs ?? $gifFaqs ?? $imgFaqs ?? null;
+if (!empty($faqs_detected) && is_array($faqs_detected)) {
+    $schema_faq = [
+        "@context" => "https://schema.org",
+        "@type" => "FAQPage",
+        "mainEntity" => []
+    ];
+    foreach ($faqs_detected as $faq) {
+        $q = $faq['q'] ?? $faq['question'] ?? '';
+        $a = $faq['a'] ?? $faq['answer'] ?? '';
+        if (!empty($q) && !empty($a)) {
+            $schema_faq['mainEntity'][] = [
+                "@type" => "Question",
+                "name" => $q,
+                "acceptedAnswer" => [
+                    "@type" => "Answer",
+                    "text" => $a
+                ]
+            ];
+        }
+    }
+    $schema_markups[] = $schema_faq;
+}
+
+// 2. Generate WebApplication Schema for specialized tool landing pages
+if ($path !== '/' && in_array($path, ['/reddit-to-mp4', '/reddit-to-mp3', '/reddit-to-gif', '/reddit-image-downloader'])) {
+    $clean_tool_title = str_replace(' — ', ' ', $title);
+    $schema_tool = [
+        "@context" => "https://schema.org",
+        "@type" => "WebApplication",
+        "name" => $clean_tool_title,
+        "url" => $canonical,
+        "description" => $desc,
+        "applicationCategory" => "MultimediaApplication",
+        "operatingSystem" => "Web, iOS, Android, Windows, Mac",
+        "offers" => [
+            "@type" => "Offer",
+            "price" => "0",
+            "priceCurrency" => "USD"
+        ]
+    ];
+    $schema_markups[] = $schema_tool;
+}
+
 // Nav links definition
 $nav_links = [
     ['name' => 'Home', 'href' => '/'],
@@ -67,8 +117,9 @@ function is_active_route($href) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS (compiled Tailwind) -->
+    <!-- Custom CSS (compiled Tailwind & Downloader layouts) -->
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/downloader.css?v=<?php echo time(); ?>">
 
     <!-- Structured Data Schema Markup -->
     <?php if (!empty($schema_markups)): ?>
@@ -101,7 +152,7 @@ function is_active_route($href) {
                     <?php foreach ($nav_links as $link): ?>
                         <li>
                             <a href="<?php echo htmlspecialchars($link['href']); ?>" 
-                               class="text-[14px] md:text-[14.5px] font-semibold transition-all py-1.5 relative block <?php echo is_active_route($link['href']) ? 'text-brand-orange font-bold' : 'text-slate-500 hover:text-slate-900'; ?>">
+                               class="text-[14px] md:text-[14.5px] font-semibold transition-all py-1.5 relative block <?php echo is_active_route($link['href']) ? 'text-brand-orange font-bold' : 'text-slate-500 hover:text-brand-orange'; ?>">
                                 <span><?php echo htmlspecialchars($link['name']); ?></span>
                                 <?php if (is_active_route($link['href'])): ?>
                                     <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-brand-orange rounded-full animate-fade-in" />
@@ -116,7 +167,7 @@ function is_active_route($href) {
             <div class="hidden md:flex items-center">
                 <a href="https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej"
                    target="_blank" rel="noopener noreferrer" 
-                   class="px-5 py-2.5 bg-[#0b0f19] hover:bg-[#151c2d] text-white font-extrabold rounded-xl text-[13.5px] md:text-[14px] shadow-sm transition-all active:scale-[0.98]">
+                   class="px-5 py-2.5 bg-brand-orange hover:bg-brand-orange-light text-white font-extrabold rounded-xl text-[13.5px] md:text-[14px] shadow-sm transition-all active:scale-[0.98]">
                     Extension
                 </a>
             </div>
@@ -151,9 +202,9 @@ function is_active_route($href) {
             <div class="p-5 flex-grow overflow-y-auto">
                 <ul class="flex flex-col list-none p-0 m-0">
                     <?php foreach ($nav_links as $link): ?>
-                        <li class="border-b border-slate-100">
+                        <li class="border-b border-slate-50 last:border-none">
                             <a href="<?php echo htmlspecialchars($link['href']); ?>" 
-                               class="flex items-center justify-between py-4 border-b border-slate-100 text-[15px] font-extrabold transition-all <?php echo is_active_route($link['href']) ? 'text-brand-orange' : 'text-slate-800 hover:text-brand-orange'; ?>">
+                               class="flex items-center justify-between py-4 text-[14.5px] font-bold transition-all <?php echo is_active_route($link['href']) ? 'text-brand-orange' : 'text-slate-800 hover:text-brand-orange'; ?>">
                                 <span><?php echo htmlspecialchars($link['name']); ?></span>
                                 <svg class="w-4 h-4 <?php echo is_active_route($link['href']) ? 'text-brand-orange' : 'text-slate-300'; ?>" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                             </a>
@@ -166,7 +217,7 @@ function is_active_route($href) {
             <div class="p-5 border-t border-slate-100 bg-slate-50/50">
                 <a href="https://chromewebstore.google.com/detail/rdt-video-downloader-save/mjphhkbhfkiffmlldcjcapkmninehbej"
                    target="_blank" rel="noopener noreferrer"
-                   class="w-full py-3.5 bg-brand-orange text-white text-center font-extrabold rounded-xl shadow-md shadow-brand-orange/15 flex items-center justify-center gap-2 text-sm active:scale-[0.98] transition-transform">
+                   class="w-full py-3.5 bg-brand-orange hover:bg-brand-orange-light text-white text-center font-extrabold rounded-xl shadow-md shadow-brand-orange/15 flex items-center justify-center gap-2 text-sm active:scale-[0.98] transition-transform">
                     Install Extension
                 </a>
                 <div class="mt-6 flex justify-center gap-6">

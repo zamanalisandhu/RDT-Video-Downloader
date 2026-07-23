@@ -94,9 +94,13 @@ $posts = rdt_get_posts(3);
 
 <!-- Hero Section -->
 <section id="hero" class="pt-10 pb-16 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
-    <!-- Background decorative blur shapes -->
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-orange/5 rounded-full blur-3xl -translate-y-12 -translate-x-12 pointer-events-none"></div>
-    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-orange/5 rounded-full blur-3xl translate-y-12 translate-x-12 pointer-events-none"></div>
+    <!-- Premium Background Grid Pattern -->
+    <div class="absolute inset-0 opacity-[0.35] pointer-events-none" 
+         style="background-image: radial-gradient(#ff4500 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+    <!-- Decorative Glowing Orbs -->
+    <div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-gradient-to-tr from-[#FF4500]/10 to-orange-400/5 rounded-full blur-[140px] pointer-events-none animate-pulse" style="animation-duration: 8s;"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[45%] h-[45%] bg-gradient-to-br from-[#0079D3]/8 to-[#0079D3]/3 rounded-full blur-[120px] pointer-events-none"></div>
 
     <div class="container mx-auto px-4 max-w-6xl relative z-10 text-center">
         <!-- Hero Headline -->
@@ -119,7 +123,7 @@ $posts = rdt_get_posts(3);
         <div class="inline-flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-white border border-slate-100 rounded-2xl md:rounded-[20px] max-w-2xl mx-auto shadow-sm shadow-slate-100/50 text-left w-full animate-fade-in">
             <div class="flex items-center gap-3.5 w-full sm:w-auto">
                 <div class="w-12 h-12 shrink-0 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-center">
-                    <svg class="w-6 h-6 text-slate-700" viewBox="0 0 24 24" fill="currentColor">
+                    <svg style="width: 24px; height: 24px; display: block;" class="text-slate-700" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 4.8c1.373 0 2.623.447 3.633 1.2L9.58 16.48C7.11 15.68 5.3 13.56 5.3 11c0-3.42 2.78-6.2 6.7-6.2zm.48 9.38l6.05-6.05C19.13 9.29 19.7 10.58 19.7 12c0 3.42-2.78 6.2-6.7 6.2-.28 0-.55-.02-.82-.06l.3-3.96zm-.48 4.22c-2.42 0-4.47-1.55-5.2-3.73l6.05-6.05c.23.23.4.52.48.86l-1.33 8.92z"/>
                     </svg>
                 </div>
