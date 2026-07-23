@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/*.php": {
+    "api/router.php": {
       "runtime": "vercel-php@0.8.0"
     }
   },
@@ -15,18 +15,6 @@
     { "src": "/ads.txt", "dest": "/ads.txt" },
     { "src": "/robots.txt", "dest": "/robots.txt" },
     
-    { "src": "/reddit-to-mp4", "dest": "/api/reddit-to-mp4.php" },
-    { "src": "/reddit-to-mp3", "dest": "/api/reddit-to-mp3.php" },
-    { "src": "/reddit-to-gif", "dest": "/api/reddit-to-gif.php" },
-    { "src": "/reddit-image-downloader", "dest": "/api/reddit-image-downloader.php" },
-    { "src": "/about", "dest": "/api/about.php" },
-    { "src": "/contact", "dest": "/api/contact.php" },
-    { "src": "/blog", "dest": "/api/blog.php" },
-    { "src": "/blog/([^/]+)", "dest": "/api/single-post.php?slug=$1" },
-    { "src": "/legal/([^/]+)", "dest": "/api/legal.php?slug=$1" },
-    { "src": "/sitemap.xml", "dest": "/api/sitemap.php" },
-    { "src": "/$", "dest": "/api/index.php" },
-    { "src": "/index.php", "dest": "/api/index.php" },
-    { "src": "/index", "dest": "/api/index.php" }
+    { "src": "/(.*)", "dest": "/api/router.php" }
   ]
 }
