@@ -42,6 +42,19 @@ function rdt_fetch_wp_api($endpoint, $ttl = 3600) {
     $cache_file = $cache_dir . md5($endpoint) . '.json';
     $cache_exists = file_exists($cache_file);
 
+    // Force clear cache if URL parameter ?clear_cache=1 or ?purge=1 is present
+    if (isset($_GET['clear_cache']) || isset($_GET['purge'])) {
+        if (is_dir($cache_dir)) {
+            $files = glob($cache_dir . '/*');
+            foreach ($files as $file) {
+                if (is_file($file)) {
+                    @unlink($file);
+                }
+            }
+        }
+        $cache_exists = false;
+    }
+
     // If cache is fresh, load it
     if ($cache_exists && (time() - filemtime($cache_file) < $ttl)) {
         $data = json_decode(file_get_contents($cache_file), true);
