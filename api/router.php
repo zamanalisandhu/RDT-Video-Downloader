@@ -45,6 +45,7 @@ $clean_pages = [
     '/api/video-info' => '/video-info.php',
     '/api/download' => '/download.php',
     '/api/downloader' => '/downloader.php',
+    '/test-env' => '/test-env.php',
 ];
 
 if (isset($clean_pages[$path])) {
