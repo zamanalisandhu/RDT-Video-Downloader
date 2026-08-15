@@ -173,7 +173,7 @@ require_once __DIR__ . '/includes/header.php';
         <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-8 text-center">Download Reddit Videos in 3 Simple Steps</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-slate-50 border border-slate-200/50 hover:border-brand-orange/30 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 group flex flex-col">
+            <div class="bg-slate-50 border border-slate-200/50 rounded-2xl p-6 flex flex-col">
                 <div class="w-9 h-9 bg-brand-orange/10 text-brand-orange font-bold text-lg rounded-lg flex items-center justify-center mb-4 shadow-sm select-none">1</div>
                 <h3 class="font-bold text-slate-900 text-lg mb-2">Copy the Reddit Link</h3>
                 <p class="text-slate-600 text-sm leading-relaxed">
@@ -181,7 +181,7 @@ require_once __DIR__ . '/includes/header.php';
                 </p>
             </div>
 
-            <div class="bg-slate-50 border border-slate-200/50 hover:border-brand-orange/30 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 group flex flex-col">
+            <div class="bg-slate-50 border border-slate-200/50 rounded-2xl p-6 flex flex-col">
                 <div class="w-9 h-9 bg-brand-orange/10 text-brand-orange font-bold text-lg rounded-lg flex items-center justify-center mb-4 shadow-sm select-none">2</div>
                 <h3 class="font-bold text-slate-900 text-lg mb-2">Paste the Link</h3>
                 <p class="text-slate-600 text-sm leading-relaxed">
@@ -189,7 +189,7 @@ require_once __DIR__ . '/includes/header.php';
                 </p>
             </div>
 
-            <div class="bg-slate-50 border border-slate-200/50 hover:border-brand-orange/30 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 group flex flex-col">
+            <div class="bg-slate-50 border border-slate-200/50 rounded-2xl p-6 flex flex-col">
                 <div class="w-9 h-9 bg-brand-orange/10 text-brand-orange font-bold text-lg rounded-lg flex items-center justify-center mb-4 shadow-sm select-none">3</div>
                 <h3 class="font-bold text-slate-900 text-lg mb-2">Choose Your Quality</h3>
                 <p class="text-slate-600 text-sm leading-relaxed">
@@ -211,7 +211,7 @@ require_once __DIR__ . '/includes/header.php';
         </div>
 
         <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 list-none pl-0 m-0">
-            <li class="bg-white border border-slate-200/60 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 hover:border-brand-orange/30">
+            <li class="bg-white border border-slate-200/60 rounded-2xl p-6">
                 <div class="w-9 h-9 bg-brand-orange/10 rounded-lg flex items-center justify-center mb-4 shadow-sm">
                     <svg class="text-brand-orange w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"/></svg>
                 </div>
@@ -221,7 +221,7 @@ require_once __DIR__ . '/includes/header.php';
                 </p>
             </li>
 
-            <li class="bg-white border border-slate-200/60 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 hover:border-brand-orange/30">
+            <li class="bg-white border border-slate-200/60 rounded-2xl p-6">
                 <div class="w-9 h-9 bg-brand-orange/10 rounded-lg flex items-center justify-center mb-4 shadow-sm">
                     <svg class="text-brand-orange w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/></svg>
                 </div>
@@ -231,7 +231,7 @@ require_once __DIR__ . '/includes/header.php';
                 </p>
             </li>
 
-            <li class="bg-white border border-slate-200/60 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 hover:border-brand-orange/30">
+            <li class="bg-white border border-slate-200/60 rounded-2xl p-6">
                 <div class="w-9 h-9 bg-brand-orange/10 rounded-lg flex items-center justify-center mb-4 shadow-sm">
                     <svg class="text-brand-orange w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
                 </div>
@@ -241,7 +241,7 @@ require_once __DIR__ . '/includes/header.php';
                 </p>
             </li>
 
-            <li class="bg-white border border-slate-200/60 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 hover:border-brand-orange/30">
+            <li class="bg-white border border-slate-200/60 rounded-2xl p-6">
                 <div class="w-9 h-9 bg-brand-orange/10 rounded-lg flex items-center justify-center mb-4 shadow-sm">
                     <svg class="text-brand-orange w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.751A11.956 11.956 0 0112 2.714z"/></svg>
                 </div>
@@ -251,7 +251,7 @@ require_once __DIR__ . '/includes/header.php';
                 </p>
             </li>
 
-            <li class="bg-white border border-slate-200/60 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-orange/5 hover:border-brand-orange/30 lg:col-span-2">
+            <li class="bg-white border border-slate-200/60 rounded-2xl p-6 lg:col-span-2">
                 <div class="w-9 h-9 bg-brand-orange/10 rounded-lg flex items-center justify-center mb-4 shadow-sm">
                     <svg class="text-brand-orange w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3M9 18h6"/></svg>
                 </div>
@@ -279,49 +279,57 @@ require_once __DIR__ . '/includes/header.php';
         </p>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-            <a href="/reddit-to-mp4" class="p-6 bg-slate-50 hover:bg-white rounded-2xl border border-slate-200/50 hover:border-brand-orange/30 hover:shadow-xl hover:shadow-brand-orange/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/50 flex flex-col justify-between">
                 <div>
                     <div class="w-10 h-10 bg-brand-orange/10 text-brand-orange rounded-xl flex items-center justify-center mb-3">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base mb-1.5">Reddit to MP4</h3>
+                    <h3 class="font-bold text-slate-900 text-base mb-1.5">
+                        <a href="/reddit-to-mp4" class="hover:text-brand-orange transition-colors">Reddit to MP4</a>
+                    </h3>
                     <p class="text-slate-500 text-xs leading-relaxed mb-4">Convert a Reddit video post into a downloadable MP4 file with the available audio and video streams combined when supported.</p>
                 </div>
-                <span class="text-brand-orange font-bold text-xs flex items-center gap-1 group-hover:gap-2 transition-all">Explore Reddit to MP4 →</span>
-            </a>
+                <a href="/reddit-to-mp4" class="text-brand-orange font-bold text-xs flex items-center gap-1 hover:underline">Explore Reddit to MP4 →</a>
+            </div>
 
-            <a href="/reddit-to-mp3" class="p-6 bg-slate-50 hover:bg-white rounded-2xl border border-slate-200/50 hover:border-brand-orange/30 hover:shadow-xl hover:shadow-brand-orange/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/50 flex flex-col justify-between">
                 <div>
                     <div class="w-10 h-10 bg-brand-orange/10 text-brand-orange rounded-xl flex items-center justify-center mb-3">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base mb-1.5">Reddit to MP3</h3>
+                    <h3 class="font-bold text-slate-900 text-base mb-1.5">
+                        <a href="/reddit-to-mp3" class="hover:text-brand-orange transition-colors">Reddit to MP3</a>
+                    </h3>
                     <p class="text-slate-500 text-xs leading-relaxed mb-4">Extract the available audio from supported Reddit video posts and save it as an MP3 file.</p>
                 </div>
-                <span class="text-brand-orange font-bold text-xs flex items-center gap-1 group-hover:gap-2 transition-all">Explore Reddit to MP3 →</span>
-            </a>
+                <a href="/reddit-to-mp3" class="text-brand-orange font-bold text-xs flex items-center gap-1 hover:underline">Explore Reddit to MP3 →</a>
+            </div>
 
-            <a href="/reddit-to-gif" class="p-6 bg-slate-50 hover:bg-white rounded-2xl border border-slate-200/50 hover:border-brand-orange/30 hover:shadow-xl hover:shadow-brand-orange/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/50 flex flex-col justify-between">
                 <div>
                     <div class="w-10 h-10 bg-brand-orange/10 text-brand-orange rounded-xl flex items-center justify-center mb-3">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base mb-1.5">Reddit GIF Downloader</h3>
+                    <h3 class="font-bold text-slate-900 text-base mb-1.5">
+                        <a href="/reddit-to-gif" class="hover:text-brand-orange transition-colors">Reddit GIF Downloader</a>
+                    </h3>
                     <p class="text-slate-500 text-xs leading-relaxed mb-4">Save Reddit GIF-style video posts as MP4 files for easier playback and sharing.</p>
                 </div>
-                <span class="text-brand-orange font-bold text-xs flex items-center gap-1 group-hover:gap-2 transition-all">Explore Reddit GIF Downloader →</span>
-            </a>
+                <a href="/reddit-to-gif" class="text-brand-orange font-bold text-xs flex items-center gap-1 hover:underline">Explore Reddit GIF Downloader →</a>
+            </div>
 
-            <a href="/reddit-image-downloader" class="p-6 bg-slate-50 hover:bg-white rounded-2xl border border-slate-200/50 hover:border-brand-orange/30 hover:shadow-xl hover:shadow-brand-orange/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/50 flex flex-col justify-between">
                 <div>
                     <div class="w-10 h-10 bg-brand-orange/10 text-brand-orange rounded-xl flex items-center justify-center mb-3">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 text-base mb-1.5">Reddit Image Downloader</h3>
+                    <h3 class="font-bold text-slate-900 text-base mb-1.5">
+                        <a href="/reddit-image-downloader" class="hover:text-brand-orange transition-colors">Reddit Image Downloader</a>
+                    </h3>
                     <p class="text-slate-500 text-xs leading-relaxed mb-4">Download images from Reddit posts and galleries without saving each image individually.</p>
                 </div>
-                <span class="text-brand-orange font-bold text-xs flex items-center gap-1 group-hover:gap-2 transition-all">Explore Reddit Image Downloader →</span>
-            </a>
+                <a href="/reddit-image-downloader" class="text-brand-orange font-bold text-xs flex items-center gap-1 hover:underline">Explore Reddit Image Downloader →</a>
+            </div>
         </div>
     </div>
 </section>
