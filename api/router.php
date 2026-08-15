@@ -14,6 +14,23 @@ if ($path !== '/' && substr($path, -1) === '/') {
     $path = rtrim($path, '/');
 }
 
+// 301 Permanent Redirect to remove unwanted 'w' query parameter
+$request_uri = $_SERVER['REQUEST_URI'] ?? '/';
+$parsed_url = parse_url($request_uri);
+$path_only = $parsed_url['path'] ?? '/';
+$query_str = $parsed_url['query'] ?? ($_SERVER['QUERY_STRING'] ?? '');
+parse_str($query_str, $query_params);
+
+if (array_key_exists('w', $query_params)) {
+    if (strpos($path_only, '/api/') !== 0) {
+        unset($query_params['w']);
+        $new_query = http_build_query($query_params);
+        $redirect_url = $path_only . ($new_query !== '' ? '?' . $new_query : '');
+        header("Location: " . $redirect_url, true, 301);
+        exit;
+    }
+}
+
 // Serve existing static files directly from the parent root directory
 $root_static_file = dirname(__DIR__) . $path;
 if (file_exists($root_static_file) && !is_dir($root_static_file)) {
