@@ -454,21 +454,21 @@ require_once __DIR__ . '/includes/header.php';
         <p class="text-slate-500 text-sm font-medium mb-8">
             No complicated setup. No desktop software. Just copy, paste, and download.
         </p>
-        <a href="#hero" class="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-light text-white font-extrabold text-sm px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-brand-orange/20 hover:shadow-brand-orange/30">
+        <a href="https://rdtvideodownloader.com/#hero" class="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-light text-white font-extrabold text-sm px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-brand-orange/20 hover:shadow-brand-orange/30">
             <span>Start Downloading</span>
             <span>→</span>
         </a>
     </div>
 </section>
 
-<!-- Important Disclaimer Section -->
-<section class="py-8 bg-slate-900 text-slate-400 text-xs text-center border-t border-slate-800">
-    <div class="container mx-auto px-4 max-w-3xl space-y-2">
-        <h3 class="text-slate-300 font-bold uppercase tracking-wider text-[11px]">Important</h3>
-        <p>
+<!-- Important Section -->
+<section class="py-10 bg-slate-50 border-t border-slate-200/60 text-slate-600 text-sm text-center">
+    <div class="container mx-auto px-4 max-w-3xl space-y-3">
+        <h2 class="text-xl font-bold text-slate-900">Important</h2>
+        <p class="leading-relaxed">
             RDT Video Downloader is an independent service and is not affiliated with Reddit Inc. Reddit and related trademarks belong to their respective owners.
         </p>
-        <p>
+        <p class="leading-relaxed text-slate-500">
             Only download content that you have permission to save or use, and respect the rights of the original content creators.
         </p>
     </div>
