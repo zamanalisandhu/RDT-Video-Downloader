@@ -454,7 +454,7 @@ require_once __DIR__ . '/includes/header.php';
         <p class="text-slate-500 text-sm font-medium mb-8">
             No complicated setup. No desktop software. Just copy, paste, and download.
         </p>
-        <a href="https://rdtvideodownloader.com/#hero" class="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-light text-white font-extrabold text-sm px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-brand-orange/20 hover:shadow-brand-orange/30">
+        <a href="#hero" id="start-downloading-btn" class="inline-flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-light text-white font-extrabold text-sm px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-brand-orange/20 hover:shadow-brand-orange/30">
             <span>Start Downloading</span>
             <span>→</span>
         </a>

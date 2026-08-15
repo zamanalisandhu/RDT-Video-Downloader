@@ -101,5 +101,27 @@
                 });
             });
         }
+
+        // 4. Start Downloading CTA button smooth scroll & input focus
+        const startBtns = document.querySelectorAll('a[href*="#hero"], #start-downloading-btn');
+        startBtns.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+                const targetHref = btn.getAttribute('href') || '';
+                
+                if (targetHref.startsWith('#') || currentPath === '/') {
+                    e.preventDefault();
+                    const heroEl = document.getElementById("hero") || document.body;
+                    heroEl.scrollIntoView({ behavior: "smooth" });
+                    
+                    const inputEl = document.getElementById("reddit-url");
+                    if (inputEl) {
+                        setTimeout(() => {
+                            inputEl.focus({ preventScroll: true });
+                        }, 400);
+                    }
+                }
+            });
+        });
     });
 })();
