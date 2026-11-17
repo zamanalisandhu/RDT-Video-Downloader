@@ -3,9 +3,12 @@
  * RDT Video Downloader - Global Configuration
  */
 
-// Detect protocol and host dynamically
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
-$host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
+// Detect protocol and host dynamically (supporting reverse proxies like Vercel/Cloudflare)
+$is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+    || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
+    || (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] === 'on');
+$protocol = $is_https ? 'https://' : 'http://';
+$host = $_SERVER['HTTP_HOST'] ?? 'rdtvideodownloader.com';
 $current_url = $protocol . $host;
 
 // Define site constants
@@ -13,6 +16,7 @@ define('SITE_URL', $current_url);
 define('API_URL', 'https://rdtapidownload.techiesline.workers.dev');
 define('WP_API_URL', 'https://admin.rdtvideodownloader.com/wp-json/wp/v2');
 define('SITE_NAME', 'RDT Video Downloader');
+define('ASSET_VERSION', '1.3.0');
 
 // Default SEO values
 define('DEFAULT_SEO_TITLE', 'Reddit Video Downloader - Download Reddit Video with Sound - Free HD MP4 | RDT');

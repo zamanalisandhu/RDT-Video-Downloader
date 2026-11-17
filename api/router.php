@@ -7,25 +7,30 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-// Normalize path (strip trailing slashes)
-if ($path !== '/' && substr($path, -1) === '/') {
-    $path = rtrim($path, '/');
-}
-
-// 301 Permanent Redirect to remove unwanted 'w' query parameter
 $request_uri = $_SERVER['REQUEST_URI'] ?? '/';
 $parsed_url = parse_url($request_uri);
-$path_only = $parsed_url['path'] ?? '/';
+$path = $parsed_url['path'] ?? '/';
 $query_str = $parsed_url['query'] ?? ($_SERVER['QUERY_STRING'] ?? '');
 parse_str($query_str, $query_params);
 
-if (array_key_exists('w', $query_params)) {
-    if (strpos($path_only, '/api/') !== 0) {
+// 301 Permanent Redirect to strip trailing slashes (except root '/')
+if ($path !== '/' && substr($path, -1) === '/') {
+    if (strpos($path, '/api/') !== 0) {
+        $clean_path = rtrim($path, '/');
         unset($query_params['w']);
         $new_query = http_build_query($query_params);
-        $redirect_url = $path_only . ($new_query !== '' ? '?' . $new_query : '');
+        $redirect_url = $clean_path . ($new_query !== '' ? '?' . $new_query : '');
+        header("Location: " . $redirect_url, true, 301);
+        exit;
+    }
+}
+
+// 301 Permanent Redirect to remove unwanted 'w' query parameter
+if (array_key_exists('w', $query_params)) {
+    if (strpos($path, '/api/') !== 0) {
+        unset($query_params['w']);
+        $new_query = http_build_query($query_params);
+        $redirect_url = $path . ($new_query !== '' ? '?' . $new_query : '');
         header("Location: " . $redirect_url, true, 301);
         exit;
     }

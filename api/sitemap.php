@@ -29,23 +29,27 @@ function add_sitemap_entry(&$sitemap_entries, &$added_locs, $loc, $lastmod = nul
     ];
 }
 
-// 1. Homepage & Main Pages
+// 1. Homepage & Main Pages with realistic lastmod dates
 $static_pages = [
-    '/' => $api_dir . '/index.php',
-    '/about' => $api_dir . '/about.php',
-    '/contact' => $api_dir . '/contact.php',
-    '/blog' => $api_dir . '/blog.php',
-    '/reddit-to-mp4' => $api_dir . '/reddit-to-mp4.php',
-    '/reddit-to-mp3' => $api_dir . '/reddit-to-mp3.php',
-    '/reddit-to-gif' => $api_dir . '/reddit-to-gif.php',
-    '/reddit-image-downloader' => $api_dir . '/reddit-image-downloader.php',
+    '/' => ['file' => $api_dir . '/index.php', 'date' => '2026-08-15'],
+    '/reddit-to-mp3' => ['file' => $api_dir . '/reddit-to-mp3.php', 'date' => '2026-08-15'],
+    '/reddit-to-mp4' => ['file' => $api_dir . '/reddit-to-mp4.php', 'date' => '2026-08-15'],
+    '/reddit-to-gif' => ['file' => $api_dir . '/reddit-to-gif.php', 'date' => '2026-08-15'],
+    '/reddit-image-downloader' => ['file' => $api_dir . '/reddit-image-downloader.php', 'date' => '2026-08-15'],
+    '/blog' => ['file' => $api_dir . '/blog.php', 'date' => '2026-07-23'],
+    '/about' => ['file' => $api_dir . '/about.php', 'date' => '2026-07-22'],
+    '/contact' => ['file' => $api_dir . '/contact.php', 'date' => '2026-07-22'],
 ];
 
-foreach ($static_pages as $path => $file) {
+foreach ($static_pages as $path => $info) {
     $loc = ($path === '/') ? $baseUrl . '/' : $baseUrl . $path;
-    $lastmod = null;
-    if (file_exists($file)) {
-        $lastmod = date('Y-m-d', filemtime($file));
+    $lastmod = $info['date'] ?? null;
+    // Fallback to filemtime if newer and valid
+    if (file_exists($info['file'])) {
+        $mtime = filemtime($info['file']);
+        if ($mtime && $mtime > 1700000000) {
+            $lastmod = date('Y-m-d', $mtime);
+        }
     }
     add_sitemap_entry($sitemap_entries, $added_locs, $loc, $lastmod);
 }

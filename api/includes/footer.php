@@ -129,8 +129,8 @@ $current_year = date('Y');
     </button>
 
     <!-- App Scripts (Split ES6 Javascripts) -->
-    <script src="/assets/js/theme.js?v=<?php echo time(); ?>" defer></script>
-    <script src="/assets/js/downloader.js?v=<?php echo time(); ?>" defer></script>
-    <script src="/assets/js/main.js?v=<?php echo time(); ?>" defer></script>
+    <script src="/assets/js/theme.js?v=<?php echo ASSET_VERSION; ?>" defer></script>
+    <script src="/assets/js/downloader.js?v=<?php echo ASSET_VERSION; ?>" defer></script>
+    <script src="/assets/js/main.js?v=<?php echo ASSET_VERSION; ?>" defer></script>
 </body>
 </html>

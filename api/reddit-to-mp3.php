@@ -40,6 +40,8 @@ $mp3Faqs = [
 require_once __DIR__ . '/includes/header.php';
 ?>
 
+<main id="main-content">
+
 <!-- Hero Section -->
 <section class="pt-10 pb-16 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
     <!-- Premium Background Grid Pattern -->
@@ -200,6 +202,8 @@ require_once __DIR__ . '/includes/header.php';
         </div>
     </div>
 </section>
+
+</main>
 
 <?php
 require_once __DIR__ . '/includes/footer.php';
