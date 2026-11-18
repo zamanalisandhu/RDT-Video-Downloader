@@ -168,8 +168,8 @@
             try {
                 const response = await fetch(API_ENDPOINT, {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ url: url, action: "info" })
+                    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                    body: JSON.stringify({ url: url, action: "info", platform: "reddit", audioOnly: false })
                 });
 
                 const data = await response.json();
@@ -292,9 +292,10 @@
                 if (bestDlBtn) bestDlBtn.style.display = "none";
                 const finalUrl = data.externalUrl || data.url || currentUrl;
                 if (singleMediaLink) {
-                    singleMediaLink.href = finalUrl;
-                    const baseName = data.title ? data.title.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 50) : 'reddit_media';
-                    singleMediaLink.download = `${domain}_${baseName}`;
+                    singleMediaLink.onclick = (e) => {
+                        e.preventDefault();
+                        triggerDownload(finalUrl, false);
+                    };
                 }
             }
 
@@ -303,86 +304,78 @@
 
         let progressInterval = null;
 
-        // --- DIRECT DOWNLOAD ACTION via API Proxy (Client-side with Validation) ---
-        async function triggerDownload(rawDownloadUrl, isAudio = false) {
+        // --- DIRECT DOWNLOAD ACTION via API Proxy (matching Extension behavior) ---
+        function triggerDownload(rawDownloadUrl, isAudio = false) {
             if (!rawDownloadUrl) {
                 showToast("Download URL is missing.", "error");
                 return;
             }
 
-            const proxyBase = "https://rdtapidownload.techiesline.workers.dev?download=";
-            const directDownloadUrl = proxyBase + encodeURIComponent(rawDownloadUrl);
+            const domain = (window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')
+                ? window.location.hostname
+                : "rdtvideodownloader.com";
+            
+            const titleSlug = currentInfo?.title 
+                ? currentInfo.title.slice(0, 50).replace(/[^a-z0-9]/gi, '_').toLowerCase() 
+                : 'reddit_file';
+            const extension = isAudio ? 'mp3' : 'mp4';
+            const fileName = `${domain}_${titleSlug}.${extension}`;
 
-            // Show and reset progress bar
+            // Ensure proper proxy URL with filename attached (matching Chrome extension logic)
+            let directDownloadUrl = rawDownloadUrl;
+            if (!directDownloadUrl.startsWith("https://rdtapidownload.techiesline.workers.dev")) {
+                directDownloadUrl = "https://rdtapidownload.techiesline.workers.dev?download=" + encodeURIComponent(rawDownloadUrl);
+            }
+            if (!directDownloadUrl.includes("filename=")) {
+                directDownloadUrl += (directDownloadUrl.includes("?") ? "&" : "?") + "filename=" + encodeURIComponent(fileName);
+            }
+
+            // Show and animate progress bar
             const progressBar = document.getElementById("download-progress-bar");
             const progressFill = document.getElementById("download-progress-fill");
             if (progressBar && progressFill) {
                 progressBar.style.display = "block";
                 progressFill.style.width = "0%";
                 
-                // Simulate progress to 90%
                 let width = 0;
                 if (progressInterval) clearInterval(progressInterval);
                 progressInterval = setInterval(() => {
-                    if (width < 90) {
-                        width += Math.random() * 15 + 5;
-                        if (width > 90) width = 90;
+                    if (width < 95) {
+                        width += Math.random() * 20 + 10;
+                        if (width > 95) width = 95;
                         progressFill.style.width = `${width}%`;
                     }
-                }, 100);
+                }, 50);
             }
 
-            showToast("Verifying download link...", "info");
+            showToast("Starting download...", "info");
 
-            try {
-                // Background HEAD validation check to capture 500 errors on deleted/expired media
-                const check = await fetch(directDownloadUrl, { method: 'HEAD' });
-                
+            setTimeout(() => {
                 if (progressInterval) clearInterval(progressInterval);
-                
-                if (!check.ok) {
-                    if (progressFill) progressFill.style.width = "0%";
-                    if (progressBar) progressBar.style.display = "none";
-                    showToast("Download failed. The media may have been removed.", "error");
-                    return;
-                }
-
-                // Animate to 100% on success
                 if (progressFill) progressFill.style.width = "100%";
                 
                 setTimeout(() => {
                     if (progressBar) progressBar.style.display = "none";
                 }, 500);
 
-                const domain = (window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1')
-                    ? window.location.hostname
-                    : "rdtvideodownloader.com";
-                
-                const titleSlug = currentInfo?.title 
-                    ? currentInfo.title.slice(0, 50).replace(/[^a-z0-9]/gi, '_').toLowerCase() 
-                    : 'reddit_file';
-                const extension = isAudio ? 'mp3' : 'mp4';
-                const fileName = `${domain}_${titleSlug}.${extension}`;
-
-                const a = document.createElement("a");
-                a.href = directDownloadUrl;
-                a.download = fileName;
-                a.target = "_blank";
-                
-                document.body.appendChild(a);
-                a.click();
-                
-                setTimeout(() => {
-                    document.body.removeChild(a);
-                }, 100);
+                // Trigger file download directly without failing on CORS HEAD preflight
+                try {
+                    const a = document.createElement("a");
+                    a.href = directDownloadUrl;
+                    a.setAttribute("download", fileName);
+                    a.setAttribute("target", "_blank");
+                    a.rel = "noopener noreferrer";
+                    document.body.appendChild(a);
+                    a.click();
+                    setTimeout(() => {
+                        if (a.parentNode) a.parentNode.removeChild(a);
+                    }, 200);
+                } catch (e) {
+                    window.location.href = directDownloadUrl;
+                }
 
                 showToast("Download started!", "success");
-            } catch (err) {
-                if (progressInterval) clearInterval(progressInterval);
-                if (progressFill) progressFill.style.width = "0%";
-                if (progressBar) progressBar.style.display = "none";
-                showToast("Download failed. Connection error.", "error");
-            }
+            }, 250);
         }
 
         window.triggerDownload = triggerDownload;
