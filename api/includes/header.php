@@ -112,14 +112,14 @@ function is_active_route($href) {
     <meta property="og:description" content="<?php echo $desc; ?>">
     <meta property="og:url" content="<?php echo $canonical; ?>">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="<?php echo SITE_URL; ?>/og-image.png">
+    <meta property="og:image" content="https://rdtvideodownloader.com/og-image.png">
     <meta property="og:site_name" content="<?php echo SITE_NAME; ?>">
     
     <!-- Twitter Cards Metadata -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?php echo $title; ?>">
     <meta name="twitter:description" content="<?php echo $desc; ?>">
-    <meta name="twitter:image" content="<?php echo SITE_URL; ?>/twitter-card.png">
+    <meta name="twitter:image" content="https://rdtvideodownloader.com/twitter-card.png">
 
     <!-- Favicons -->
     <link rel="icon" href="/logo.png" type="image/png">
@@ -203,7 +203,7 @@ function is_active_route($href) {
             <div class="p-5 flex items-center justify-between border-b border-slate-50">
                 <div class="flex items-center gap-2">
                     <div class="relative w-8 h-8 rounded-lg overflow-hidden shadow-sm shadow-brand-orange/20">
-                        <img src="/logo.png" alt="Logo" class="object-cover w-full h-full" width="32" height="32" />
+                        <img src="/logo.png" alt="RDT Video Downloader logo" class="object-cover w-full h-full" width="32" height="32" />
                     </div>
                     <span class="font-extrabold text-slate-800 text-sm">
                         RDT <span class="text-brand-orange">Video</span> Downloader

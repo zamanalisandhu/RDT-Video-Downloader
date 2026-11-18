@@ -6,8 +6,8 @@
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/functions.php';
 
-$page_title = "Reddit Video Downloader — Download Reddit Videos with Sound";
-$page_desc = "Download Reddit videos with sound in high quality. Paste a Reddit post link, choose the available video quality, and save media as MP4. Works on iPhone, Android, Windows, and Mac.";
+$page_title = "Reddit Video Downloader — HD & 4K Reddit Videos with Sound";
+$page_desc = "Download Reddit videos with sound in HD, 1080p and 4K (when the original supports it). Paste a Reddit link and save as MP4. Free, no signup. Works on iPhone, Android and PC.";
 $page_path = '/';
 
 // JSON-LD Structured Data Schema Markup
