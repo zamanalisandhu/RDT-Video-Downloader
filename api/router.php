@@ -3,8 +3,8 @@
  * RDT Video Downloader - Development Router for PHP Built-in Server
  */
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '0');
 error_reporting(E_ALL);
 
 $request_uri = $_SERVER['REQUEST_URI'] ?? '/';
@@ -71,7 +71,6 @@ $clean_pages = [
     '/api/video-info' => '/video-info.php',
     '/api/download' => '/download.php',
     '/api/downloader' => '/downloader.php',
-    '/test-env' => '/test-env.php',
 ];
 
 if (isset($clean_pages[$path])) {
@@ -100,9 +99,8 @@ if (preg_match('/^\/([a-zA-Z0-9\-]+)$/', $path, $matches)) {
         }
     }
     if ($post_exists) {
-        $_GET['slug'] = $requested_slug;
-        http_response_code(200);
-        include __DIR__ . '/single-post.php';
+        // Blog posts live under /blog/ only: 301 old root-level URLs to avoid duplicate pages
+        header("Location: /blog/" . $requested_slug, true, 301);
         exit;
     }
 }
