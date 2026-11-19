@@ -16,7 +16,7 @@ define('SITE_URL', $current_url);
 define('API_URL', 'https://rdtapidownload.techiesline.workers.dev');
 define('WP_API_URL', 'https://admin.rdtvideodownloader.com/wp-json/wp/v2');
 define('SITE_NAME', 'RDT Video Downloader');
-define('ASSET_VERSION', '1.3.1');
+define('ASSET_VERSION', '1.3.2');
 
 // Default SEO values
 define('DEFAULT_SEO_TITLE', 'Reddit Video Downloader - Download Reddit Video with Sound - Free HD MP4 | RDT');
