@@ -87,7 +87,7 @@ function is_active_route($href) {
 <html lang="en">
 <head>
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1175254374210149"
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4114138931654030"
          crossorigin="anonymous"></script>
 
     <!-- Google tag (gtag.js) -->
