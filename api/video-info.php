@@ -14,25 +14,41 @@ $data = json_decode($input, true);
 if (!empty($data['url'])) {
     $target_url = trim($data['url']);
     
-    // Automatically resolve Reddit mobile share links (/s/) or redd.it redirects
-    if (strpos($target_url, '/s/') !== false || strpos($target_url, 'redd.it/') !== false) {
-        $ch_expand = curl_init($target_url);
-        curl_setopt($ch_expand, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch_expand, CURLOPT_FOLLOWLOCATION, false);
-        curl_setopt($ch_expand, CURLOPT_TIMEOUT, 6);
-        curl_setopt($ch_expand, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch_expand, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch_expand, CURLOPT_HTTPHEADER, [
-            'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-            'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-        ]);
-        curl_exec($ch_expand);
-        $redirectUrl = curl_getinfo($ch_expand, CURLINFO_REDIRECT_URL);
-        curl_close($ch_expand);
+    // Automatically resolve Reddit mobile share links (/s/)
+    if (strpos($target_url, '/s/') !== false) {
+        $rx_url = preg_replace('#https?://(www\.)?reddit\.com#i', 'https://rxddit.com', $target_url);
+        $ch_rx = curl_init($rx_url);
+        curl_setopt($ch_rx, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch_rx, CURLOPT_FOLLOWLOCATION, false);
+        curl_setopt($ch_rx, CURLOPT_TIMEOUT, 6);
+        curl_setopt($ch_rx, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch_rx, CURLOPT_SSL_VERIFYHOST, false);
+        $html = curl_exec($ch_rx);
+        curl_close($ch_rx);
 
-        if (!empty($redirectUrl)) {
-            $data['url'] = strtok($redirectUrl, '?');
+        if ($html && preg_match('#URL=(https://[^"\'>\s]+)#i', $html, $m)) {
+            $clean = str_replace('rxddit.com', 'www.reddit.com', $m[1]);
+            $data['url'] = strtok($clean, '?');
             $input = json_encode($data);
+        } else {
+            // Fallback direct HEAD check
+            $ch_expand = curl_init($target_url);
+            curl_setopt($ch_expand, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch_expand, CURLOPT_FOLLOWLOCATION, false);
+            curl_setopt($ch_expand, CURLOPT_TIMEOUT, 5);
+            curl_setopt($ch_expand, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch_expand, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($ch_expand, CURLOPT_HTTPHEADER, [
+                'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+                'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+            ]);
+            curl_exec($ch_expand);
+            $redirectUrl = curl_getinfo($ch_expand, CURLINFO_REDIRECT_URL);
+            curl_close($ch_expand);
+            if (!empty($redirectUrl)) {
+                $data['url'] = strtok($redirectUrl, '?');
+                $input = json_encode($data);
+            }
         }
     }
 }
