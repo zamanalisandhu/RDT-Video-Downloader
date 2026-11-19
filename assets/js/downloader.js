@@ -4,7 +4,7 @@
  */
 
 (function() {
-    const API_ENDPOINT = "https://rdtapidownload.techiesline.workers.dev/api/video-info";
+    const API_ENDPOINT = "/api/video-info";
     
     let currentInfo = null;
     let currentUrl = "";
